@@ -14,8 +14,9 @@ import {
 import { FilterSecondaryButton } from '@/shared/ui/buttons/FilterSecondaryButton';
 import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
 import { ChipSelector } from '@/shared/ui/selectors/ChipSelector';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, useColorScheme, View } from 'react-native';
 import type { SpecialistFilters } from '../model';
 
 const ALL = 'All';
@@ -37,6 +38,7 @@ export function SpecialistFiltersPanel({
   onApply,
 }: SpecialistFiltersPanelProps) {
   const { t } = useTranslation('employer');
+  const colorScheme = useColorScheme();
   const [isExpanded, setIsExpanded] = useState(false);
   const [direction, setDirection] = useState<DirectionFilter>(
     filters.direction ?? ALL
@@ -74,11 +76,24 @@ export function SpecialistFiltersPanel({
         onPress={() => setIsExpanded((prev) => !prev)}
         className="flex-row items-center justify-between"
         accessibilityRole="button"
+        accessibilityState={{ expanded: isExpanded }}
+        accessibilityLabel={t('specialists.filters')}
       >
-        <Text className="text-sm font-medium text-gray-700 dark:text-gray-300">
-          {t('specialists.filters')}
-          {activeCount > 0 ? ` (${activeCount})` : ''}
-        </Text>
+        <View className="flex-row items-center">
+          <Text className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            {t('specialists.filters')}
+          </Text>
+          {activeCount > 0 ? (
+            <Text className="ml-2 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+              {activeCount}
+            </Text>
+          ) : null}
+        </View>
+        <MaterialIcons
+          name={isExpanded ? 'arrow-drop-up' : 'arrow-drop-down'}
+          size={30}
+          color={colorScheme === 'dark' ? '#9ca3af' : '#6b7280'}
+        />
       </Pressable>
 
       {isExpanded ? (

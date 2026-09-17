@@ -170,8 +170,12 @@
   },
   "favoritesTitle": "Favorite Jobs",
   "addToFavorites": "Add to favorites",
+  "inFavorites": "In favorites",
   "removeFromFavorites": "Remove from favorites",
+  "applyToJob": "Apply",
   "favoritesEmpty": "No favorite jobs",
   "favoritesLink": "Favorites",
-  "goHome": "Go to home"
+  "addedToFavorites": "Added",
+  "goHome": "Go to home",
+  "similarJobs": "Similar jobs"
 }

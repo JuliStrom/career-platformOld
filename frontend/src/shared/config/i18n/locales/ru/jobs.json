@@ -170,8 +170,12 @@
   },
   "favoritesTitle": "Избранные вакансии",
   "addToFavorites": "В избранное",
+  "inFavorites": "В избранном",
   "removeFromFavorites": "Удалить из избранного",
+  "applyToJob": "Откликнуться",
   "favoritesEmpty": "Нет избранных вакансий",
   "favoritesLink": "Избранное",
-  "goHome": "На главную"
+  "addedToFavorites": "Добавлено",
+  "goHome": "На главную",
+  "similarJobs": "Похожие вакансии"
 }

@@ -222,4 +222,11 @@ export function getAvatarPath(userId: string, originalName: string): string {
   return `/avatars/${userId}/avatar${ext}`;
 }
 
+/** Путь аватарки на Диске: /avatars/<userId>/avatar.<ext> */
+export function isStoredAvatarPath(value: string): boolean {
+  return /^\/avatars\/[a-fA-F0-9]{24}\/avatar\.[A-Za-z0-9]{1,8}$/.test(
+    value.trim()
+  );
+}
+
 

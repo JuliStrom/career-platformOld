@@ -1,6 +1,7 @@
 import { secureStorage } from '@/features/auth/lib';
+import { isTokenExpired } from '@/features/auth/lib/jwt';
 import { apiClient } from '@/shared/config/api';
-import { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { AxiosError, InternalAxiosRequestConfig, isAxiosError } from 'axios';
 import { Platform } from 'react-native';
 import {
   applyAccessTokenUpdate,
@@ -21,6 +22,13 @@ function processQueue(error: Error | null, token: string | null = null) {
   });
 
   failedQueue = [];
+}
+
+function isPublicAuthUrl(url?: string) {
+  if (!url) return false;
+  return /\/auth\/(refresh|login|register|google|telegram|logout)(?:\?|$)/.test(
+    url
+  );
 }
 
 async function getAccessTokenUniversal() {
@@ -45,10 +53,60 @@ async function clearTokensUniversal() {
   await secureStorage.clearTokens();
 }
 
+function shouldEndSessionOnRefreshError(error: unknown) {
+  if (!isAxiosError(error)) return false;
+  const status = error.response?.status;
+  return status === 401 || status === 403;
+}
+
+async function refreshAccessTokenOnce(): Promise<string> {
+  if (isRefreshing) {
+    return new Promise<string>((resolve, reject) => {
+      failedQueue.push({
+        resolve: (value) => resolve(value as string),
+        reject,
+      });
+    });
+  }
+
+  isRefreshing = true;
+  try {
+    const response = await authApi.refreshToken();
+    const newAccessToken = response.accessToken;
+    if (!newAccessToken) {
+      throw new Error('Refresh failed');
+    }
+    await setAccessTokenUniversal(newAccessToken);
+    await applyAccessTokenUpdate(newAccessToken);
+    processQueue(null, newAccessToken);
+    return newAccessToken;
+  } catch (refreshError) {
+    processQueue(refreshError as Error, null);
+    if (shouldEndSessionOnRefreshError(refreshError)) {
+      await clearTokensUniversal();
+      await applyAuthRefreshFailure();
+    }
+    throw refreshError;
+  } finally {
+    isRefreshing = false;
+  }
+}
+
 export function setupAuthInterceptors() {
   const requestInterceptorId = apiClient.interceptors.request.use(
     async (config: InternalAxiosRequestConfig) => {
-      const accessToken = await getAccessTokenUniversal();
+      if (isPublicAuthUrl(config.url)) {
+        return config;
+      }
+
+      let accessToken = await getAccessTokenUniversal();
+      if (accessToken && isTokenExpired(accessToken)) {
+        try {
+          accessToken = await refreshAccessTokenOnce();
+        } catch {
+          // Leave the existing token; the 401 handler may retry once.
+        }
+      }
 
       if (accessToken && config.headers) {
         config.headers.Authorization = `Bearer ${accessToken}`;
@@ -66,45 +124,24 @@ export function setupAuthInterceptors() {
         _retry?: boolean;
       };
 
-      const isRefreshUrl = originalRequest.url?.includes('/auth/refresh');
+      if (!originalRequest) {
+        return Promise.reject(error);
+      }
 
-      if (isRefreshUrl && error.response?.status === 401) {
+      if (isPublicAuthUrl(originalRequest.url)) {
         return Promise.reject(error);
       }
 
       if (error.response?.status === 401 && !originalRequest._retry) {
-        if (isRefreshing) {
-          return new Promise((resolve, reject) => {
-            failedQueue.push({ resolve, reject });
-          }).then((token) => {
-            if (originalRequest.headers && token) {
-              originalRequest.headers.Authorization = `Bearer ${token}`;
-            }
-            return apiClient(originalRequest);
-          });
-        }
-
         originalRequest._retry = true;
-        isRefreshing = true;
-
         try {
-          const response = await authApi.refreshToken();
-          const newAccessToken = response.accessToken;
-          if (newAccessToken) {
-            await setAccessTokenUniversal(newAccessToken);
-            await applyAccessTokenUpdate(newAccessToken);
-            if (originalRequest.headers)
-              originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          const token = await refreshAccessTokenOnce();
+          if (originalRequest.headers) {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
           }
-          processQueue(null, newAccessToken ?? null);
           return apiClient(originalRequest);
         } catch (refreshError) {
-          processQueue(refreshError as Error, null);
-          await clearTokensUniversal();
-          await applyAuthRefreshFailure();
           return Promise.reject(refreshError);
-        } finally {
-          isRefreshing = false;
         }
       }
 

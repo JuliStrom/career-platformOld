@@ -105,13 +105,6 @@ export default function ProfileScreen() {
         {tProfile('careerAbroad.button')}
       </PrimaryButton>
       <PrimaryButton
-        onPress={() => router.push('/jobs/favorites')}
-        accessibilityLabel={tJobs('favoritesLink')}
-        className="mt-3"
-      >
-        {tJobs('favoritesLink')}
-      </PrimaryButton>
-      <PrimaryButton
         onPress={() => router.push('/jobs')}
         accessibilityLabel={tJobs('openJobsButton')}
         className="mt-3"

@@ -1,6 +1,7 @@
 import { setupAuthInterceptors } from '@/features/auth/api/auth.interceptor';
 import { useAuthStore } from '@/features/auth/store/auth.store';
 import { ErrorBoundary } from '@/src/shared/ui/common/ErrorBoundary';
+import { AppToast } from '@/shared/ui/feedback/AppToast';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Slot } from 'expo-router';
@@ -30,6 +31,7 @@ export default function RootLayout() {
         <SafeAreaProvider>
           <BottomSheetModalProvider>
             <Slot />
+            <AppToast />
           </BottomSheetModalProvider>
         </SafeAreaProvider>
       </GestureHandlerRootView>

@@ -3,8 +3,8 @@ import {
   formatJobTitle,
   formatSalary,
 } from '@/features/jobs/utils/job-form.utils';
-import { useColorScheme, Pressable, Text, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Pressable, Text, View } from 'react-native';
 
 interface JobItemProps {
   handleOpenJob: (id: string) => void;
@@ -21,17 +21,23 @@ export function JobItem({
   isFavorite,
   onToggleFavorite,
 }: JobItemProps) {
-  const colorScheme = useColorScheme();
-  const iconColor = colorScheme === 'dark' ? '#9CA3AF' : '#6B7280';
   const title = formatJobTitle(item.title, t);
+  const favoriteLabel = isFavorite
+    ? t('inFavorites')
+    : t('addToFavorites');
+  const favoriteA11yLabel = isFavorite
+    ? t('removeFromFavorites')
+    : t('addToFavorites');
 
   return (
-    <Pressable
-      onPress={() => handleOpenJob(item._id)}
-      className="mb-3 rounded-xl bg-white p-4 shadow-sm hover:bg-gray-50 active:opacity-95 dark:bg-gray-800 dark:hover:bg-gray-700/40"
-    >
-      <View className="flex-row items-start justify-between">
-        <View className="flex-1">
+    <View className="mb-3 rounded-xl bg-white p-4 shadow-sm dark:bg-gray-800">
+      <View className="flex-row flex-wrap items-center justify-between gap-3">
+        <Pressable
+          onPress={() => handleOpenJob(item._id)}
+          accessibilityRole="button"
+          accessibilityLabel={title}
+          className="min-w-0 flex-1 hover:opacity-90 active:opacity-80"
+        >
           <Text className="text-base font-semibold text-gray-900 dark:text-white">
             {title}
           </Text>
@@ -46,27 +52,48 @@ export function JobItem({
               {formatSalary(item.salary, t)}
             </Text>
           )}
-        </View>
-        {onToggleFavorite && (
+        </Pressable>
+        <View className="flex-row items-center gap-2">
+          {onToggleFavorite ? (
+            <Pressable
+              onPress={() => onToggleFavorite(item._id)}
+              accessibilityRole="button"
+              accessibilityLabel={favoriteA11yLabel}
+              accessibilityState={{ selected: Boolean(isFavorite) }}
+              className={`flex-row items-center gap-1 rounded-lg border px-3 py-2 hover:opacity-95 active:opacity-80 ${
+                isFavorite
+                  ? 'border-red-600 bg-red-600 dark:border-red-500 dark:bg-red-500'
+                  : 'border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-700'
+              }`}
+            >
+              <MaterialIcons
+                name={isFavorite ? 'favorite' : 'favorite-border'}
+                size={18}
+                color={isFavorite ? '#ffffff' : '#6B7280'}
+              />
+              <Text
+                className={`text-center text-sm font-semibold ${
+                  isFavorite
+                    ? 'text-white'
+                    : 'text-gray-900 dark:text-gray-100'
+                }`}
+              >
+                {favoriteLabel}
+              </Text>
+            </Pressable>
+          ) : null}
           <Pressable
-            onPress={(e) => {
-              e.stopPropagation();
-              onToggleFavorite(item._id);
-            }}
-            hitSlop={8}
-            className="rounded-full p-1 hover:bg-gray-200/80 active:opacity-70 dark:hover:bg-gray-600/40"
-            accessibilityLabel={
-              isFavorite ? t('removeFromFavorites') : t('addToFavorites')
-            }
+            onPress={() => handleOpenJob(item._id)}
+            accessibilityRole="button"
+            accessibilityLabel={t('applyToJob')}
+            className="rounded-lg bg-blue-600 px-3 py-2 hover:opacity-95 active:opacity-80 dark:bg-blue-500"
           >
-            <MaterialIcons
-              name={isFavorite ? 'favorite' : 'favorite-border'}
-              size={24}
-              color={isFavorite ? '#EF4444' : iconColor}
-            />
+            <Text className="text-center text-sm font-semibold text-white">
+              {t('applyToJob')}
+            </Text>
           </Pressable>
-        )}
+        </View>
       </View>
-    </Pressable>
+    </View>
   );
 }

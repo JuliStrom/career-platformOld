@@ -6,6 +6,7 @@ import { Platform } from 'react-native';
 import { create } from 'zustand';
 import { analytics } from '@/features/analytics/lib/track';
 import { useEmployerStore } from '@/features/employer/store/employer-store';
+import { useJobsStore } from '@/features/jobs/store';
 import { useProfileStore } from '@/features/profile/store/profile-store';
 import * as authApi from '../api/auth.api';
 import {
@@ -61,6 +62,8 @@ function buildUserFromToken(accessToken: string): User | null {
 function clearProfileCache() {
   useProfileStore.getState().resetProfile();
   useEmployerStore.getState().reset();
+  useJobsStore.getState().resetFilters();
+  useJobsStore.getState().resetFavorites();
 }
 
 /** Параллельные вызовы revalidateSession (root layout + protected layout, StrictMode) → один проход. */

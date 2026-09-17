@@ -13,6 +13,7 @@ import {
   UserRole,
   UserType,
   AuthRequest,
+  RefreshTokenPayload,
 } from '../types';
 import { isMongoDuplicateError, getErrorMessage } from '../utils/errorHandlers';
 import {
@@ -25,9 +26,12 @@ import {
 const COOKIE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 дней
 const IS_PROD = process.env.NODE_ENV === 'production';
 // Security: in production never accept/return refreshToken via JSON/body.
-// In development you can enable explicit fallback when cookies are inconvenient.
-const ALLOW_REFRESH_TOKEN_BODY = !IS_PROD && process.env.ALLOW_REFRESH_TOKEN_BODY === 'true';
-const ALLOW_REFRESH_TOKEN_JSON = !IS_PROD && process.env.ALLOW_REFRESH_TOKEN_JSON === 'true';
+// Outside production both fallbacks are on by default (cookie + JSON/body),
+// because SPA on another origin/port often cannot rely on the httpOnly cookie alone.
+const ALLOW_REFRESH_TOKEN_BODY =
+  !IS_PROD && process.env.ALLOW_REFRESH_TOKEN_BODY !== 'false';
+const ALLOW_REFRESH_TOKEN_JSON =
+  !IS_PROD && process.env.ALLOW_REFRESH_TOKEN_JSON !== 'false';
 
 type RefreshCookieSameSite = 'strict' | 'lax' | 'none';
 
@@ -57,7 +61,7 @@ function getRefreshTokenCookieOptions(): {
     process.env.REFRESH_TOKEN_COOKIE_SAMESITE
   );
   const sameSite: RefreshCookieSameSite =
-    fromEnv ?? (IS_PROD ? 'none' : 'strict');
+    fromEnv ?? (IS_PROD ? 'none' : 'lax');
   const secure = IS_PROD || sameSite === 'none';
   return {
     httpOnly: true,
@@ -212,23 +216,57 @@ export const login = async (req: Request<{}, {}, LoginBody>, res: Response): Pro
   }
 };
 
-// Обновление access token через refresh token
+function isRefreshJwtError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  return (
+    error.name === 'JsonWebTokenError' ||
+    error.name === 'TokenExpiredError' ||
+    error.message.includes('не найден') ||
+    error.message.includes('отозван') ||
+    error.message.includes('истек') ||
+    error.message.includes('Неверный тип токена')
+  );
+}
+
+async function resolveRefreshTokenPayload(
+  req: Request
+): Promise<RefreshTokenPayload> {
+  const cookieToken =
+    typeof req.cookies?.refreshToken === 'string'
+      ? req.cookies.refreshToken
+      : undefined;
+  const bodyToken =
+    ALLOW_REFRESH_TOKEN_BODY &&
+    typeof (req.body as { refreshToken?: unknown } | undefined)?.refreshToken ===
+      'string'
+      ? (req.body as { refreshToken: string }).refreshToken
+      : undefined;
+
+  const candidates = [cookieToken, bodyToken].filter(
+    (value): value is string => Boolean(value && value.length > 0)
+  );
+
+  if (candidates.length === 0) {
+    throw new Error('Refresh token отсутствует');
+  }
+
+  let lastError: unknown;
+  for (const token of candidates) {
+    try {
+      return await verifyRefreshToken(token);
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  throw lastError instanceof Error
+    ? lastError
+    : new Error('Refresh token недействителен');
+}
+
 export const refresh = async (req: Request, res: Response): Promise<void> => {
   try {
-    // Читаем refresh token из httpOnly cookie
-    const refreshToken =
-      req.cookies?.refreshToken ??
-      (ALLOW_REFRESH_TOKEN_BODY
-        ? (req.body as { refreshToken?: string } | undefined)?.refreshToken
-        : undefined);
-
-    if (!refreshToken) {
-      res.status(401).json({ error: 'Refresh token отсутствует' });
-      return;
-    }
-
-    // Верифицируем refresh token и проверяем в БД
-    const decoded = await verifyRefreshToken(refreshToken);
+    const decoded = await resolveRefreshTokenPayload(req);
 
     // Находим пользователя
     const user = await User.findById(decoded.userId);
@@ -254,15 +292,18 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
       accessToken,
     });
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      if (error.message.includes('не найден') || error.message.includes('отозван')) {
-        res.status(401).json({ error: 'Refresh token недействителен' });
-        return;
-      }
-      if (error.message.includes('истек')) {
-        res.status(401).json({ error: 'Refresh token истек' });
-        return;
-      }
+    if (error instanceof Error && error.message.includes('отсутствует')) {
+      res.status(401).json({ error: 'Refresh token отсутствует' });
+      return;
+    }
+    if (isRefreshJwtError(error)) {
+      const expired =
+        error instanceof Error &&
+        (error.name === 'TokenExpiredError' || error.message.includes('истек'));
+      res.status(401).json({
+        error: expired ? 'Refresh token истек' : 'Refresh token недействителен',
+      });
+      return;
     }
     res.status(500).json({ error: getErrorMessage(error) });
   }

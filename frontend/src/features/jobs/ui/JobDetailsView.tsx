@@ -1,4 +1,5 @@
 import type { Job } from '@/features/jobs/model';
+import { JobItem } from '@/features/jobs/ui/JobItem';
 import {
   formatJobTitle,
   formatSalary,
@@ -17,6 +18,10 @@ interface JobDetailsViewProps {
   isLoading: boolean;
   onBack: () => void;
   actions?: ReactNode;
+  similarJobs?: Job[];
+  onOpenJob?: (id: string) => void;
+  getIsFavorite?: (id: string) => boolean;
+  onToggleFavorite?: (id: string) => void;
 }
 
 export function JobDetailsView({
@@ -25,6 +30,10 @@ export function JobDetailsView({
   isLoading,
   onBack,
   actions,
+  similarJobs,
+  onOpenJob,
+  getIsFavorite,
+  onToggleFavorite,
 }: JobDetailsViewProps) {
   const { t } = useTranslation('jobs');
   const colorScheme = useColorScheme();
@@ -208,6 +217,24 @@ export function JobDetailsView({
         )}
 
         {actions ? <View className="mt-8 gap-3">{actions}</View> : null}
+
+        {similarJobs && similarJobs.length > 0 && onOpenJob ? (
+          <View className="mt-8">
+            <Text className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+              {t('similarJobs')}
+            </Text>
+            {similarJobs.map((item) => (
+              <JobItem
+                key={item._id}
+                item={item}
+                t={t}
+                handleOpenJob={onOpenJob}
+                isFavorite={getIsFavorite?.(item._id)}
+                onToggleFavorite={onToggleFavorite}
+              />
+            ))}
+          </View>
+        ) : null}
       </ScrollView>
     </SafeAreaView>
   );

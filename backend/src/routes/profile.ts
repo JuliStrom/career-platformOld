@@ -20,7 +20,7 @@ router.put('/avatar', validateRequest(updateAvatarSchema), profileController.upd
 // POST /api/profile/avatar/upload - Загрузка аватарки как файла на Яндекс.Диск
 router.post('/avatar/upload', upload.single('avatar'), profileController.uploadAvatarFile);
 
-// GET /api/profile/avatar/file - Получение аватарки текущего пользователя (прокси)
+// GET /api/profile/avatar/file - Прокси аватарки (своя или ?v=/avatars/...)
 router.get('/avatar/file', profileController.getAvatarFile);
 router.post(
   '/portfolio/pdf',

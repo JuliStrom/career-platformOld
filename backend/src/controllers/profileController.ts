@@ -2,7 +2,7 @@ import { Response } from 'express';
 import Profile from '../models/Profile';
 import { AuthRequest, CreateProfileBody, UpdateProfileBody } from '../types';
 import { isMongoDuplicateError, isMongooseValidationError, getErrorMessage } from '../utils/errorHandlers';
-import { uploadToYandexDisk, getAvatarPath, downloadFromYandexDisk } from '../services/yandexDisk';
+import { uploadToYandexDisk, getAvatarPath, isStoredAvatarPath, downloadFromYandexDisk } from '../services/yandexDisk';
 import { normalizeProfileDirections } from '../utils/profileDirections';
 import { resolveProfileSkills } from '../services/skillDictionary';
 import { resolveExperienceFields } from '../utils/profileExperience';
@@ -378,7 +378,7 @@ export const uploadAvatarFile = async (req: AuthRequest, res: Response): Promise
   }
 };
 
-// Получение аватарки текущего пользователя (проксируем с Яндекс.Диска)
+// Получение аватарки: своей или чужой по пути /avatars/... (карточки поиска работодателя)
 export const getAvatarFile = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     if (!req.user) {
@@ -386,15 +386,29 @@ export const getAvatarFile = async (req: AuthRequest, res: Response): Promise<vo
       return;
     }
 
-    const userId = req.user.userId;
-    const profile = await Profile.findOne({ userId });
+    const requestedPath =
+      typeof req.query.v === 'string' ? req.query.v.trim() : '';
+    let avatarPath: string | null = null;
 
-    if (!profile) {
-      res.status(404).json({ error: 'Профиль не найден' });
-      return;
+    if (requestedPath && isStoredAvatarPath(requestedPath)) {
+      const exists = await Profile.exists({ avatar: requestedPath });
+      if (!exists) {
+        res.status(404).json({ error: 'Аватарка не найдена' });
+        return;
+      }
+      avatarPath = requestedPath;
+    } else {
+      const userId = req.user.userId;
+      const profile = await Profile.findOne({ userId });
+
+      if (!profile) {
+        res.status(404).json({ error: 'Профиль не найден' });
+        return;
+      }
+
+      avatarPath = profile.avatar ?? null;
     }
 
-    const avatarPath = profile.avatar;
     if (!avatarPath || typeof avatarPath !== 'string' || avatarPath.trim() === '') {
       res.status(404).json({ error: 'Аватарка не найдена' });
       return;
@@ -406,11 +420,14 @@ export const getAvatarFile = async (req: AuthRequest, res: Response): Promise<vo
       return;
     }
 
+    if (!isStoredAvatarPath(avatarPath)) {
+      res.status(404).json({ error: 'Аватарка не найдена' });
+      return;
+    }
+
     const { stream, contentType, contentLength } = await downloadFromYandexDisk(avatarPath);
 
     res.setHeader('Content-Type', contentType);
-    // Один и тот же URL у разных пользователей, поэтому обязательно учитываем Authorization в кеше
-    // и запрещаем хранение, чтобы не показать чужую аватарку при смене пользователя.
     res.setHeader('Vary', 'Authorization');
     res.setHeader('Cache-Control', 'private, no-store');
     if (typeof contentLength === 'number' && Number.isFinite(contentLength)) {

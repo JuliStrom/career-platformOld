@@ -1,4 +1,5 @@
 import {
+  CareerGoal,
   City,
   Direction,
   EmployerBudgetRange,
@@ -57,19 +58,41 @@ export type EmployerProfilePayload = {
   budgetRange?: EmployerBudgetRange | null;
 };
 
+export interface SpecialistExperienceProject {
+  name: string;
+  role: string;
+  result: string;
+  link?: string;
+}
+
+export interface SpecialistWorkplace {
+  company: string;
+  position: string;
+  period: string;
+  achievement: string;
+  projects?: SpecialistExperienceProject[];
+}
+
 export interface SpecialistCard {
   id: string;
   name: string;
   aboutMe?: string | null;
+  avatar?: string | null;
   directions: Direction[];
   level: Level;
   skills: string[];
-  careerGoal: string;
+  careerGoal: CareerGoal | string;
   city: City | null;
   employmentType: EmploymentType | null;
   experience?: string | null;
+  workplaces?: SpecialistWorkplace[];
+  projects?: SpecialistExperienceProject[];
+  careerStartDate?: string | Date | null;
   currentCompany?: string | null;
+  currentPosition?: string | null;
+  currentAchievement?: string | null;
   wantsRelocation?: boolean;
+  relocationFromCity?: string | null;
   relocationToCountry?: string | null;
 }
 

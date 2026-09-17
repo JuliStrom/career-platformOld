@@ -90,6 +90,7 @@ export default function ProtectedLayout() {
       {/* Отступ сверху уже съеден хедером — экраны не должны добавлять его повторно. */}
       <SafeAreaInsetsContext.Provider value={{ ...insets, top: 0 }}>
         <Tabs
+          initialRouteName={isEmployer ? 'employer/index' : 'jobs/index'}
           screenOptions={{
             headerShown: false,
             sceneStyle: { backgroundColor },
@@ -139,17 +140,6 @@ export default function ProtectedLayout() {
             }}
           />
           <Tabs.Screen
-            name="profile/index"
-            options={{
-              title: tProfile('title'),
-              tabBarLabel: tCommon('tabProfile'),
-              href: isEmployer ? null : '/profile',
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="person" size={size} color={color} />
-              ),
-            }}
-          />
-          <Tabs.Screen
             name="jobs/index"
             options={{
               title: tJobs('listTitle'),
@@ -157,6 +147,28 @@ export default function ProtectedLayout() {
               href: isEmployer ? null : '/jobs',
               tabBarIcon: ({ color, size }) => (
                 <MaterialIcons name="work-outline" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="jobs/favorites"
+            options={{
+              title: tJobs('favoritesTitle'),
+              tabBarLabel: tCommon('tabFavorites'),
+              href: isEmployer ? null : ('/jobs/favorites' as Href),
+              tabBarIcon: ({ color, size }) => (
+                <MaterialIcons name="favorite" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="profile/index"
+            options={{
+              title: tProfile('title'),
+              tabBarLabel: tCommon('tabProfile'),
+              href: isEmployer ? null : '/profile',
+              tabBarIcon: ({ color, size }) => (
+                <MaterialIcons name="person" size={size} color={color} />
               ),
             }}
           />
@@ -239,13 +251,6 @@ export default function ProtectedLayout() {
             name="jobs/[id]"
             options={{
               title: tJobs('detailsTitle'),
-              href: null,
-            }}
-          />
-          <Tabs.Screen
-            name="jobs/favorites"
-            options={{
-              title: tJobs('favoritesTitle'),
               href: null,
             }}
           />

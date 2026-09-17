@@ -1,4 +1,6 @@
 import { handleApiError } from '@/shared/config/api';
+import i18n from '@/shared/config/i18n';
+import { showToast } from '@/shared/lib/toast';
 import { create } from 'zustand';
 import * as jobsApi from '../api';
 import {
@@ -178,6 +180,11 @@ export const useJobsStore = create<JobsState>((set, get) => ({
         favoriteJobs: updatedFavorites,
         favoriteJobsCount,
         isTogglingFavorite: false,
+      });
+      showToast({
+        message: i18n.t('jobs:addedToFavorites'),
+        actionLabel: i18n.t('jobs:favoritesLink'),
+        actionHref: '/jobs/favorites',
       });
     } catch (error) {
       const message = handleApiError(error);

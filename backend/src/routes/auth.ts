@@ -13,7 +13,12 @@ import { authRateLimiter } from '../middleware/rateLimiter';
 
 const router: Router = express.Router();
 
-// Применяем строгий rate limiter ко всем auth эндпоинтам (защита от brute force)
+// Refresh/logout не должны попадать под brute-force лимит логина:
+// истекший access token вызывает refresh, а 5 неудач подряд блокировали сессию.
+router.post('/refresh', authController.refresh);
+router.post('/logout', authController.logout);
+
+// Применяем строгий rate limiter к эндпоинтам входа
 router.use(authRateLimiter);
 
 // POST /api/auth/register - Регистрация (email + пароль)
@@ -27,12 +32,6 @@ router.post('/google', validateRequest(googleAuthSchema), authController.googleA
 
 // POST /api/auth/telegram - Вход через Telegram (данные от Telegram Login Widget)
 router.post('/telegram', validateRequest(telegramAuthSchema), authController.telegramAuth);
-
-// POST /api/auth/refresh - Обновление access token через refresh token (читает из cookie)
-router.post('/refresh', authController.refresh);
-
-// POST /api/auth/logout - Выход из системы (удаляет refresh token и cookie)
-router.post('/logout', authController.logout);
 
 // PATCH /api/auth/user-type - Выбор пути после регистрации: employer | specialist
 router.patch(
