@@ -1,0 +1,59 @@
+{
+  "title": "Check your resume through the eyes of an AI recruiter in 1 minute",
+  "subtitle": "Upload your resume — get an AI review and first matching jobs without signing up.",
+  "uploadResume": "Upload resume",
+  "noResume": "I don't have a resume",
+  "upload": {
+    "title": "Upload resume",
+    "sourceLabel": "How would you like to provide your resume?",
+    "source": {
+      "file": "File",
+      "text": "Text",
+      "linkedin": "LinkedIn"
+    },
+    "file": {
+      "choose": "Choose file",
+      "hint": "PDF or DOCX, up to 5 MB"
+    },
+    "text": {
+      "label": "Resume text",
+      "placeholder": "Paste your resume text…"
+    },
+    "linkedin": {
+      "label": "LinkedIn profile URL"
+    },
+    "jobLocation": {
+      "label": "What do you want?",
+      "options": {
+        "home": "A new job in my country",
+        "abroad": "A job abroad"
+      }
+    },
+    "targetCountry": {
+      "label": "Where are you looking?",
+      "placeholder": "Country or \"anywhere\""
+    },
+    "desiredRole": {
+      "label": "Desired role (optional)",
+      "placeholder": "e.g. Frontend developer"
+    },
+    "consent": {
+      "text": "I agree to the processing of my personal data.",
+      "link": "Privacy policy"
+    },
+    "submit": "Continue",
+    "errors": {
+      "invalidFormat": "Invalid file format. Only PDF and DOCX are supported.",
+      "fileTooLarge": "File is too large. Maximum size is 5 MB.",
+      "emptyFile": "The file is empty. Upload another file or paste text.",
+      "emptyText": "Paste your resume text.",
+      "invalidLinkedinUrl": "Could not parse the LinkedIn URL. Check the link or upload a file/text.",
+      "missingJobLocation": "Select what you want.",
+      "missingTargetCountry": "Specify where you are looking.",
+      "missingConsent": "Consent to personal data processing is required."
+    }
+  },
+  "analysis": {
+    "placeholder": "AI resume review will appear here (E3)."
+  }
+}
