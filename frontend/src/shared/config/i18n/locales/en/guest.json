@@ -54,6 +54,19 @@
     }
   },
   "analysis": {
-    "placeholder": "AI resume review will appear here (E3)."
+    "placeholder": "AI resume review will appear here (E3).",
+    "progress": {
+      "title": "Analyzing your resume…",
+      "steps": {
+        "reading": "Reading your resume",
+        "evaluating": "Evaluating as a recruiter",
+        "matching": "Matching jobs"
+      }
+    },
+    "timeout": {
+      "title": "Analysis is taking longer than expected",
+      "message": "We couldn't finish the review within 60 seconds. Try again — no need to re-upload the file.",
+      "retry": "Try again"
+    }
   }
 }
