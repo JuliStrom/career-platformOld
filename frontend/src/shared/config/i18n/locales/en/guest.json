@@ -67,6 +67,60 @@
       "title": "Analysis is taking longer than expected",
       "message": "We couldn't finish the review within 60 seconds. Try again — no need to re-upload the file.",
       "retry": "Try again"
-    }
+    },
+    "previewDemo": "View a demo result"
+  },
+  "preview": {
+    "title": "Resume analysis preview",
+    "subtitle": "Your resume score, key issues and first matching jobs.",
+    "demo": "Demo result: AI analysis and job matching are not connected yet. The score and vacancies are examples.",
+    "score": "Overall resume score",
+    "scoreValue": "{{score}} out of 100",
+    "scale": "0–39 — weak · 40–69 — average · 70–100 — strong",
+    "level": {
+      "weak": "Weak",
+      "average": "Average",
+      "strong": "Strong"
+    },
+    "problemsTitle": "2 key issues",
+    "problems": {
+      "impact": {
+        "title": "Your impact is unclear",
+        "reason": "Your experience lists responsibilities without specific achievements or numbers. A recruiter cannot easily assess your contribution or compare candidates and may prefer a resume with measurable results."
+      },
+      "focus": {
+        "title": "Your target role is unclear",
+        "reason": "Your headline and experience do not communicate your specialization and seniority. A recruiter may struggle to match your background to the position and reject the resume during the initial review."
+      }
+    },
+    "jobsTitle": "Matching jobs · {{count}}",
+    "remote": "Remote · Full-time",
+    "perMonth": "/ month",
+    "jobs": {
+      "product": {
+        "title": "Frontend Developer · Middle",
+        "description": "Build interfaces for a SaaS product and integrate APIs. Requirements: 2+ years of React, solid TypeScript and REST API experience."
+      },
+      "platform": {
+        "title": "Frontend Engineer · Middle",
+        "description": "Develop a web platform and improve performance. Requirements: TypeScript, Next.js, testing and experience working in a development team."
+      },
+      "web": {
+        "title": "React Developer · Middle",
+        "description": "Build interfaces for client products. Requirements: React, responsive layouts, CSS and Git. Collaborate with designers and backend engineers."
+      }
+    },
+    "moreJobs": "{{count}} more jobs matching your profile",
+    "lockedHint": "Register to access all jobs",
+    "fullAnalysis": "Full analysis",
+    "locked": "Locked",
+    "sections": {
+      "strengths": "Resume strengths",
+      "experience": "Detailed experience review",
+      "skills": "Skills and growth areas",
+      "directions": "Recommended roles and seniority",
+      "plan": "Resume improvement plan"
+    },
+    "unlock": "Unlock full analysis and all jobs"
   }
 }

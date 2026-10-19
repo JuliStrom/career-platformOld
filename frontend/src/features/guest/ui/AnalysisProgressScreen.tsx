@@ -1,6 +1,7 @@
 import { useTranslation } from '@/shared/lib/hooks/useTranslation';
 import { AppHeader } from '@/shared/ui';
 import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
+import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -79,7 +80,7 @@ export function AnalysisProgressScreen() {
           ) : (
             <View className="items-center">
               <ActivityIndicator size="large" color="#3B82F6" />
-              <Text className="mt-6 mb-8 text-center text-xl font-semibold text-gray-900 dark:text-white">
+              <Text className="mb-8 mt-6 text-center text-xl font-semibold text-gray-900 dark:text-white">
                 {t('analysis.progress.title')}
               </Text>
 
@@ -99,7 +100,9 @@ export function AnalysisProgressScreen() {
                         }`}
                       >
                         {isDone ? (
-                          <Text className="text-xs font-bold text-white">✓</Text>
+                          <Text className="text-xs font-bold text-white">
+                            ✓
+                          </Text>
                         ) : isActive ? (
                           <ActivityIndicator size="small" color="#FFFFFF" />
                         ) : (
@@ -125,6 +128,12 @@ export function AnalysisProgressScreen() {
               </View>
             </View>
           )}
+          <PrimaryButton
+            className="mt-6"
+            onPress={() => router.push('/result')}
+          >
+            {t('analysis.previewDemo')}
+          </PrimaryButton>
         </View>
       </View>
     </SafeAreaView>

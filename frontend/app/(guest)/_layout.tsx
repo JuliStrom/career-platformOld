@@ -18,6 +18,7 @@ export default function GuestLayout() {
       <Stack.Screen name="upload" options={{ title: 'Upload resume' }} />
       <Stack.Screen name="no-resume" options={{ title: 'No resume' }} />
       <Stack.Screen name="analysis" options={{ title: 'Analysis' }} />
+      <Stack.Screen name="result" options={{ title: 'Resume preview' }} />
     </Stack>
   );
 }
