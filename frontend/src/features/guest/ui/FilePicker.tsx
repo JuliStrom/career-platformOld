@@ -1,16 +1,18 @@
 import { Platform, Pressable, Text, View } from 'react-native';
 import { useRef } from 'react';
+import * as DocumentPicker from 'expo-document-picker';
+import type { ResumeFile } from '../model/analysis';
 
 interface FilePickerProps {
   fileName: string | null;
-  onFileSelected: (fileName: string, fileSize: number) => void;
+  onFileSelected: (file: ResumeFile) => void;
   label: string;
   hint: string;
 }
 
 /**
  * Выбор файла резюме (PDF/DOCX).
- * На web — нативный <input type="file">, на native — заглушка (нужен expo-document-picker).
+ * На web — <input type="file">, на native — expo-document-picker.
  */
 export function FilePicker({
   fileName,
@@ -23,7 +25,12 @@ export function FilePicker({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      onFileSelected(file.name, file.size);
+      onFileSelected({
+        name: file.name,
+        size: file.size,
+        mimeType: file.type,
+        file,
+      });
     }
     // сброс, чтобы можно было выбрать тот же файл повторно
     event.target.value = '';
@@ -58,11 +65,32 @@ export function FilePicker({
           </Pressable>
         </>
       ) : (
-        <View className="rounded-lg border border-dashed border-gray-400 bg-white px-4 py-6 dark:border-gray-600 dark:bg-gray-800">
+        <Pressable
+          accessibilityRole="button"
+          onPress={async () => {
+            const result = await DocumentPicker.getDocumentAsync({
+              type: [
+                'application/pdf',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+              ],
+              copyToCacheDirectory: true,
+            });
+            if (!result.canceled) {
+              const asset = result.assets[0];
+              onFileSelected({
+                name: asset.name,
+                size: asset.size || 0,
+                uri: asset.uri,
+                mimeType: asset.mimeType || 'application/octet-stream',
+              });
+            }
+          }}
+          className="rounded-lg border border-dashed border-gray-400 bg-white px-4 py-6 dark:border-gray-600 dark:bg-gray-800"
+        >
           <Text className="text-center text-sm text-gray-500 dark:text-gray-400">
             {fileName ?? label}
           </Text>
-        </View>
+        </Pressable>
       )}
     </View>
   );
