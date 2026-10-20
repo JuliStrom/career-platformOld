@@ -2,60 +2,93 @@ import { useTranslation } from '@/shared/lib/hooks/useTranslation';
 import { AppHeader } from '@/shared/ui';
 import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
 import { router } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAnalysisStore } from '../store/analysis.store';
+import {
+  analysisErrorCode,
+  readAnalysis,
+  retryAnalysis,
+} from '../api/analysis';
+import type { AnalysisStatus } from '../model/analysis';
 
-const ANALYSIS_TIMEOUT_MS = 60_000; // 60 секунд
-const STEP_DURATION_MS = ANALYSIS_TIMEOUT_MS / 3; // по ~20 сек на шаг
-
-type AnalysisStep = 'reading' | 'evaluating' | 'matching';
-
-const STEPS: AnalysisStep[] = ['reading', 'evaluating', 'matching'];
+const STEPS = ['reading', 'evaluating', 'matching'] as const;
 
 export function AnalysisProgressScreen() {
   const { t } = useTranslation('guest');
-  const [currentStep, setCurrentStep] = useState<AnalysisStep>('reading');
-  const [timedOut, setTimedOut] = useState(false);
+  const access = useAnalysisStore((state) => state.access);
+  const [status, setStatus] = useState<AnalysisStatus>('pending');
+  const [error, setError] = useState<string | null>(null);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [attempt, setAttempt] = useState(0);
-  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const [retrying, setRetrying] = useState(false);
 
   useEffect(() => {
-    // Сбрасываем состояние при каждом новом запуске (повтор без повторной загрузки).
-    setCurrentStep('reading');
-    setTimedOut(false);
-
-    const timers: ReturnType<typeof setTimeout>[] = [];
-
-    // Прогресс по шагам.
-    STEPS.forEach((step, index) => {
-      if (index === 0) return;
-      timers.push(
-        setTimeout(() => {
-          setCurrentStep(step);
-        }, STEP_DURATION_MS * index)
-      );
-    });
-
-    // Таймаут всего анализа.
-    timers.push(
-      setTimeout(() => {
-        setTimedOut(true);
-      }, ANALYSIS_TIMEOUT_MS)
-    );
-
-    timersRef.current = timers;
-
-    return () => {
-      timers.forEach(clearTimeout);
+    if (!access) return;
+    const controller = new AbortController();
+    let timer: ReturnType<typeof setTimeout>;
+    const startedAt = Date.now();
+    const updateElapsed = () =>
+      setElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
+    setElapsedSeconds(0);
+    const clockTimer = setInterval(updateElapsed, 1000);
+    const stopClock = () => {
+      updateElapsed();
+      clearInterval(clockTimer);
     };
-  }, [attempt]);
+    setError(null);
+    const poll = async () => {
+      try {
+        const response = await readAnalysis(access, controller.signal);
+        if (controller.signal.aborted) return;
+        setStatus(response.status);
+        setError(response.error || null);
+        if (response.status === 'completed') {
+          stopClock();
+          router.replace('/result');
+          return;
+        }
+        if (response.status === 'failed') {
+          stopClock();
+          return;
+        }
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        const code = analysisErrorCode(error);
+        setError(code);
+        if (code === 'analysis_not_found') {
+          stopClock();
+          return;
+        }
+      }
+      timer = setTimeout(poll, 5000);
+    };
+    void poll();
+    return () => {
+      controller.abort();
+      clearTimeout(timer);
+      clearInterval(clockTimer);
+    };
+  }, [access, attempt]);
 
-  const handleRetry = () => {
-    setAttempt((prev) => prev + 1);
+  const retry = async () => {
+    if (!access) return;
+    setRetrying(true);
+    try {
+      await retryAnalysis(access);
+      setStatus('pending');
+      setAttempt((value) => value + 1);
+    } catch (error) {
+      setError(analysisErrorCode(error));
+    } finally {
+      setRetrying(false);
+    }
   };
-
-  const stepIndex = STEPS.indexOf(currentStep);
+  const stepIndex = Math.max(
+    0,
+    STEPS.indexOf(status as (typeof STEPS)[number])
+  );
 
   return (
     <SafeAreaView
@@ -65,75 +98,55 @@ export function AnalysisProgressScreen() {
       <AppHeader />
       <View className="flex-1 items-center justify-center p-6">
         <View className="w-full max-w-md">
-          {timedOut ? (
-            <View className="items-center">
-              <Text className="mb-3 text-center text-2xl font-bold text-gray-900 dark:text-white">
-                {t('analysis.timeout.title')}
-              </Text>
-              <Text className="mb-6 text-center text-base text-gray-600 dark:text-gray-400">
-                {t('analysis.timeout.message')}
-              </Text>
-              <PrimaryButton onPress={handleRetry} className="w-full">
-                {t('analysis.timeout.retry')}
-              </PrimaryButton>
-            </View>
-          ) : (
-            <View className="items-center">
-              <ActivityIndicator size="large" color="#3B82F6" />
-              <Text className="mb-8 mt-6 text-center text-xl font-semibold text-gray-900 dark:text-white">
-                {t('analysis.progress.title')}
-              </Text>
-
-              <View className="w-full">
-                {STEPS.map((step, index) => {
-                  const isActive = index === stepIndex;
-                  const isDone = index < stepIndex;
-                  return (
-                    <View key={step} className="mb-4 flex-row items-center">
-                      <View
-                        className={`h-6 w-6 items-center justify-center rounded-full ${
-                          isDone
-                            ? 'bg-green-500'
-                            : isActive
-                              ? 'bg-blue-600'
-                              : 'bg-gray-300 dark:bg-gray-700'
-                        }`}
-                      >
-                        {isDone ? (
-                          <Text className="text-xs font-bold text-white">
-                            ✓
-                          </Text>
-                        ) : isActive ? (
-                          <ActivityIndicator size="small" color="#FFFFFF" />
-                        ) : (
-                          <Text className="text-xs font-bold text-gray-500 dark:text-gray-400">
-                            {index + 1}
-                          </Text>
-                        )}
-                      </View>
-                      <Text
-                        className={`ml-3 text-base ${
-                          isActive
-                            ? 'font-semibold text-gray-900 dark:text-white'
-                            : isDone
-                              ? 'text-gray-700 dark:text-gray-300'
-                              : 'text-gray-400 dark:text-gray-500'
-                        }`}
-                      >
-                        {t(`analysis.progress.steps.${step}`)}
-                      </Text>
-                    </View>
-                  );
-                })}
-              </View>
-            </View>
-          )}
-          <PrimaryButton
-            className="mt-6"
-            onPress={() => router.push('/result')}
+          <Text
+            accessibilityRole="header"
+            className="mb-6 text-center text-2xl font-semibold text-gray-900 dark:text-white"
           >
-            {t('analysis.previewDemo')}
-          </PrimaryButton>
+            {t('analysis.progress.title')}
+          </Text>
+          {access && status !== 'failed' && error !== 'analysis_not_found' && (
+            <ActivityIndicator size="large" color="#3B82F6" />
+          )}
+          {access &&
+            STEPS.map((step, index) => (
+              <Text
+                key={step}
+                className={`mt-5 text-base ${index === stepIndex ? 'font-bold text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}
+              >
+                {index < stepIndex ? '✓' : index + 1}.{' '}
+                {t(`analysis.progress.steps.${step}`)}
+              </Text>
+            ))}
+          {access && (
+            <Text className="mt-6 text-center text-gray-600 dark:text-gray-300">
+              {'\u23F1'}{' '}
+              {t('analysis.elapsed', {
+                time: `${String(Math.floor(elapsedSeconds / 60)).padStart(2, '0')}:${String(elapsedSeconds % 60).padStart(2, '0')}`,
+              })}
+            </Text>
+          )}
+          {error && (
+            <Text
+              accessibilityRole="alert"
+              className="my-6 text-red-600 dark:text-red-400"
+            >
+              {t(`analysis.errors.${error}`, {
+                defaultValue: t('analysis.errors.processing_failed'),
+              })}
+            </Text>
+          )}
+          {status === 'failed' && (
+            <PrimaryButton onPress={retry} isLoading={retrying}>
+              {t('analysis.timeout.retry')}
+            </PrimaryButton>
+          )}
+          {(!access ||
+            error === 'analysis_not_found' ||
+            error === 'source_expired') && (
+            <PrimaryButton onPress={() => router.replace('/upload')}>
+              {t('uploadResume')}
+            </PrimaryButton>
+          )}
         </View>
       </View>
     </SafeAreaView>

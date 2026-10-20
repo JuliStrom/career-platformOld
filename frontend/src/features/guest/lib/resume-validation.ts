@@ -44,7 +44,9 @@ export function validateLinkedinUrl(url: string): boolean {
  * Полная валидация формы загрузки резюме.
  * Возвращает список ошибок (пустой — форма валидна).
  */
-export function validateResumeForm(form: ResumeUploadForm): ResumeValidationResult {
+export function validateResumeForm(
+  form: ResumeUploadForm
+): ResumeValidationResult {
   const errors: ResumeValidationError[] = [];
 
   if (form.sourceType === 'file') {

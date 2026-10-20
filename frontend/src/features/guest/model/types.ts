@@ -18,6 +18,7 @@ export interface ResumeUploadForm {
   targetCountry: string;
   /** Желаемая роль (необязательно). */
   desiredRole: string;
+  outputLanguage: 'original' | 'en';
   /** Согласие на обработку персональных данных. */
   consent: boolean;
 }
@@ -31,6 +32,7 @@ export const EMPTY_RESUME_FORM: ResumeUploadForm = {
   jobLocation: null,
   targetCountry: '',
   desiredRole: '',
+  outputLanguage: 'original',
   consent: false,
 };
 

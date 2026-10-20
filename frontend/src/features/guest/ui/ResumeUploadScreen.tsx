@@ -5,6 +5,9 @@ import { Checkbox } from '@/shared/ui/checkbox/Checkbox';
 import { NamedField } from '@/shared/ui/inputs/NamedField';
 import { ChipSelector } from '@/shared/ui/selectors/ChipSelector';
 import { router } from 'expo-router';
+import { useState } from 'react';
+import { submitAnalysis, analysisErrorCode } from '../api/analysis';
+import { useAnalysisStore } from '../store/analysis.store';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useResumeUploadStore } from '../store/resume-upload.store';
@@ -14,7 +17,13 @@ const SOURCE_OPTIONS = ['file', 'text', 'linkedin'] as const;
 const JOB_LOCATION_OPTIONS = ['home', 'abroad'] as const;
 
 export function ResumeUploadScreen() {
-  const { t } = useTranslation('guest');
+  const { t, currentLanguage } = useTranslation('guest');
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const file = useResumeUploadStore((state) => state.file);
+  const setOutputLanguage = useResumeUploadStore(
+    (state) => state.setOutputLanguage
+  );
   const form = useResumeUploadStore((state) => state.form);
   const errors = useResumeUploadStore((state) => state.errors);
   const setSourceType = useResumeUploadStore((state) => state.setSourceType);
@@ -31,10 +40,18 @@ export function ResumeUploadScreen() {
 
   const hasError = (key: string) => errors.includes(key as never);
 
-  const handleSubmit = () => {
-    if (validate()) {
-      // Э3: отправка на AI-разбор. Пока — переход к результату-заглушке.
+  const handleSubmit = async () => {
+    if (submitting || !validate()) return;
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const access = await submitAnalysis(form, file, currentLanguage);
+      useAnalysisStore.getState().setAccess(access);
       router.push('/analysis');
+    } catch (error) {
+      setSubmitError(analysisErrorCode(error));
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -58,7 +75,10 @@ export function ResumeUploadScreen() {
             label={t('upload.sourceLabel')}
             options={SOURCE_OPTIONS}
             selectedValue={form.sourceType}
-            onSelect={(value) => setSourceType(value)}
+            onSelect={(value) => {
+              setSourceType(value);
+              setSubmitError(null);
+            }}
             translationKey="upload.source"
             namespace="guest"
             classNameSelector="mb-6"
@@ -118,8 +138,12 @@ export function ResumeUploadScreen() {
                 onChangeText={setLinkedinUrl}
                 autoCapitalize="none"
                 autoCorrect={false}
+                keyboardType="url"
                 placeholder="https://www.linkedin.com/in/..."
               />
+              <Text className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                {t('upload.linkedin.hint')}
+              </Text>
               {hasError('invalidLinkedinUrl') && (
                 <Text className="mb-2 text-sm text-red-600 dark:text-red-400">
                   {t('upload.errors.invalidLinkedinUrl')}
@@ -166,6 +190,15 @@ export function ResumeUploadScreen() {
           />
 
           {/* Согласие на обработку ПД */}
+          <ChipSelector
+            label={t('upload.outputLanguage.label')}
+            options={['original', 'en'] as const}
+            selectedValue={form.outputLanguage}
+            onSelect={setOutputLanguage}
+            translationKey="upload.outputLanguage.options"
+            namespace="guest"
+            classNameSelector="mb-6"
+          />
           <View className="mb-6 flex-row items-start">
             <Checkbox value={form.consent} onChange={setConsent} />
             <View className="ml-3 flex-1">
@@ -191,7 +224,17 @@ export function ResumeUploadScreen() {
             </Text>
           )}
 
-          <PrimaryButton onPress={handleSubmit}>
+          {submitError && (
+            <Text
+              accessibilityRole="alert"
+              className="mb-4 text-red-600 dark:text-red-400"
+            >
+              {t(`analysis.errors.${submitError}`, {
+                defaultValue: t('analysis.errors.processing_failed'),
+              })}
+            </Text>
+          )}
+          <PrimaryButton onPress={handleSubmit} isLoading={submitting}>
             {t('upload.submit')}
           </PrimaryButton>
         </View>

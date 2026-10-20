@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import type { ResumeFile } from '../model/analysis';
 import {
   EMPTY_RESUME_FORM,
   type JobLocationPreference,
@@ -12,9 +13,11 @@ import {
 
 interface ResumeUploadState {
   form: ResumeUploadForm;
+  file: ResumeFile | null;
   errors: ResumeValidationError[];
   setSourceType: (sourceType: ResumeSourceType) => void;
-  setFile: (fileName: string, fileSize: number) => void;
+  setFile: (file: ResumeFile) => void;
+  setOutputLanguage: (language: 'original' | 'en') => void;
   setResumeText: (text: string) => void;
   setLinkedinUrl: (url: string) => void;
   setJobLocation: (location: JobLocationPreference) => void;
@@ -28,14 +31,16 @@ interface ResumeUploadState {
 
 export const useResumeUploadStore = create<ResumeUploadState>((set, get) => ({
   form: EMPTY_RESUME_FORM,
+  file: null,
   errors: [],
 
   setSourceType: (sourceType) =>
     set((state) => ({ form: { ...state.form, sourceType } })),
 
-  setFile: (fileName, fileSize) =>
+  setFile: (file) =>
     set((state) => ({
-      form: { ...state.form, fileName, fileSize },
+      file,
+      form: { ...state.form, fileName: file.name, fileSize: file.size },
       errors: [],
     })),
 
@@ -53,6 +58,8 @@ export const useResumeUploadStore = create<ResumeUploadState>((set, get) => ({
 
   setDesiredRole: (desiredRole) =>
     set((state) => ({ form: { ...state.form, desiredRole } })),
+  setOutputLanguage: (outputLanguage) =>
+    set((state) => ({ form: { ...state.form, outputLanguage } })),
 
   setConsent: (consent) =>
     set((state) => ({ form: { ...state.form, consent } })),
@@ -63,5 +70,5 @@ export const useResumeUploadStore = create<ResumeUploadState>((set, get) => ({
     return result.valid;
   },
 
-  reset: () => set({ form: EMPTY_RESUME_FORM, errors: [] }),
+  reset: () => set({ form: EMPTY_RESUME_FORM, file: null, errors: [] }),
 }));
