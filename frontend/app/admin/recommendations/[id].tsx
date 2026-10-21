@@ -7,14 +7,8 @@ import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
 import { FullScreenLoader } from '@/src/shared/ui/common/FullScreenLoader';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import {
-  Alert,
-  Platform,
-  ScrollView,
-  Text,
-  View,
-  useColorScheme,
-} from 'react-native';
+import { Alert, Platform, ScrollView, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function AdminRecommendationDetailsScreen() {
@@ -30,7 +24,7 @@ export default function AdminRecommendationDetailsScreen() {
   } = useCareerStore();
   const { t } = useTranslation('career');
   const { t: tCommon } = useTranslation('common');
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const router = useRouter();
 
   useEffect(() => {

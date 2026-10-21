@@ -9,7 +9,8 @@ import { IconNavPressable } from '@/shared/ui';
 import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
 import { FullScreenLoader } from '@/src/shared/ui/common/FullScreenLoader';
 import { ReactNode } from 'react';
-import { Image, ScrollView, Text, View, useColorScheme } from 'react-native';
+import { Image, ScrollView, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface JobDetailsViewProps {
@@ -36,7 +37,7 @@ export function JobDetailsView({
   onToggleFavorite,
 }: JobDetailsViewProps) {
   const { t } = useTranslation('jobs');
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const backgroundColor = colorScheme === 'dark' ? '#111827' : '#f9fafb';
 
   if (isLoading) {

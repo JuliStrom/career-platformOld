@@ -12,7 +12,8 @@ import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
 import { ChipSelector } from '@/shared/ui/selectors/ChipSelector';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useEffect, useState } from 'react';
-import { Pressable, Text, View, useColorScheme } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 
 interface EducationsFiltersPanelProps {
   filters: EducationsFilters;
@@ -29,7 +30,7 @@ export function EducationsFiltersPanel({
   onReset,
   t,
 }: EducationsFiltersPanelProps) {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const [isExpanded, setIsExpanded] = useState(false);
   const [draft, setDraft] = useState<EducationsFilters>(filters);
 

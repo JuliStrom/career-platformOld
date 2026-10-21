@@ -26,6 +26,7 @@ import { OAuthButtons } from '../OAuthButtons';
 import { BaseAuthFields } from './BaseAuthFields';
 import { RegisterExtraFields } from './RegisterExtraFields';
 import { ToggleAuthMode } from './ToggleAuthMode';
+import { useAnalysisStore } from '@/features/guest/store/analysis.store';
 
 interface AuthFormProps {
   mode: AuthMode;
@@ -46,6 +47,9 @@ function AuthFormInner({ mode }: AuthFormProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const userType = useAuthStore((state) => state.user?.userType);
   const clearError = useAuthStore((state) => state.clearError);
+  const pendingAnalysis = useAnalysisStore(
+    (state) => state.pendingUnlock && Boolean(state.access)
+  );
 
   const [localError, setLocalError] = useState<string | null>(null);
   const [justRegistered, setJustRegistered] = useState(false);
@@ -64,6 +68,10 @@ function AuthFormInner({ mode }: AuthFormProps) {
   // Новый аккаунт выбирает путь; при входе открывается его часть платформы.
   useEffect(() => {
     if (isAuthenticated && !isLoading) {
+      if (pendingAnalysis) {
+        router.replace('/result');
+        return;
+      }
       if (justRegistered || !userType) {
         router.replace('/choose-path');
       } else {
@@ -72,7 +80,7 @@ function AuthFormInner({ mode }: AuthFormProps) {
         );
       }
     }
-  }, [isAuthenticated, isLoading, justRegistered, userType]);
+  }, [isAuthenticated, isLoading, justRegistered, userType, pendingAnalysis]);
 
   useEffect(() => {
     clearError();

@@ -9,6 +9,9 @@ import { useEmployerStore } from '@/features/employer/store/employer-store';
 import { useJobsStore } from '@/features/jobs/store';
 import { useProfileStore } from '@/features/profile/store/profile-store';
 import * as authApi from '../api/auth.api';
+import { useGuestSessionStore } from '@/features/guest/store/guest-session.store';
+import { useAnalysisStore } from '@/features/guest/store/analysis.store';
+import { useResumeUploadStore } from '@/features/guest/store/resume-upload.store';
 import {
   getRoleFromToken,
   getUserIdFromToken,
@@ -215,6 +218,9 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         isLoading: false,
         authError: null,
       });
+      useGuestSessionStore.getState().clear();
+      useAnalysisStore.setState({ access: null, pendingUnlock: false });
+      useResumeUploadStore.getState().reset();
     }
   },
 

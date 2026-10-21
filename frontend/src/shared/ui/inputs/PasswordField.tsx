@@ -6,9 +6,9 @@ import {
   Text,
   TextInput,
   View,
-  useColorScheme,
   type TextInputProps,
 } from 'react-native';
+import { useColorScheme } from 'nativewind';
 
 interface PasswordFieldProps extends Omit<TextInputProps, 'secureTextEntry'> {
   error?: string;
@@ -39,7 +39,7 @@ export function PasswordField({
 }: PasswordFieldProps) {
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation('auth');
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const iconColor = colorScheme === 'dark' ? '#9ca3af' : '#6b7280';
 
   return (

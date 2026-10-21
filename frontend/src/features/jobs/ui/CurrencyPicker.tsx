@@ -5,7 +5,8 @@ import {
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import { useCallback, useMemo, useRef } from 'react';
-import { Pressable, Text, View, useColorScheme } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 
 interface CurrencyPickerProps {
   value: Currency;
@@ -22,7 +23,7 @@ export const CurrencyPicker = ({
   error,
   touched,
 }: CurrencyPickerProps) => {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   const snapPoints = useMemo(() => ['40%'], []);

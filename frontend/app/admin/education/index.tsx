@@ -21,8 +21,8 @@ import {
   RefreshControl,
   Text,
   View,
-  useColorScheme,
 } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const DIRECTION_OPTIONS = ['All', ...Object.values(Direction)] as const;
@@ -208,7 +208,7 @@ function EducationsFiltersPanel({
   onReset: () => void;
   t: (key: string) => string;
 }) {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const [isExpanded, setIsExpanded] = useState(false);
   const [draft, setDraft] = useState<EducationsFilters>(filters);
 
