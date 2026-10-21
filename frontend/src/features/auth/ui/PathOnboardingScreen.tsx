@@ -21,7 +21,7 @@ export function PathOnboardingScreen({ userType }: PathOnboardingScreenProps) {
     : 'pathOnboarding.specialist';
 
   if (!isAuthenticated) {
-    return <Redirect href="/(auth)/login" />;
+    return <Redirect href="/" />;
   }
 
   if (currentUserType && currentUserType !== userType) {

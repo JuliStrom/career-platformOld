@@ -3,7 +3,8 @@ import { surfaceColor } from '@/shared/config/theme/colors';
 import { AppHeader } from '@/shared/ui';
 import { FullScreenLoader } from '@/src/shared/ui/common/FullScreenLoader';
 import { Redirect, Stack, useRootNavigationState } from 'expo-router';
-import { useColorScheme, View } from 'react-native';
+import { View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import {
   SafeAreaInsetsContext,
   useSafeAreaInsets,
@@ -11,7 +12,7 @@ import {
 
 export default function AdminLayout() {
   const rootNavigationState = useRootNavigationState();
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const backgroundColor = colorScheme === 'dark' ? '#111827' : '#f9fafb';
   const insets = useSafeAreaInsets();
 
@@ -28,7 +29,7 @@ export default function AdminLayout() {
   }
 
   if (!user) {
-    return <Redirect href="/(auth)/login" />;
+    return <Redirect href="/" />;
   }
 
   if (user.role !== 'ADMIN') {

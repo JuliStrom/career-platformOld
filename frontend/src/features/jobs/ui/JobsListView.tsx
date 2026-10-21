@@ -3,7 +3,8 @@ import { JobItem } from '@/features/jobs/ui/JobItem';
 import { JobsFilters } from '@/features/jobs/ui/JobsFilters';
 import { useTranslation } from '@/shared/lib/hooks/useTranslation';
 import { ReactNode, useCallback } from 'react';
-import { FlatList, Text, View, useColorScheme } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface JobsListViewProps {
@@ -36,7 +37,7 @@ export function JobsListView({
   onToggleFavorite,
 }: JobsListViewProps) {
   const { t } = useTranslation('jobs');
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const backgroundColor = colorScheme === 'dark' ? '#111827' : '#f9fafb';
 
   const ListHeader = useCallback(

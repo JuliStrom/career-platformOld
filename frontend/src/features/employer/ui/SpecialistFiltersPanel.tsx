@@ -16,7 +16,8 @@ import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
 import { ChipSelector } from '@/shared/ui/selectors/ChipSelector';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useState } from 'react';
-import { Pressable, Text, useColorScheme, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import type { SpecialistFilters } from '../model';
 
 const ALL = 'All';
@@ -38,7 +39,7 @@ export function SpecialistFiltersPanel({
   onApply,
 }: SpecialistFiltersPanelProps) {
   const { t } = useTranslation('employer');
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const [isExpanded, setIsExpanded] = useState(false);
   const [direction, setDirection] = useState<DirectionFilter>(
     filters.direction ?? ALL

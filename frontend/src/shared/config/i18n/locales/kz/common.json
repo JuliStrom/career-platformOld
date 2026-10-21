@@ -1,4 +1,5 @@
 {
+  "theme": { "light": "Ашық тақырыпты қосу", "dark": "Қараңғы тақырыпты қосу" },
   "appName": "Career App",
   "language": "Тіл",
   "languageRu": "Русский",

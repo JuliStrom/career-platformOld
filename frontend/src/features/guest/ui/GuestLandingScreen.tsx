@@ -22,6 +22,7 @@ const heroDimensions = { width: 1672, height: 941 };
 
 export function GuestLandingScreen() {
   const { t } = useTranslation('guest');
+  const { t: tAuth } = useTranslation('auth');
   const captureFromUrl = useGuestSessionStore((state) => state.captureFromUrl);
   const { width, height } = useWindowDimensions();
   const compact = width < 768;
@@ -78,7 +79,31 @@ export function GuestLandingScreen() {
         ]}
       />
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
-        <AppHeader transparent />
+        <AppHeader
+          transparent
+          action={
+            <View className="flex-row items-center gap-2">
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => router.push('/login')}
+                className="min-h-11 items-center justify-center rounded-xl border border-white/30 px-3 py-2 active:bg-white/10"
+              >
+                <Text className="text-sm font-semibold text-white">
+                  {tAuth('login.title')}
+                </Text>
+              </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => router.push('/register')}
+                className="min-h-11 items-center justify-center rounded-xl border border-blue-300/50 bg-blue-500/20 px-3 py-2 active:bg-blue-500/40"
+              >
+                <Text className="text-sm font-semibold text-white">
+                  {tAuth('register.title')}
+                </Text>
+              </Pressable>
+            </View>
+          }
+        />
         <View style={styles.hero}>
           <ScrollView contentContainerStyle={styles.scrollContent}>
             <View
@@ -139,7 +164,7 @@ export function GuestLandingScreen() {
                       { opacity: pressed ? 0.7 : 1 },
                     ]}
                   >
-                    <Text style={styles.secondaryLabel}>{t('noResume')}</Text>
+                    <Text style={[styles.secondaryLabel]}>{t('noResume')}</Text>
                     <MaterialIcons
                       name="arrow-forward"
                       size={18}

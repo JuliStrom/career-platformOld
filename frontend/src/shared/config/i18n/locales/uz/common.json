@@ -1,4 +1,8 @@
 {
+  "theme": {
+    "light": "Yorugʻ mavzuni yoqish",
+    "dark": "Qorongʻi mavzuni yoqish"
+  },
   "appName": "Career App",
   "language": "Til",
   "languageRu": "Русский",

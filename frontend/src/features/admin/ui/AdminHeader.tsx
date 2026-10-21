@@ -1,7 +1,8 @@
 import { useTranslation } from '@/shared/lib/hooks/useTranslation';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { type Href, usePathname, useRouter } from 'expo-router';
-import { useColorScheme, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 
 interface AdminHeaderProps {
   title: string;
@@ -18,7 +19,7 @@ export function AdminHeader({
   const { t } = useTranslation('common');
   const router = useRouter();
   const pathname = usePathname();
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const isAdminHome = pathname === '/admin' || pathname === '/admin/';
 
   const showBackButton = showBack && !isAdminHome;

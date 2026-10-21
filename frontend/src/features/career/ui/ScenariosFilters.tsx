@@ -14,7 +14,8 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
-import { Pressable, Text, View, useColorScheme } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import {
   DIRECTION_FILTER_VALUES,
   IS_ACTIVE_FILTER_VALUES,
@@ -38,7 +39,7 @@ export function ScenariosFilters({
   onReset,
 }: ScenariosFiltersProps) {
   const { t } = useTranslation('career');
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
 
   const [isExpanded, setIsExpanded] = useState(false);
 
