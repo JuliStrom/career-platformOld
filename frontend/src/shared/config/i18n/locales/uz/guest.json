@@ -1,0 +1,156 @@
+{
+  "title": "Rezyumengizni SI-rekruter koʻzi bilan 1 daqiqada tekshiring",
+  "subtitle": "Rezyumengizni yuklang — roʻyxatdan oʻtmasdan SI bahosi va dastlabki mos vakansiyalarni oling.",
+  "uploadResume": "Rezyume yuklash",
+  "noResume": "Rezyumem yoʻq",
+  "upload": {
+    "title": "Rezyume yuklash",
+    "sourceLabel": "Rezyumengizni qanday taqdim etmoqchisiz?",
+    "source": {
+      "file": "Fayl",
+      "text": "Matn",
+      "linkedin": "LinkedIn"
+    },
+    "file": {
+      "choose": "Fayl tanlash",
+      "hint": "PDF yoki DOCX, 5 MB gacha"
+    },
+    "text": {
+      "label": "Rezyume matni",
+      "placeholder": "Rezyume matnini joylashtiring…"
+    },
+    "linkedin": {
+      "label": "LinkedIn profili URL manzili",
+      "hint": "LinkedIn profillarini oʻqish hozircha mavjud emas. PDF/DOCX yuklang yoki «Matn» variantini tanlab, tahlil uchun profil maʼlumotlarini joylashtiring."
+    },
+    "jobLocation": {
+      "label": "Maqsadingiz nima?",
+      "options": {
+        "home": "Oʻz mamlakatimda yangi ish topish",
+        "abroad": "Xorijda ish topish"
+      }
+    },
+    "targetCountry": {
+      "label": "Qayerdan ish izlayapsiz?",
+      "placeholder": "Mamlakat yoki «istalgan joy»"
+    },
+    "desiredRole": {
+      "label": "Istalgan lavozim (ixtiyoriy)",
+      "placeholder": "masalan, Frontend dasturchi"
+    },
+    "consent": {
+      "text": "Rezyumemni qayta ishlashga va uning mazmunini tahlil uchun tashqi OpenRouter SI xizmatiga hamda u tanlagan provayderga berishga roziman. Platformamiz dastlabki maʼlumotlarni 24 soatgacha saqlaydi.",
+      "link": "Maxfiylik siyosati"
+    },
+    "submit": "Davom etish",
+    "errors": {
+      "invalidFormat": "Fayl formati notoʻgʻri. Faqat PDF va DOCX qoʻllab-quvvatlanadi.",
+      "fileTooLarge": "Fayl juda katta. Eng katta hajm — 5 MB.",
+      "emptyFile": "Fayl boʻsh. Boshqa fayl yuklang yoki matn joylashtiring.",
+      "emptyText": "Rezyume matnini joylashtiring.",
+      "invalidLinkedinUrl": "LinkedIn URL manzilini qayta ishlab boʻlmadi. Havolani tekshiring yoki fayl/matn yuklang.",
+      "missingJobLocation": "Maqsadingizni tanlang.",
+      "missingTargetCountry": "Qayerdan ish izlayotganingizni koʻrsating.",
+      "missingConsent": "Shaxsiy maʼlumotlarni qayta ishlashga rozilik kerak."
+    },
+    "outputLanguage": {
+      "label": "Yaxshilangan rezyume tili",
+      "options": {
+        "original": "Asl til",
+        "en": "Ingliz tili"
+      }
+    }
+  },
+  "analysis": {
+    "progress": {
+      "title": "Rezyumengiz tahlil qilinmoqda…",
+      "steps": {
+        "reading": "Rezyumengizni oʻqish",
+        "evaluating": "Rekruter sifatida baholash",
+        "matching": "Vakansiyalarni tanlash"
+      }
+    },
+    "timeout": {
+      "title": "Tahlil kutilganidan uzoq davom etmoqda",
+      "message": "Baholashni 60 soniyada tugata olmadik. Qayta urinib koʻring — faylni qayta yuklash shart emas.",
+      "retry": "Qayta urinish"
+    },
+    "elapsed": "Oʻtgan vaqt: {{time}}",
+    "slow": "Baholash bir daqiqadan oshdi. Qayta ishlash davom etmoqda, qayta yuklash shart emas.",
+    "errors": {
+      "not_configured": "SI xizmati hali sozlanmagan. Keyinroq qayta urinib koʻring.",
+      "free_model_required": "Bepul modelni tanlab boʻlmadi. Keyinroq qayta urinib koʻring.",
+      "provider_limit": "SI soʻrovlari chegarasiga yetildi. Keyinroq qayta urinib koʻring.",
+      "provider_balance": "SI xizmati balansi yetarli emas. Administratorga murojaat qiling.",
+      "provider_unavailable": "SI xizmati vaqtincha mavjud emas. Keyinroq qayta urinib koʻring.",
+      "provider_request_rejected": "SI xizmati soʻrovni rad etdi. Rezyume matnini joylashtirib koʻring; muammo takrorlansa, administratorga murojaat qiling.",
+      "provider_model_unavailable": "SI modeli mavjud emas. Sozlamalarni tekshirish uchun administratorga murojaat qiling.",
+      "pdf_page_limit": "Toʻliq matn qatlamiga ega boʻlmagan PDF fayllari uchun koʻpi bilan 3 sahifa qoʻllab-quvvatlanadi. DOCX yuklang yoki rezyume matnini joylashtiring.",
+      "invalid_ai_response": "SI toʻliq boʻlmagan yoki notoʻgʻri natija qaytardi. Tahlilni takrorlang.",
+      "unreadable_file": "Rezyumeni oʻqib boʻlmadi. Matnli PDF yoki DOCX yuklang yoxud kamida 30 ta belgidan iborat rezyume matnini joylashtiring.",
+      "invalid_file": "Toʻgʻri PDF yoki DOCX faylini yuklang.",
+      "file_too_large": "Faylning eng katta hajmi — 5 MB.",
+      "invalid_goal": "Maqsad, mamlakat va qayta ishlashga rozilikni tekshiring.",
+      "analysis_busy": "Boshqa rezyumelar qayta ishlanmoqda. Birozdan soʻng qayta urinib koʻring.",
+      "analysis_rate_limit": "Chegaraga yetildi: soatiga 5 ta tahlil. Keyinroq qayta urinib koʻring.",
+      "analysis_not_found": "Tahlil topilmadi yoki muddati tugagan. Rezyumengizni qayta yuklang.",
+      "analysis_forbidden": "Bu tahlil boshqa hisobga tegishli.",
+      "analysis_not_ready": "Tahlil hali tayyor emas. Jarayon ekraniga qayting.",
+      "source_expired": "Dastlabki faylning muddati tugagan. Rezyumengizni qayta yuklang.",
+      "server_restarted": "Qayta ishlash vaqtida server qayta ishga tushdi. Faylni qayta yuklamasdan urinib koʻring.",
+      "analysis_timeout": "Oldingi urinish vaqti tugadi. Faylni qayta yuklamasdan urinib koʻring.",
+      "network_error": "Serverga ulanib boʻlmadi. Aloqa tekshirilmoqda.",
+      "download_unavailable": "Bu qurilmada faylni saqlash mavjud emas.",
+      "processing_failed": "Bu amalni yakunlab boʻlmadi. Qayta urinib koʻring.",
+      "linkedin_unsupported": "PDF/DOCX yuklang yoki rezyume matnini joylashtiring."
+    }
+  },
+  "preview": {
+    "title": "Rezyume tahlilining dastlabki koʻrinishi",
+    "subtitle": "Rezyume bahosi, asosiy muammolar va dastlabki mos vakansiyalar.",
+    "score": "Rezyumening umumiy bahosi",
+    "scoreValue": "100 dan {{score}}",
+    "scale": "0–39 — zaif · 40–69 — oʻrtacha · 70–100 — kuchli",
+    "level": {
+      "weak": "Zaif",
+      "average": "Oʻrtacha",
+      "strong": "Kuchli"
+    },
+    "problemsTitle": "2 ta asosiy muammo",
+    "jobsTitle": "Mos vakansiyalar · {{count}}",
+    "moreJobs": "Profilingizga mos yana {{count}} ta vakansiya",
+    "moreJobs_one": "Profilingizga mos yana {{count}} ta vakansiya",
+    "moreJobs_other": "Profilingizga mos yana {{count}} ta vakansiya",
+    "lockedHint": "Barcha vakansiyalarni koʻrish uchun roʻyxatdan oʻting",
+    "fullAnalysis": "Toʻliq tahlil",
+    "locked": "Yopiq",
+    "sections": {
+      "strengths": "Rezyumening kuchli tomonlari",
+      "experience": "Tajribani batafsil baholash",
+      "skills": "Koʻnikmalar va rivojlanish yoʻnalishlari",
+      "directions": "Tavsiya etilgan rollar va darajalar",
+      "plan": "Rezyumeni yaxshilash rejasi"
+    },
+    "unlock": "Toʻliq tahlil va barcha vakansiyalarni ochish",
+    "requirements": "Talablar",
+    "responsibilities": "Vazifalar",
+    "matchedSkills": "Mos koʻnikmalar",
+    "confirmLocation": "Ish beruvchidan maqsadli mamlakatingizdan masofadan ishlashga ruxsat borligini aniqlang.",
+    "criteria": "Baholash mezonlari",
+    "criterion": {
+      "goalFit": "Maqsadga moslik · 25 gacha",
+      "experience": "Tajriba va yutuqlar · 30 gacha",
+      "skills": "Koʻnikmalar · 20 gacha",
+      "structure": "Tuzilma · 15 gacha",
+      "completeness": "Toʻliqlik va til · 10 gacha"
+    },
+    "profile": "Ajratib olingan profil — tekshiring",
+    "detectedLanguage": "Rezyume tili",
+    "strengths": "Kuchli tomonlar",
+    "recommendations": "Tavsiyalar",
+    "questions": "Qoʻshish kerak boʻlgan maʼlumotlar",
+    "improvedResume": "Yaxshilangan rezyume",
+    "download": "JSON yuklab olish",
+    "noJobs": "Hozircha mos vakansiyalar yoʻq. Yangi imkoniyatlar vakansiyalar boʻlimida paydo boʻladi."
+  }
+}

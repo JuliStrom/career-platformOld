@@ -1,0 +1,111 @@
+{
+  "tabs": {
+    "specialists": "Mutaxassislar",
+    "company": "Kompaniya",
+    "jobs": "Vakansiyalar"
+  },
+  "company": {
+    "title": "Kompaniya madaniyati",
+    "subtitle": "Nomzodlarga jamoangiz, qadriyatlaringiz va ish uslubingiz haqida ayting.",
+    "name": "Kompaniya nomi",
+    "description": "Madaniyat tavsifi",
+    "logo": "Logotip URL manzili",
+    "logoPlaceholder": "https://example.com/logo.png",
+    "workFormat": "Ish formati",
+    "teamSize": "Jamoa hajmi",
+    "languages": "Ish tillari",
+    "languageValues": {
+      "RU": "Rus tili",
+      "EN": "Ingliz tili",
+      "KZ": "Qozoq tili"
+    },
+    "valuesTags": "Jamoa qadriyatlari",
+    "valuesTagsPlaceholder": "Mentorlik, ochiqlik, ish va hayot muvozanati",
+    "growthSpeed": "Oʻsish surʼati",
+    "required": "Kompaniya nomi va tavsifi majburiy",
+    "invalidLogo": "Logotipning toʻgʻri URL manzilini kiriting",
+    "save": "Kompaniyani saqlash",
+    "edit": "Kompaniyani tahrirlash",
+    "saved": "Kompaniya saqlandi"
+  },
+  "jobs": {
+    "title": "Mening vakansiyalarim",
+    "details": "Vakansiya tafsilotlari",
+    "total": "Jami: {{count}}",
+    "empty": "Siz hali vakansiya yaratmagansiz.",
+    "create": "Vakansiya yaratish",
+    "companyRequired": "Avval kompaniya kartasini yarating.",
+    "active": "Faol",
+    "inactive": "Faol emas",
+    "edit": "Tahrirlash",
+    "deactivate": "Faolsizlantirish",
+    "deactivateTitle": "Bu vakansiya faolsizlantirilsinmi?",
+    "deactivateConfirm": "Vakansiya roʻyxatingizda qoladi, lekin nomzodlarga koʻrinmaydi.",
+    "deactivated": "Vakansiya faolsizlantirildi",
+    "resume": "Qayta eʼlon qilish",
+    "resumed": "Vakansiya qayta eʼlon qilindi",
+    "cancel": "Bekor qilish"
+  },
+  "profile": {
+    "title": "Kompaniya profili",
+    "subtitle": "Mutaxassislarga kimligingiz va odatda qanday ish taklif qilishingizni ayting.",
+    "name": "Nomi",
+    "namePlaceholder": "Kompaniya yoki buyurtmachi nomi",
+    "description": "Tavsif",
+    "descriptionPlaceholder": "Nima bilan shugʻullanasiz va qanday natija kerak",
+    "industry": "Soha",
+    "taskType": "Odatdagi ish turi",
+    "budgetRange": "Byudjet oraligʻi",
+    "budgetOptional": "Koʻrsatishni istamayman",
+    "save": "Profilni saqlash",
+    "saved": "Profil saqlandi",
+    "empty": "Mutaxassislar kim murojaat qilayotganini bilishi uchun avval kompaniya profilini toʻldiring.",
+    "create": "Profil yaratish",
+    "taskTypes": {
+      "project": "Loyiha",
+      "hire": "Ishga yollash",
+      "one_off": "Bir martalik vazifa"
+    },
+    "budgetRanges": {
+      "none": "Koʻrsatishni istamayman",
+      "up_to_500k": "500 000 ₸ gacha",
+      "500k_1m": "500 000 – 1 000 000 ₸",
+      "1m_3m": "1 – 3 million ₸",
+      "3m_plus": "3 million ₸ va undan koʻp"
+    }
+  },
+  "specialists": {
+    "total": "Topilgan mutaxassislar: {{count}}",
+    "page": "{{page}} / {{total}} sahifa",
+    "previous": "Oldingi",
+    "next": "Keyingi",
+    "employment": "Bandlik turi",
+    "showMore": "Batafsil",
+    "showLess": "Qisqartirish",
+    "title": "Mutaxassislarni topish",
+    "subtitle": "Mutaxassislarni roli boʻyicha saralab, bogʻlaning.",
+    "empty": "Bu filtrlarga mos mutaxassislar hozircha yoʻq.",
+    "filters": "Filtrlar",
+    "direction": "Yoʻnalish",
+    "level": "Daraja",
+    "city": "Shahar",
+    "format": "Format",
+    "all": "Barchasi",
+    "formats": {
+      "All": "Barchasi",
+      "hire": "Ishga yollash",
+      "project": "Loyiha"
+    },
+    "apply": "Natijalarni koʻrsatish",
+    "reset": "Tozalash",
+    "careerGoal": "Karyera maqsadi",
+    "write": "Xabar yozish",
+    "offer": "Loyiha taklif qilish",
+    "messagePlaceholder": "Vazifani qisqacha tavsiflang (ixtiyoriy)",
+    "send": "Yuborish",
+    "cancel": "Bekor qilish",
+    "sent": "Xabar yuborildi",
+    "alreadySent": "Siz bugun xabar yuborib boʻlgansiz",
+    "needProfile": "Avval kompaniya profilini toʻldiring"
+  }
+}

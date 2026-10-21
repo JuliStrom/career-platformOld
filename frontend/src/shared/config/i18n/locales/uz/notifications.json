@@ -1,0 +1,37 @@
+{
+  "title": "Bildirishnomalar",
+  "open": "Bildirishnomalarni ochish",
+  "close": "Bildirishnomalarni yopish",
+  "empty": "Hozircha bildirishnomalar yoʻq",
+  "markAllAsRead": "Barchasini oʻqilgan deb belgilash",
+  "types": {
+    "growth_trigger": {
+      "title": "Keyingi qadam vaqti keldi",
+      "message": "Siz {{level}} darajasida {{duration}} vaqtdan beri ishlayapsiz — keyingi imkoniyatlarni koʻring."
+    },
+    "new_jobs": {
+      "title": "Yangi vakansiyalar",
+      "message": "Karyera yoʻnalishingizga mos {{count}} ta yangi vakansiya bor."
+    },
+    "new_courses": {
+      "title": "Yangi kurslar",
+      "message": "Koʻnikmalaringizga mos yangi kurslar mavjud."
+    },
+    "consultation_reminder": {
+      "title": "Konsultatsiya haqida eslatma",
+      "message": "Karyera konsultatsiyangiz 24 soatdan keyin boshlanadi."
+    },
+    "ai_risk_updated": {
+      "title": "SI xavfi yangilandi",
+      "message": "Sohangizdagi SI xavfi haqidagi maʼlumotlarni yangiladik — indeksingizni tekshiring."
+    },
+    "employer_message": {
+      "title": "Buyurtmachi sizga yozdi",
+      "message": "{{employerName}} siz bilan bogʻlanmoqchi. {{message}}"
+    },
+    "employer_project_offer": {
+      "title": "Loyiha taklifi",
+      "message": "{{employerName}} sizga loyiha taklif qildi. {{message}}"
+    }
+  }
+}
