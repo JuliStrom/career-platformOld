@@ -7,6 +7,7 @@ import enAuth from './i18n/locales/en/auth.json';
 import enCareer from './i18n/locales/en/career.json';
 import enCommon from './i18n/locales/en/common.json';
 import enEmployer from './i18n/locales/en/employer.json';
+import enGuest from './i18n/locales/en/guest.json';
 import enJobs from './i18n/locales/en/jobs.json';
 import enNotifications from './i18n/locales/en/notifications.json';
 import privacyEn from './i18n/locales/en/privacy.json';
@@ -16,6 +17,7 @@ import ruAuth from './i18n/locales/ru/auth.json';
 import ruCareer from './i18n/locales/ru/career.json';
 import ruCommon from './i18n/locales/ru/common.json';
 import ruEmployer from './i18n/locales/ru/employer.json';
+import ruGuest from './i18n/locales/ru/guest.json';
 import ruJobs from './i18n/locales/ru/jobs.json';
 import ruNotifications from './i18n/locales/ru/notifications.json';
 import privacyRu from './i18n/locales/ru/privacy.json';
@@ -33,6 +35,7 @@ const resources = {
     career: ruCareer,
     privacy: privacyRu,
     terms: termsRu,
+    guest: ruGuest,
   },
   en: {
     common: enCommon,
@@ -44,6 +47,7 @@ const resources = {
     career: enCareer,
     privacy: privacyEn,
     terms: termsEn,
+    guest: enGuest,
   },
 };
 

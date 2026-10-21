@@ -24,6 +24,7 @@ import { OAuthButtons } from '../OAuthButtons';
 import { RegisterExtraFields } from './RegisterExtraFields';
 import { ToggleAuthMode } from './ToggleAuthMode';
 import { handleApiError } from '@/shared/config/api';
+import { useAnalysisStore } from '@/features/guest/store/analysis.store';
 
 interface RegisterWithInviteFormProps {
   inviteCode: string;
@@ -38,6 +39,9 @@ export function RegisterWithInviteForm({
   const authError = useAuthStore((state) => state.authError);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const clearError = useAuthStore((state) => state.clearError);
+  const pendingAnalysis = useAnalysisStore(
+    (state) => state.pendingUnlock && Boolean(state.access)
+  );
 
   const [localError, setLocalError] = useState<string | null>(null);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
@@ -63,9 +67,9 @@ export function RegisterWithInviteForm({
   // Форма только для регистрации — новый аккаунт сразу выбирает путь платформы
   useEffect(() => {
     if (isAuthenticated && !isLoading) {
-      router.replace('/choose-path');
+      router.replace(pendingAnalysis ? '/result' : '/choose-path');
     }
-  }, [isAuthenticated, isLoading]);
+  }, [isAuthenticated, isLoading, pendingAnalysis]);
 
   useEffect(() => {
     clearError();

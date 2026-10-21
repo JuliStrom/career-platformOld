@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/features/auth/store/auth.store';
+import { GuestLandingScreen } from '@/features/guest/ui';
 import { UserType } from '@/shared/model';
 import { FullScreenLoader } from '@/src/shared/ui/common/FullScreenLoader';
 import { Redirect, type Href, useRootNavigationState } from 'expo-router';
@@ -18,7 +19,7 @@ export default function Index() {
   }
 
   if (!isAuthenticated) {
-    return <Redirect href="/(auth)/login" />;
+    return <GuestLandingScreen />;
   }
 
   if (!userType) {
