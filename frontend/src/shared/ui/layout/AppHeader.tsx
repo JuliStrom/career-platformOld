@@ -1,40 +1,41 @@
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher';
-import { Image, Text, useColorScheme, View } from 'react-native';
+import { Image, View } from 'react-native';
 
-const logoLight = require('../../../../assets/images/logo.png');
-const logoDark = require('../../../../assets/images/logo-dark.png');
+const logo = require('../../../../assets/images/logo-header.png');
+const emblem = require('../../../../assets/images/header-emblem.png');
 
-export function AppHeader() {
-  const colorScheme = useColorScheme();
+export function AppHeader({ transparent = false }: { transparent?: boolean }) {
   return (
-    <View className="w-full flex-row flex-wrap items-center justify-between gap-3 border-b border-hairline bg-header px-4 py-3 dark:border-hairline-dark dark:bg-header-dark">
+    <View
+      className={`w-full flex-row flex-wrap items-center justify-between gap-3 border-b px-4 py-3 ${transparent ? 'border-white/20 bg-transparent' : 'border-hairline bg-header dark:border-hairline-dark dark:bg-header-dark'}`}
+    >
       <View
-        className="flex-row items-center gap-2"
+        style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
         accessible
         accessibilityRole="image"
-        accessibilityLabel="Career-platform"
+        accessibilityLabel="cntrbute"
       >
-        {/* Show only the existing emblem; the wordmark is rendered as text. */}
-        <View style={{ width: 38, height: 40, overflow: 'hidden' }}>
+        <Image
+          source={emblem}
+          style={{ width: 36, height: 36, borderRadius: 9 }}
+          accessible={false}
+        />
+        <View style={{ width: 202, height: 44, overflow: 'hidden' }}>
           <Image
-            source={colorScheme === 'dark' ? logoDark : logoLight}
-            resizeMode="stretch"
+            source={logo}
+            resizeMode="contain"
             style={{
-              width: 210,
-              height: 70,
+              width: 244,
+              height: 44,
               position: 'absolute',
-              left: -11,
-              top: -14,
+              left: -39,
+              tintColor: '#85b2ff',
             }}
             accessible={false}
           />
         </View>
-        <Text className="text-xl font-bold text-slate-900 dark:text-slate-100">
-          Career
-          <Text className="text-blue-600 dark:text-blue-400">-platform</Text>
-        </Text>
       </View>
-      <LanguageSwitcher />
+      <LanguageSwitcher light={transparent} />
     </View>
   );
 }

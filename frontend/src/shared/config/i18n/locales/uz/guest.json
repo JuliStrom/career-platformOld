@@ -152,5 +152,11 @@
     "improvedResume": "Yaxshilangan rezyume",
     "download": "JSON yuklab olish",
     "noJobs": "Hozircha mos vakansiyalar yoʻq. Yangi imkoniyatlar vakansiyalar boʻlimida paydo boʻladi."
+  },
+  "hero": {
+    "eyebrow": "Ishni ishonch bilan izlash vositasi",
+    "title": "Karyerangiz — diqqat markazida.",
+    "subtitle": "Rezyumengizni SI-rekruter koʻzi bilan tekshirib, bir daqiqada dastlabki mos vakansiyalarni toping.",
+    "upload": "Rezyumeni tahlil qilish"
   }
 }

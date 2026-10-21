@@ -152,5 +152,11 @@
     "improvedResume": "Improved resume",
     "download": "Download JSON",
     "noJobs": "No matching jobs yet. New opportunities will appear in the jobs section."
+  },
+  "hero": {
+    "eyebrow": "Your next career move starts here",
+    "title": "Your career. In focus.",
+    "subtitle": "See your resume through an AI recruiter’s eyes and find your first matching jobs in just a minute.",
+    "upload": "Analyze my resume"
   }
 }
