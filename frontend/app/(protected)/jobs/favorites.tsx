@@ -7,7 +7,8 @@ import { IconNavPressable } from '@/shared/ui';
 import { useRouter } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useEffect } from 'react';
-import { FlatList, Pressable, Text, View, useColorScheme } from 'react-native';
+import { FlatList, Pressable, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function FavoritesScreen() {
@@ -21,7 +22,7 @@ export default function FavoritesScreen() {
     removeFromFavorites,
   } = useJobsStore();
   const { t } = useTranslation('jobs');
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const isDark = colorScheme === 'dark';
   const tabBarMuted = isDark ? '#9ca3af' : '#6b7280';
   const router = useRouter();
