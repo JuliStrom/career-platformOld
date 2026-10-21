@@ -4,6 +4,8 @@ import type { AnalysisGoal } from "../schemas/resumeAnalysis";
 export interface AnalysisRecord {
   secretHash: string;
   ownerId: string | null;
+  guestSessionId?: string;
+  attribution?: Record<string, unknown>;
   status:
     | "pending"
     | "reading"
@@ -16,9 +18,10 @@ export interface AnalysisRecord {
     kind: "pdf" | "docx" | "text";
     name: string;
     data?: Buffer;
+    originalData?: Buffer;
     text?: string;
   };
-  sourceExpiresAt: Date;
+  sourceExpiresAt?: Date;
   expiresAt?: Date;
   result?: Record<string, any>;
   error?: string;
@@ -29,6 +32,8 @@ const schema = new Schema<AnalysisRecord>(
   {
     secretHash: { type: String, required: true, select: false },
     ownerId: { type: String, default: null, index: true },
+    guestSessionId: { type: String, index: true },
+    attribution: Schema.Types.Mixed,
     status: { type: String, required: true, index: true },
     goal: { type: Schema.Types.Mixed, required: true },
     source: {
@@ -37,6 +42,7 @@ const schema = new Schema<AnalysisRecord>(
           kind: { type: String, required: true },
           name: { type: String, required: true },
           data: Buffer,
+          originalData: Buffer,
           text: String,
         },
         { _id: false },

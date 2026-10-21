@@ -23,6 +23,7 @@ import notificationRoutes from './routes/notification';
 import employerRoutes from './routes/employer';
 import skillsRoutes from './routes/skills';
 import guestAnalysisRoutes from './routes/guestAnalysis';
+import guestSessionRoutes from './routes/guestSession';
 const app: Express = express();
 app.set('trust proxy', 1); // добавила для запуска на railway
 // Security middleware (COOP/COEP отключены для OAuth popup от Google)
@@ -90,6 +91,7 @@ app.use('/api/notifications', notificationRoutes);
 app.use("/api/employer", employerRoutes);
 app.use('/api/skills', skillsRoutes);
 app.use('/api/guest/analyses', guestAnalysisRoutes);
+app.use('/api/guest/session', guestSessionRoutes);
 // Обработка 404 для несуществующих роутов
 app.use((req, res) => {
   res.status(404).json({

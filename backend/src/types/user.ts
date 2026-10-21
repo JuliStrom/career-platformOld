@@ -1,9 +1,11 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { UserRole, UserType } from './auth';
 import type { AuthProvider } from './auth';
 
 // User Model (email и password опциональны для OAuth: Google, Telegram)
 export interface IUser extends Document {
+  firstTouch?: Record<string, unknown>;
+  favoriteJobs?: Types.ObjectId[];
   name?: string;
   email?: string;
   password?: string;
