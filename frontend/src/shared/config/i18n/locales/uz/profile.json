@@ -1,0 +1,351 @@
+{
+  "title": "Mutaxassis profili",
+  "noProfile": "Profil yaratilmagan. Davom etish uchun profil yarating.",
+  "createProfile": "Profil yaratish",
+  "createProfileButton": "Profil yaratish",
+  "name": "Ism",
+  "aboutMe": "Oʻzim haqimda",
+  "aboutMePlaceholder": "Ikki-uch jumla: kimsiz, nima bilan shugʻullanasiz va nimani izlayapsiz",
+  "aboutMeHint": "Oʻzingiz haqingizda qisqacha maʼlumot. Ish beruvchilar qidiruv kartasida avval shu matnni koʻradi.",
+  "avatarUrl": "Profil rasmi",
+  "deleteAvatarButton": "Avatarni oʻchirish",
+  "direction": "Yoʻnalish",
+  "directionHint": "1 tadan 3 tagacha yoʻnalish tanlang",
+  "level": "Daraja",
+  "skills": "Koʻnikmalar",
+  "skillsPlaceholder": "Koʻnikmani qidirish yoki qoʻshish uchun yozing",
+  "skillsHint": "Takliflarni koʻrish uchun dastlabki harflarni yozing yoki oʻz koʻnikmangizni qoʻshish uchun Enter yoki vergulni bosing.",
+  "skillsAddCustom": "«{{name}}» qoʻshish",
+  "skillsNoResults": "Mos koʻnikmalar yoʻq",
+  "skillsAlreadyAdded": "Bu koʻnikma allaqachon qoʻshilgan",
+  "skillsLoading": "Qidirilmoqda…",
+  "skillsLoadError": "Koʻnikma takliflarini yuklab boʻlmadi. Aloqani tekshirib, qayta urinib koʻring.",
+  "skillsRemove": "Koʻnikmani oʻchirish",
+  "experience": "Tajriba",
+  "experienceHint": "Oldingi ish joylarini yuqoridagi qatorlarga kiriting. Oxirgi qator — hozirgi ishingiz.",
+  "workplacesTitle": "Ish joylari",
+  "workplaceItem": "Ish joyi {{index}}",
+  "workplaceCompany": "Kompaniya",
+  "workplaceCompanyPlaceholder": "Kompaniya nomi",
+  "workplacePosition": "Lavozim",
+  "workplacePositionPlaceholder": "Rolingiz",
+  "workplacePeriod": "Davr",
+  "workplacePeriodPlaceholder": "XX.XXXX - XX.XXXX",
+  "workplaceAchievement": "Yutuq",
+  "workplaceAchievementPlaceholder": "Qanday natijaga erishdingiz yoki nimani yaxshiladingiz",
+  "addWorkplace": "Ish joyini qoʻshish",
+  "removeWorkplace": "Oʻchirish",
+  "projectsTitle": "Loyihalar",
+  "projectsHint": "Ixtiyoriy. Ish joyi ostidagi «Loyiha qoʻshish» tugmasini bosing.",
+  "projectItem": "Loyiha {{index}}",
+  "projectName": "Nomi",
+  "projectNamePlaceholder": "Loyiha nomi",
+  "projectRole": "Rol",
+  "projectRolePlaceholder": "Nima qildingiz",
+  "projectResult": "Natija",
+  "projectResultPlaceholder": "Natija yoki taʼsir",
+  "projectLink": "Havola",
+  "projectLinkPlaceholder": "https://… (ixtiyoriy)",
+  "addProject": "Loyiha qoʻshish",
+  "removeProject": "Oʻchirish",
+  "expandProject": "Loyihani yoyish",
+  "collapseProject": "Loyihani yigʻish",
+  "careerGoal": "Karyera maqsadi",
+  "currentRoleTitle": "Hozirgi rol",
+  "careerStartDate": "Hozirgi rolda ish boshlangan sana",
+  "careerStartDatePlaceholder": "XX.XXXX - hozirgacha",
+  "periodPresent": "hozirgacha",
+  "currentCompany": "Hozirgi kompaniya",
+  "currentCompanyPlaceholder": "Kompaniyani kiriting (ixtiyoriy)",
+  "city": "Shahar / hudud",
+  "relocationFromCity": "Qayerdan",
+  "relocationToCountry": "Qayerga koʻchish",
+  "employmentType": "Bandlik turi",
+  "profileLang": "Interfeys tili",
+  "wantsRelocation": "Koʻchishga tayyorlik",
+  "yearsInCurrentRole": "Hozirgi roldagi yillar",
+  "specialistDetails": "Mutaxassis tafsilotlari",
+  "careerAbroad": {
+    "button": "Xorijdagi karyera",
+    "title": "Xorijdagi karyera",
+    "description": "Profilingizni xalqaro imkoniyatlarga tayyorlang.",
+    "selectedRoute": "Tanlangan yoʻnalish",
+    "marketStats": "Bozorning hozirgi statistikasi",
+    "vacanciesNow": "Hozir {{targetCountry}} mamlakatida {{level}} {{direction}} uchun {{count}} ta vakansiya bor",
+    "averageSalary": "Oʻrtacha ish haqi: {{salaryRange}}",
+    "routeTitle": "{{city}} shahridan {{level}} {{direction}} → {{targetCountry}} mamlakatida ishlash",
+    "routeFrom": "qayerdan",
+    "routeWorkIn": "ishlash mamlakati",
+    "progress": {
+      "title": "Jarayon kuzatuvchisi",
+      "stepPrefix": "{{number}}-qadam. ",
+      "steps": {
+        "portfolio": "Ingliz tilidagi portfolio",
+        "certificate": "Sertifikatlar",
+        "linkedin": "LinkedIn",
+        "companies": "Kompaniyalar roʻyxati",
+        "visa": "Viza"
+      },
+      "uploading": "Yuklanmoqda...",
+      "uploadPdf": "PDF yuklash",
+      "pdfNotSelected": "PDF tanlanmagan",
+      "portfolio": {
+        "description": "Ingliz tilida portfolio tayyorlang: qisqacha tanishtirish, kamida 8 ta kuchli keys, har bir loyihadagi rolingiz, jarayon, natijalar va eʼlon qilingan materiallarga havolalar.",
+        "resources": "Misollar va platformalar",
+        "linkLabel": "Portfolio havolasi",
+        "pdfLabel": "Portfolioning PDF fayli"
+      },
+      "certificates": {
+        "description": "Sertifikatlarni tekshirish havolalari yoki PDF fayllari orqali qoʻshing. Har bir havolaga nimani oʻrganganingiz va qaysi koʻnikmani tasdiqlashi haqida qisqacha tavsif yozing.",
+        "linkLabel": "Sertifikat havolasi",
+        "titlePlaceholder": "Sertifikat nomi",
+        "descriptionPlaceholder": "Sertifikat tavsifi",
+        "addLink": "Sertifikat qoʻshish",
+        "pdfLabel": "Sertifikatlarning PDF fayllari",
+        "emptyPdfs": "Sertifikatlarning PDF fayllari yuklanmagan"
+      },
+      "linkedin": {
+        "description": "LinkedIn profilingiz havolasini qoʻshing va profilingiz xalqaro rekruterlar uchun tushunarli boʻlishi uchun quyidagi roʻyxatdan foydalaning.",
+        "linkLabel": "LinkedIn profili havolasi",
+        "openLink": "LinkedIn profilini ochish",
+        "recommendationsTitle": "LinkedIn profilini toʻldirish boʻyicha tavsiyalar",
+        "recommendations": {
+          "photoBanner": {
+            "title": "Rasm va banner",
+            "description": "Neytral fondagi professional rasm va sohangizga mos bannerdan foydalaning."
+          },
+          "headline": {
+            "title": "Sarlavha",
+            "description": "220 tagacha belgi ishlating: ixtisoslashuv + foyda. Masalan: Data Analyst | E-commerce growth."
+          },
+          "about": {
+            "title": "Oʻzingiz haqingizda",
+            "description": "Qisqacha yozing: kimsiz, raqamlar bilan asosiy yutuqlaringiz va koʻchishga yoki masofadan ishlashga tayyorligingiz."
+          },
+          "experience": {
+            "title": "Ish tajribasi",
+            "description": "Har bir rol uchun harakat + natija + koʻrsatkich formulasidan foydalaning."
+          },
+          "skills": {
+            "title": "Koʻnikmalar",
+            "description": "Maqsadli vakansiyalaringizdan ingliz tilidagi 50 tagacha kalit soʻz qoʻshing."
+          },
+          "openToWork": {
+            "title": "Ishga tayyorlik",
+            "description": "Bu parametrni yoqib, koʻchmoqchi boʻlgan mamlakatlaringizni yoki Remote variantini koʻrsating."
+          }
+        }
+      },
+      "companies": {
+        "description": "Tanlangan yoʻnalishingiz va darajangiz boʻyicha {{targetCountry}} mamlakatidagi mos vakansiyalari bor kompaniyalar.",
+        "vacanciesCount": "{{count}} ta vakansiya",
+        "empty": "Tanlangan mamlakat uchun kompaniyalar hozircha topilmadi.",
+        "loading": "Kompaniyalar roʻyxati yuklanmoqda..."
+      },
+      "visa": {
+        "description": "Xarajat kalkulyatori: taxminiy xarajat va muddatlarni koʻrish uchun viza variantini tanlang.",
+        "options": {
+          "visaCenter": "Viza markazi orqali",
+          "employerSponsored": "Ish beruvchi orqali"
+        },
+        "costRange": "Taxminiy xarajatlar: {{costRange}}",
+        "timeline": "Taxminiy muddat: {{timeline}}",
+        "note": "Bu taxminiy hisob: yakuniy narx mamlakat, yigʻimlar, sugʻurta, tibbiy tekshiruvlar, agentlik xizmatlari va ish beruvchi talablariga bogʻliq.",
+        "centersLink": "Viza markazlari roʻyxatini ochish"
+      }
+    },
+    "backButton": "Profilga qaytish"
+  },
+  "directions": {
+    "All": "Barcha yoʻnalishlar",
+    "Creative": "Ijodkorlik",
+    "IT": "IT",
+    "Design": "Dizayn",
+    "E-commerce": "Elektron tijorat",
+    "HoReCa": "HoReCa",
+    "Architecture & Design": "Arxitektura va dizayn",
+    "Production": "Ishlab chiqarish",
+    "Marketing": "Marketing",
+    "Sales & Business Development": "Savdo va biznesni rivojlantirish",
+    "Finance & Accounting": "Moliya va buxgalteriya",
+    "HR & People": "HR va xodimlar",
+    "Operations & Logistics": "Operatsiyalar va logistika",
+    "Education": "Taʼlim",
+    "Legal & Compliance": "Huquq va komplayens"
+  },
+  "levels": {
+    "All": "Barcha darajalar",
+    "Junior": "Junior",
+    "Middle": "Middle",
+    "Senior": "Senior",
+    "Lead": "Lead"
+  },
+  "careerGoals": {
+    "Growth": "Oʻsish",
+    "Leadership": "Yetakchilik",
+    "Freelance": "Frilans",
+    "Product": "Mahsulot",
+    "Startup": "Startap",
+    "Expertise": "Ekspertlik",
+    "Career Change": "Kasbni oʻzgartirish",
+    "Skill Development": "Koʻnikmalarni rivojlantirish"
+  },
+  "cities": {
+    "All": "Barcha shaharlar",
+    "almaty": "Olmaota",
+    "astana": "Ostona",
+    "shymkent": "Chimkent",
+    "other_kz": "Qozogʻistondagi boshqa shahar",
+    "abroad": "Xorij"
+  },
+  "relocationCountries": {
+    "usa": "AQSh",
+    "canada": "Kanada",
+    "germany": "Germaniya",
+    "russia": "Rossiya",
+    "china": "Xitoy",
+    "dubai": "Dubay",
+    "europe": "Yevropa",
+    "other": "Boshqa"
+  },
+  "relocationCountryMarketNames": {
+    "usa": "AQSh",
+    "canada": "Kanada",
+    "germany": "Germaniya",
+    "russia": "Rossiya",
+    "china": "Xitoy",
+    "dubai": "Dubay",
+    "europe": "Yevropa",
+    "other": "boshqa mamlakat"
+  },
+  "relocationOrigins": {
+    "kazakhstan": "KZ"
+  },
+  "employmentTypes": {
+    "fulltime": "Toʻliq bandlik",
+    "freelance": "Frilans",
+    "business": "Shaxsiy biznes",
+    "searching": "Imkoniyatlar izlayapman",
+    "reskilling": "Qayta tayyorlash"
+  },
+  "profileLangs": {
+    "ru": "Rus tili",
+    "en": "Ingliz tili"
+  },
+  "relocationOptions": {
+    "true": "Koʻchishga tayyorman",
+    "false": "Koʻchishni rejalashtirmayapman"
+  },
+  "accessibility": {
+    "avatar": "Foydalanuvchi avatari",
+    "avatarWithName": "{{name}} foydalanuvchisining avatari",
+    "nameLabel": "Mutaxassis ismi",
+    "nameValue": "Ism: {{name}}",
+    "directionLabel": "Kasbiy yoʻnalish",
+    "levelLabel": "Mutaxassis darajasi",
+    "skillsList": "Koʻnikmalar roʻyxati",
+    "skillTag": "Koʻnikma: {{skill}}",
+    "experienceLabel": "Ish tajribasi",
+    "careerGoalLabel": "Karyera maqsadi"
+  },
+  "careerChange": {
+    "sectionTitle": "Kasbni oʻzgartirish (35 yoshdan keyin)",
+    "sectionHint": "Sohangizni oʻzgartirayotgan boʻlsangiz, batafsilroq ayting — boshlovchilar uchun mos materiallar, amaliyotlar va rasmiy dasturlarni koʻrsatamiz.",
+    "toggleLabel": "Kasbiy yoʻnalishimni oʻzgartiryapman",
+    "currentField": "Hozirgi yoki oldingi sohangiz",
+    "currentFieldPlaceholder": "masalan, buxgalteriya, restoran boshqaruvi, chakana savdo…",
+    "targetDirection": "Qaysi yoʻnalishda rivojlanmoqchisiz",
+    "ageRange": "Yoshingiz (ixtiyoriy)",
+    "motivation": "Hozir siz uchun eng muhimi nima?",
+    "timeline": "Qachon oʻtishni rejalashtiryapsiz?",
+    "hubButton": "Qayta tayyorlash markazini ochish",
+    "ageRanges": {
+      "skip": "Koʻrsatishni istamayman",
+      "up_to_30": "30 yoshgacha",
+      "30_40": "30–40",
+      "40_50": "40–50",
+      "50_plus": "50 yoshdan yuqori"
+    },
+    "motivations": {
+      "ai_threat": "SI kasbimga taʼsir qilyapti",
+      "earn_more": "Koʻproq daromad olishni xohlayman",
+      "remote": "Masofadan ishlashni xohlayman",
+      "burnout": "Kasbiy toliqish / oʻzgarish kerak",
+      "other": "Boshqa sabab"
+    },
+    "timelines": {
+      "up_to_6_months": "6 oy ichida",
+      "6_12_months": "6–12 oy",
+      "1_2_years": "1–2 yil",
+      "just_studying": "Hozircha faqat oʻrganyapman"
+    }
+  },
+  "validation": {
+    "nameMin": "Ism kamida 2 ta belgidan iborat boʻlishi kerak",
+    "nameMax": "Ism 100 ta belgidan oshmasligi kerak",
+    "aboutMeMax": "«Oʻzim haqimda» matni 400 ta belgidan oshmasligi kerak",
+    "avatarInvalid": "Avatar qiymati yaroqsiz",
+    "avatarValidationType": "Faqat JPG, PNG yoki WebP formatlariga ruxsat beriladi",
+    "avatarValidationSize": "Fayl hajmi 5 MB dan oshmasligi kerak",
+    "skillEmpty": "Koʻnikma boʻsh boʻlmasligi kerak",
+    "skillMax": "Koʻnikma nomi 50 ta belgidan oshmasligi kerak",
+    "skillsMin": "Kamida bitta koʻnikma koʻrsatilishi kerak",
+    "skillsMax": "Koʻnikmalarning eng koʻp soni — 20",
+    "directionMin": "Kamida bitta yoʻnalish tanlang",
+    "directionMax": "Koʻpi bilan 3 ta yoʻnalish tanlash mumkin",
+    "directionUnique": "Yoʻnalishlar takrorlanmasligi kerak",
+    "experienceMin": "Kamida bitta ish joyini qoʻshing",
+    "experienceMax": "Tajriba tavsifi 2000 ta belgidan oshmasligi kerak",
+    "workplacesMin": "Kamida bitta ish joyini qoʻshing",
+    "workplacesMax": "Koʻpi bilan 10 ta ish joyini qoʻshish mumkin",
+    "workplaceCompanyRequired": "Kompaniyani kiriting",
+    "workplaceCompanyMax": "Kompaniya nomi 120 ta belgidan oshmasligi kerak",
+    "workplacePositionRequired": "Lavozimni kiriting",
+    "workplacePositionMax": "Lavozim 120 ta belgidan oshmasligi kerak",
+    "workplacePeriodRequired": "Davrni kiriting",
+    "workplacePeriodMax": "Davr 80 ta belgidan oshmasligi kerak",
+    "workplaceAchievementRequired": "Yutuqni kiriting",
+    "workplaceAchievementMax": "Yutuq 500 ta belgidan oshmasligi kerak",
+    "projectsMax": "Koʻpi bilan 10 ta loyiha qoʻshish mumkin",
+    "projectNameRequired": "Loyiha nomini kiriting",
+    "projectNameMax": "Loyiha nomi 120 ta belgidan oshmasligi kerak",
+    "projectRoleRequired": "Rolingizni kiriting",
+    "projectRoleMax": "Rol 120 ta belgidan oshmasligi kerak",
+    "projectResultRequired": "Natijani kiriting",
+    "projectResultMax": "Natija 500 ta belgidan oshmasligi kerak",
+    "projectLinkMax": "Havola 500 ta belgidan oshmasligi kerak",
+    "projectLinkInvalid": "Havola http:// yoki https:// bilan boshlanishi kerak",
+    "careerStartDateInvalid": "XX.XXXX - hozirgacha formatidan foydalaning",
+    "careerChangeCurrentFieldMin": "Hozirgi sohangizni tavsiflang (kamida 2 ta belgi)",
+    "careerChangeTargetRequired": "Maqsadli yoʻnalishni tanlang",
+    "careerChangeMotivationRequired": "Siz uchun eng muhimini tanlang",
+    "careerChangeTimelineRequired": "Oʻtish muddatini tanlang"
+  },
+  "editProfile": "Profilni tahrirlash",
+  "editProfileButton": "Tahrirlash",
+  "updateProfileButton": "Saqlash",
+  "pickAvatarButton": "Rasm tanlash",
+  "avatarPhotoLabel": "Profil rasmi",
+  "avatarChoosePhoto": "Rasm tanlash",
+  "avatarChangePhoto": "Rasmni oʻzgartirish",
+  "avatarChangePhotoShort": "Oʻzgartirish",
+  "avatarRemovePhoto": "Rasmni oʻchirish",
+  "avatarHelperHint": "JPG, PNG yoki WebP, 5 MB gacha",
+  "pickAvatarPermissionDenied": "Rasmlarga kirish ruxsati kerak",
+  "cancel": "Bekor qilish",
+  "deleteProfile": "Profilni oʻchirish",
+  "deleteProfileButton": "Oʻchirish",
+  "deleteConfirmTitle": "Profilni oʻchirish",
+  "deleteConfirmMessage": "Profilingizni oʻchirishni xohlaysizmi? Bu amalni ortga qaytarib boʻlmaydi.",
+  "deleteConfirmCancel": "Bekor qilish",
+  "deleteConfirmDelete": "Oʻchirish",
+  "errors": {
+    "validationError": "Profilni tekshirishda xato",
+    "validationUpdateError": "Profil oʻzgarishlarini tekshirishda xato",
+    "notInitialized": "Profil ishga tushirilmagan",
+    "loadError": "Profilni yuklashda xato",
+    "createError": "Profil yaratishda xato",
+    "updateError": "Profilni yangilashda xato",
+    "deleteError": "Profilni oʻchirishda xato"
+  }
+}
