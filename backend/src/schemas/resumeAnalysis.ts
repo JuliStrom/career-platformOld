@@ -13,6 +13,7 @@ export const goalSchema = z.object({
 export type AnalysisGoal = z.infer<typeof goalSchema>;
 
 export const profileSchema = z.object({
+  name: z.string().trim().max(100).nullable().default(null),
   role: text.nullable(),
   direction: z.enum(Direction).nullable(),
   level: z.enum(Level).nullable(),

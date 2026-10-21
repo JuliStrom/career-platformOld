@@ -5,6 +5,7 @@ const express = require("express");
 const { once } = require("node:events");
 const { z } = require("zod");
 const Resume = require("../dist/src/models/ResumeAnalysis").default;
+const GuestSession = require('../dist/src/models/GuestSession').default;
 const User = require("../dist/src/models/User").default;
 const Job = require("../dist/src/models/Job").default;
 const {
@@ -587,6 +588,10 @@ test("worker stores real stages and server-computed total and clears its process
 });
 
 test("restart fails unfinished tasks and cleanup removes only expired sources/unclaimed tasks", async (t) => {
+  mock(t, GuestSession, 'deleteMany', async query => {
+    assert.equal(query.ownerId, null);
+    assert.ok(query.expiresAt.$lte instanceof Date);
+  });
   const updates = [];
   mock(t, Resume, "updateMany", async (query, update) =>
     updates.push({ query, update }),
