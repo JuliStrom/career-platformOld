@@ -1,0 +1,198 @@
+{
+  "history": {
+    "title": "Analysis history",
+    "empty": "No saved analyses yet.",
+    "open": "Open full analysis",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "builder": {
+    "title": "Tell us about yourself",
+    "subtitle": "No resume yet? Add your experience and skills so we can prepare a resume and find matching jobs.",
+    "role": "Position / role *",
+    "experience": "Work experience",
+    "noExperience": "No work experience yet",
+    "workplace": "Workplace",
+    "remove": "Remove",
+    "addExperience": "Add workplace",
+    "company": "Company *",
+    "start": "Start date *",
+    "end": "End date *",
+    "dateHint": "MM.YYYY or present",
+    "duties": "Responsibilities *",
+    "achievements": "Achievements (optional)",
+    "skills": "Skills *",
+    "skillsHint": "For example: Excel, negotiation, project management",
+    "education": "Education",
+    "educationHint": "Institution, qualification, dates. Courses are welcome too.",
+    "languages": "Languages and proficiency",
+    "languagesHint": "For example: Russian — native, English — B1",
+    "location": "Current location *",
+    "locationHint": "City, country",
+    "required": "Complete the starred fields in the form and each workplace, or select no work experience."
+  },
+  "title": "Check your resume through the eyes of an AI recruiter in 1 minute",
+  "subtitle": "Upload your resume — get an AI review and first matching jobs without signing up.",
+  "uploadResume": "Upload resume",
+  "noResume": "I don't have a resume",
+  "upload": {
+    "eyebrow": "Resume preparation",
+    "subtitle": "Add a few details to see your resume through an AI recruiter's eyes.",
+    "title": "Upload resume",
+    "sourceLabel": "How would you like to provide your resume?",
+    "source": {
+      "file": "File",
+      "text": "Text",
+      "linkedin": "LinkedIn"
+    },
+    "file": {
+      "drop": "Drag your file here",
+      "or": "or",
+      "choose": "Choose file",
+      "hint": "PDF or DOCX, up to 5 MB"
+    },
+    "text": {
+      "label": "Resume text",
+      "placeholder": "Paste your resume text…"
+    },
+    "linkedin": {
+      "label": "LinkedIn profile URL",
+      "hint": "Reading LinkedIn profiles is not available yet. Upload a PDF/DOCX or select Text and paste your profile details for analysis."
+    },
+    "jobLocation": {
+      "label": "What do you want?",
+      "options": {
+        "home": "A new job in my country",
+        "abroad": "A job abroad"
+      }
+    },
+    "targetCountry": {
+      "label": "Where are you looking?",
+      "placeholder": "Country or \"anywhere\""
+    },
+    "desiredRole": {
+      "label": "Desired role (optional)",
+      "placeholder": "e.g. Frontend developer"
+    },
+    "consent": {
+      "text": "I consent to resume processing and sharing its contents with the external AI service OpenRouter and its selected provider for analysis. Guest data is kept for up to {{days}} days and saved to my account after sign-in.",
+      "link": "Privacy policy"
+    },
+    "submit": "Continue",
+    "errors": {
+      "invalidFormat": "Invalid file format. Only PDF and DOCX are supported.",
+      "fileTooLarge": "File is too large. Maximum size is 5 MB.",
+      "emptyFile": "The file is empty. Upload another file or paste text.",
+      "emptyText": "Paste your resume text.",
+      "invalidLinkedinUrl": "Could not parse the LinkedIn URL. Check the link or upload a file/text.",
+      "missingJobLocation": "Select what you want.",
+      "missingTargetCountry": "Specify where you are looking.",
+      "missingConsent": "Consent to personal data processing is required."
+    },
+    "outputLanguage": {
+      "label": "Improved resume language",
+      "options": {
+        "original": "Original language",
+        "en": "English"
+      }
+    }
+  },
+  "analysis": {
+    "progress": {
+      "title": "Analyzing your resume…",
+      "steps": {
+        "reading": "Reading your resume",
+        "evaluating": "Evaluating as a recruiter",
+        "matching": "Matching jobs"
+      }
+    },
+    "timeout": {
+      "title": "Analysis is taking longer than expected",
+      "message": "We couldn't finish the review within 60 seconds. Try again — no need to re-upload the file.",
+      "retry": "Try again"
+    },
+    "elapsed": "Time elapsed: {{time}}",
+    "slow": "The review is taking more than a minute. Processing continues; no need to upload again.",
+    "errors": {
+      "not_configured": "The AI service is not configured yet. Please try later.",
+      "free_model_required": "No free model could be selected. Please try later.",
+      "provider_limit": "The AI request limit has been reached. Please try later.",
+      "provider_balance": "The AI service balance is insufficient. Please contact the administrator.",
+      "provider_unavailable": "The AI service is temporarily unavailable. Please try later.",
+      "provider_request_rejected": "The AI service rejected the request. Try pasting your resume text; if this persists, contact the administrator.",
+      "provider_model_unavailable": "The AI model is unavailable. Contact the administrator to check the configuration.",
+      "pdf_page_limit": "PDFs without a complete text layer support up to 3 pages. Upload DOCX or paste your resume text.",
+      "invalid_ai_response": "The AI returned an incomplete or invalid result. Please retry the analysis.",
+      "unreadable_file": "Unable to read the resume. Upload a text-based PDF or DOCX, or paste at least 30 characters of resume text.",
+      "invalid_file": "Please upload a valid PDF or DOCX file.",
+      "file_too_large": "Maximum file size is 5 MB.",
+      "invalid_goal": "Check your goal, country and processing consent.",
+      "analysis_busy": "Other resumes are being processed. Please try shortly.",
+      "analysis_rate_limit": "Limit reached: 5 analysis starts per hour. Please try later.",
+      "analysis_not_found": "The analysis was not found or has expired. Please upload your resume again.",
+      "analysis_forbidden": "This analysis belongs to another account.",
+      "analysis_not_ready": "The analysis is not ready yet. Return to the progress screen.",
+      "source_expired": "The source file has expired. Please upload your resume again.",
+      "server_restarted": "The server restarted during processing. Retry without uploading again.",
+      "analysis_timeout": "The previous attempt timed out. Retry without uploading your file again.",
+      "network_error": "Unable to reach the server. Checking the connection.",
+      "download_unavailable": "File saving is unavailable on this device.",
+      "processing_failed": "Unable to complete this operation. Please retry.",
+      "linkedin_unsupported": "Upload a PDF/DOCX or paste your resume text."
+    }
+  },
+  "preview": {
+    "title": "Resume analysis preview",
+    "subtitle": "Your resume score, key issues and first matching jobs.",
+    "score": "Overall resume score",
+    "scoreValue": "{{score}} out of 100",
+    "scale": "0–39 — weak · 40–69 — average · 70–100 — strong",
+    "level": {
+      "weak": "Weak",
+      "average": "Average",
+      "strong": "Strong"
+    },
+    "problemsTitle": "2 key issues",
+    "jobsTitle": "Matching jobs · {{count}}",
+    "moreJobs": "{{count}} more jobs matching your profile",
+    "moreJobs_one": "{{count}} more job matching your profile",
+    "moreJobs_other": "{{count}} more jobs matching your profile",
+    "lockedHint": "Register to access all jobs",
+    "fullAnalysis": "Full analysis",
+    "locked": "Locked",
+    "sections": {
+      "strengths": "Resume strengths",
+      "experience": "Detailed experience review",
+      "skills": "Skills and growth areas",
+      "directions": "Recommended roles and seniority",
+      "plan": "Resume improvement plan"
+    },
+    "unlock": "Unlock full analysis and all jobs",
+    "requirements": "Requirements",
+    "responsibilities": "Responsibilities",
+    "matchedSkills": "Matching skills",
+    "confirmLocation": "Confirm with the employer whether remote work from your target country is allowed.",
+    "criteria": "Score breakdown",
+    "criterion": {
+      "goalFit": "Goal fit · up to 25",
+      "experience": "Experience and achievements · up to 30",
+      "skills": "Skills · up to 20",
+      "structure": "Structure · up to 15",
+      "completeness": "Completeness and language · up to 10"
+    },
+    "profile": "Extracted profile — please verify",
+    "detectedLanguage": "Resume language",
+    "strengths": "Strengths",
+    "recommendations": "Recommendations",
+    "questions": "Information to add",
+    "improvedResume": "Improved resume",
+    "download": "Download JSON",
+    "noJobs": "No matching jobs yet. New opportunities will appear in the jobs section."
+  },
+  "hero": {
+    "eyebrow": "Your next career move starts here",
+    "title": "Your career. In focus.",
+    "subtitle": "See your resume through an AI recruiter’s eyes and find your first matching jobs in just a minute.",
+    "upload": "Analyze my resume"
+  }
+}

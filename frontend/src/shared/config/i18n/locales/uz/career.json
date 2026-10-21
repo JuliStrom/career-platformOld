@@ -1,0 +1,272 @@
+{
+  "createTitle": "Karyera ssenariysini yaratish",
+  "createButton": "Ssenariy yaratish",
+  "form": {
+    "title": "Ssenariy nomi",
+    "description": "Tavsif",
+    "direction": "Yoʻnalish",
+    "level": "Daraja",
+    "isActive": "Faol",
+    "actions": "Harakatlar",
+    "actionType": "Harakat turi",
+    "actionTitle": "Harakat nomi",
+    "actionDescription": "Harakat tavsifi",
+    "actionLink": "Havola (ixtiyoriy)",
+    "addAction": "Harakat qoʻshish",
+    "removeAction": "Harakatni oʻchirish",
+    "cancel": "Bekor qilish",
+    "submit": "Yaratish",
+    "saveChanges": "Oʻzgarishlarni saqlash"
+  },
+  "actionTypes": {
+    "lecture": "Maʼruza",
+    "consultation": "Konsultatsiya",
+    "community": "Hamjamiyat",
+    "article": "Maqola"
+  },
+  "directions": {
+    "All": "Barcha yoʻnalishlar",
+    "Creative": "Ijodkorlik",
+    "IT": "IT",
+    "Design": "Dizayn",
+    "E-commerce": "Elektron tijorat",
+    "HoReCa": "HoReCa",
+    "Architecture & Design": "Arxitektura va dizayn",
+    "Production": "Ishlab chiqarish",
+    "Marketing": "Marketing",
+    "Sales & Business Development": "Savdo va biznesni rivojlantirish",
+    "Finance & Accounting": "Moliya va buxgalteriya",
+    "HR & People": "HR va xodimlar",
+    "Operations & Logistics": "Operatsiyalar va logistika",
+    "Education": "Taʼlim",
+    "Legal & Compliance": "Huquq va komplayens"
+  },
+  "levels": {
+    "Junior": "Junior",
+    "Middle": "Middle",
+    "Senior": "Senior",
+    "Lead": "Lead"
+  },
+  "validation": {
+    "titleMin": "Nom kamida 5 ta belgidan iborat boʻlishi kerak",
+    "titleMax": "Nom 200 ta belgidan oshmasligi kerak",
+    "descriptionMin": "Tavsif kamida 20 ta belgidan iborat boʻlishi kerak",
+    "descriptionMax": "Tavsif 5000 ta belgidan oshmasligi kerak",
+    "directionInvalid": "Yoʻnalish notoʻgʻri",
+    "levelInvalid": "Daraja notoʻgʻri",
+    "actionsRequired": "Kamida bitta harakat kerak",
+    "actionTypeInvalid": "Harakat turi notoʻgʻri",
+    "actionTitleMin": "Harakat nomi kamida 3 ta belgidan iborat boʻlishi kerak",
+    "actionTitleMax": "Harakat nomi 200 ta belgidan oshmasligi kerak",
+    "actionDescriptionMin": "Harakat tavsifi kamida 10 ta belgidan iborat boʻlishi kerak",
+    "actionDescriptionMax": "Harakat tavsifi 1000 ta belgidan oshmasligi kerak",
+    "actionLinkInvalid": "Havola toʻgʻri URL manzili boʻlishi kerak"
+  },
+  "errors": {
+    "forbidden": "Ruxsat yoʻq. Karyera ssenariylarini faqat administratorlar yarata oladi.",
+    "validationError": "Tekshirish xatosi",
+    "createError": "Ssenariy yaratishda xato",
+    "networkError": "Tarmoq xatosi"
+  },
+  "success": {
+    "created": "Karyera ssenariysi muvaffaqiyatli yaratildi"
+  },
+  "recommendations": {
+    "title": "Shaxsiy tavsiyalar",
+    "goBack": "Orqaga",
+    "loading": "Tavsiyalar yuklanmoqda…",
+    "empty": "Tavsiyalar yoʻq",
+    "profile": {
+      "title": "Profilingiz",
+      "direction": "Yoʻnalish",
+      "level": "Daraja",
+      "careerGoal": "Karyera maqsadi"
+    },
+    "actions": {
+      "openLink": "Havolani ochish",
+      "noLink": "Havola yoʻq"
+    },
+    "errors": {
+      "fetchError": "Tavsiyalarni yuklashda xato",
+      "noProfile": "Profil topilmadi. Avval profilingizni yarating."
+    },
+    "content": {
+      "itJuniorToMiddle": {
+        "title": "Junior darajasidan Middle darajasiga oʻtish",
+        "description": "Oʻsish uchun tavsiyalar: bilimingizni chuqurlashtiring, mentorlik bilan shugʻullaning va arxitektura qarorlarida qatnashing.",
+        "actions": [
+          {
+            "title": "Karyera konsultatsiyasi",
+            "description": "Hozirgi darajangizni baholash uchun karyera maslahatchisiga yoziling."
+          },
+          {
+            "title": "Tizimlarni loyihalash",
+            "description": "Kengaytiriladigan tizimlarni yaratish uchun loyihalash andozalari va yondashuvlarini oʻrganing."
+          }
+        ]
+      },
+      "itMiddleSystemDesign": {
+        "title": "Middle muhandis uchun tizimlarni loyihalash yoʻnalishi",
+        "description": "Middle darajasidagi IT mutaxassisi uchun amaliy tavsiya: arxitekturaviy fikrlash, natija uchun javobgarlik va Senior vazifalariga tayyorgarlikni rivojlantiring.",
+        "actions": [
+          {
+            "title": "Tizim arxitekturasi boʻyicha qaydlar",
+            "description": "Joriy loyihalardan birining arxitekturasini hujjatlashtiring: servislar, maʼlumot oqimi, xavflar, cheklovlar va murosali yechimlar."
+          },
+          {
+            "title": "Senior darajasiga tayyorgarlikni baholash",
+            "description": "Hozirgi koʻnikmalaringizni mentor bilan baholab, Senior darajasiga oʻtishdan oldin eng katta kamchilikni aniqlang."
+          },
+          {
+            "title": "Kodni tekshirish amaliyoti",
+            "description": "Muntazam kod tekshiruvlari uchun javobgarlik oling va arxitektura boʻyicha bergan fikrlaringizdan misollar toʻplang."
+          }
+        ]
+      },
+      "designMiddleGrowth": {
+        "title": "Middle dizaynerning rivojlanish rejasi",
+        "description": "Middle dizayner uchun amaliy rivojlanish rejasi: mahsulotga yoʻnaltirilgan fikrlashni kuchaytiring, portfolio keyslarini yaxshilang va Senior darajasidagi javobgarlikka tayyorlaning.",
+        "actions": [
+          {
+            "title": "Portfolio keyslarini tahlil qilish",
+            "description": "Eng kuchli ikkita keysingizni muammo, jarayon, cheklovlar, qarorlar, natija va oʻlchanadigan taʼsir asosida qayta yozing."
+          },
+          {
+            "title": "Karyerani baholash uchrashuvi",
+            "description": "Hozirgi profilingizni mentor bilan muhokama qilib, Middle va Senior talablari orasidagi farqni aniqlang."
+          },
+          {
+            "title": "Dizaynni muhokama qilish amaliyoti",
+            "description": "Muntazam muhokamalarga qatnashing va boshqa dizaynerlardan tizimli fikr olish uchun bitta keysni taqdim eting."
+          }
+        ]
+      },
+      "designMiddleSystems": {
+        "title": "Dizayn tizimlari va mahsulotga javobgarlik yoʻnalishi",
+        "description": "Middle dizayner uchun tavsiya: dizayn tizimlari, mahsulotga javobgarlik, tadqiqot odatlari va boʻlimlararo muloqotni rivojlantiring.",
+        "actions": [
+          {
+            "title": "Dizayn tizimini tahlil qilish",
+            "description": "Joriy interfeys andozalarini tekshirib, qayta ishlatiladigan komponentlar, kamchiliklar va izchillik muammolari roʻyxatini tuzing."
+          },
+          {
+            "title": "Tadqiqot amaliyoti",
+            "description": "Kamida bitta foydalanuvchi bilan suhbat oʻtkazing yoki uni tahlil qiling va xulosalarni aniq mahsulot dizayni qaroriga aylantiring."
+          },
+          {
+            "title": "Mahsulotga javobgarlik olish rejasi",
+            "description": "Koʻrsatkichlar va manfaatdor tomonlar xaritasini oʻz ichiga olgan, mahsulotning bir qismiga javobgarlik olish rejasini tayyorlang."
+          }
+        ]
+      }
+    }
+  },
+  "trigger": {
+    "badge": "Oʻsish vaqti keldi",
+    "yearsInRole": "Hozirgi darajadagi yillar: {{years}}",
+    "consultationTitle": "Karyera konsultatsiyasi",
+    "consultationStub": "Konsultatsiyaga yozilish keyingi versiyada mavjud boʻladi.",
+    "cta": {
+      "consultation": "Karyera konsultatsiyasiga yozilish",
+      "roadmap": "Rivojlanish yoʻl xaritasini koʻrish",
+      "courses": "Keyingi bosqichga oʻtish kurslarini koʻrish"
+    }
+  },
+  "roadmap": {
+    "title": "Karyera yoʻl xaritasi",
+    "loading": "Karyera yoʻl xaritasi yuklanmoqda…",
+    "empty": "Hozirgi profilingiz uchun yoʻl xaritasi hozircha yoʻq",
+    "nextRole": "Keyingi rol",
+    "skillsToDevelop": "Rivojlantiriladigan koʻnikmalar",
+    "estimatedTime": "Taxminiy vaqt",
+    "months": "oy",
+    "careerBranches": "Karyera tarmoqlari",
+    "learningResources": "Tavsiya etilgan oʻquv resurslari",
+    "branchType": {
+      "technical": "Texnik yoʻnalish",
+      "management": "Boshqaruv yoʻnalishi",
+      "entrepreneurship": "Tadbirkorlik yoʻnalishi"
+    }
+  },
+  "careerChangeHub": {
+    "title": "Qayta tayyorlash markazi",
+    "loading": "Markazingiz yuklanmoqda…",
+    "introTitle": "Bu yoʻlda yolgʻiz emassiz",
+    "introBody": "35 yoshdan keyin kasbni oʻzgartirish odatiy holat. Bu yerda boshlovchilar uchun materiallar, amaliyotlar va rasmiy dasturlar bor — oʻz surʼatingizda harakat qiling va kerak boʻlganda yordamga murojaat qiling.",
+    "trackSummary": "Yoʻnalishingiz sozlamalari",
+    "sectionEmpty": "Hozircha hech narsa yoʻq — yangi belgilangan materiallar qoʻshilganda qayta tekshiring.",
+    "forbidden": "Bu boʻlim profilingizda «Kasbiy yoʻnalishimni oʻzgartiryapman» parametrini yoqib, saqlaganingizdan keyin ochiladi.",
+    "forbiddenCta": "Profil sozlamalarini ochish",
+    "retry": "Qayta urinish",
+    "sections": {
+      "fromScratch": "Noldan boshlash",
+      "general": "Qoʻshimcha materiallar",
+      "govPrograms": "Rasmiy dasturlar (Qozogʻiston)",
+      "internshipsKz": "Qozogʻistondagi amaliyotlar",
+      "internshipsAbroad": "Xorijdagi amaliyotlar",
+      "successStories": "Kasbni oʻzgartirish hikoyalari (35–50 yosh)",
+      "successStoryResources": "Qoʻshimcha hikoyalar va formatlar"
+    }
+  },
+  "aiRisk": {
+    "title": "SIga chidamlilik indeksi",
+    "subtitle": "Kelgusi 3–5 yilda avtomatlashtirish taʼsirining taxminiy bahosi (yoʻnalishingiz va darajangiz boʻyicha). Mashinali oʻrganish emas — maʼlumotnoma maʼlumotlari.",
+    "riskLow": "Past xavf",
+    "riskMedium": "Oʻrtacha xavf",
+    "riskHigh": "Yuqori xavf",
+    "protectiveSkills": "Himoyalovchi koʻnikmalar",
+    "ctaCourses": "Kurslar va materiallarni koʻrish",
+    "ctaConsultation": "Karyera konsultatsiyasiga yozilish",
+    "share": "Indeksimni ulashish",
+    "shareText": "Mening SIga chidamlilik indeksim: {{riskLabel}} ({{score}}/100). Yoʻnalish: {{direction}}, daraja: {{level}}.",
+    "copied": "Almashish buferiga nusxalandi",
+    "loading": "Indeks yuklanmoqda…",
+    "missingSeed": "Indeks maʼlumotlari yoʻq. Backend maʼlumotlarini toʻldiring: backend papkasida npm run seed buyrugʻini ishga tushiring.",
+    "fetchError": "Indeksni yuklab boʻlmadi"
+  },
+  "scenarios": {
+    "listTitle": "Barcha karyera ssenariylari",
+    "empty": "Ssenariylar topilmadi",
+    "total": "Jami: {{count}}",
+    "edit": "Tahrirlash",
+    "delete": "Oʻchirish",
+    "editTitle": "Ssenariyni tahrirlash",
+    "deleteConfirm": "Ssenariy oʻchirilsinmi?",
+    "deleteSuccess": "Ssenariy oʻchirildi",
+    "updateSuccess": "Ssenariy yangilandi",
+    "notFound": "Ssenariy topilmadi",
+    "back": "Orqaga",
+    "createdBy": "Yaratgan",
+    "createdAt": "Yaratilgan sana",
+    "updatedAt": "Yangilangan sana",
+    "actionsCount": "Harakatlar: {{count}}",
+    "status": {
+      "active": "Faol",
+      "inactive": "Faol emas"
+    },
+    "filters": {
+      "title": "Filtrlar",
+      "hint": "Ssenariylarni izlash uchun filtrlardan foydalaning",
+      "direction": "Yoʻnalish",
+      "level": "Daraja",
+      "isActive": "Holat",
+      "apply": "Qoʻllash",
+      "reset": "Tozalash"
+    },
+    "details": {
+      "title": "Ssenariy tafsilotlari",
+      "description": "Tavsif",
+      "metadata": "Ssenariy haqida maʼlumot"
+    },
+    "errors": {
+      "fetchError": "Ssenariylarni yuklashda xato",
+      "updateError": "Ssenariyni yangilashda xato",
+      "deleteError": "Ssenariyni oʻchirishda xato"
+    }
+  },
+  "isActive": {
+    "All": "Barchasi",
+    "Active": "Faol",
+    "Inactive": "Faol emas"
+  }
+}
