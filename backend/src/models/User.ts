@@ -10,6 +10,9 @@ const userSchema = new Schema<IUser>({
     type: String,
     trim: true,
   },
+  firstTouch: { type: Schema.Types.Mixed },
+  // Optional until legacy profile favorites have been migrated on first access.
+  favoriteJobs: { type: [{ type: Schema.Types.ObjectId, ref: 'Job' }], default: undefined, select: false },
   email: {
     type: String,
     required: false,
