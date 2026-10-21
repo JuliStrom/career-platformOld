@@ -1,9 +1,43 @@
 {
+  "history": {
+    "title": "Analysis history",
+    "empty": "No saved analyses yet.",
+    "open": "Open full analysis",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "builder": {
+    "title": "Tell us about yourself",
+    "subtitle": "No resume yet? Add your experience and skills so we can prepare a resume and find matching jobs.",
+    "role": "Position / role *",
+    "experience": "Work experience",
+    "noExperience": "No work experience yet",
+    "workplace": "Workplace",
+    "remove": "Remove",
+    "addExperience": "Add workplace",
+    "company": "Company *",
+    "start": "Start date *",
+    "end": "End date *",
+    "dateHint": "MM.YYYY or present",
+    "duties": "Responsibilities *",
+    "achievements": "Achievements (optional)",
+    "skills": "Skills *",
+    "skillsHint": "For example: Excel, negotiation, project management",
+    "education": "Education",
+    "educationHint": "Institution, qualification, dates. Courses are welcome too.",
+    "languages": "Languages and proficiency",
+    "languagesHint": "For example: Russian — native, English — B1",
+    "location": "Current location *",
+    "locationHint": "City, country",
+    "required": "Complete the starred fields in the form and each workplace, or select no work experience."
+  },
   "title": "Check your resume through the eyes of an AI recruiter in 1 minute",
   "subtitle": "Upload your resume — get an AI review and first matching jobs without signing up.",
   "uploadResume": "Upload resume",
   "noResume": "I don't have a resume",
   "upload": {
+    "eyebrow": "Resume preparation",
+    "subtitle": "Add a few details to see your resume through an AI recruiter's eyes.",
     "title": "Upload resume",
     "sourceLabel": "How would you like to provide your resume?",
     "source": {
@@ -12,6 +46,8 @@
       "linkedin": "LinkedIn"
     },
     "file": {
+      "drop": "Drag your file here",
+      "or": "or",
       "choose": "Choose file",
       "hint": "PDF or DOCX, up to 5 MB"
     },
@@ -39,7 +75,7 @@
       "placeholder": "e.g. Frontend developer"
     },
     "consent": {
-      "text": "I consent to resume processing and sharing its contents with the external AI service OpenRouter and its selected provider for analysis. Our platform retains source data for up to 24 hours.",
+      "text": "I consent to resume processing and sharing its contents with the external AI service OpenRouter and its selected provider for analysis. Guest data is kept for up to {{days}} days and saved to my account after sign-in.",
       "link": "Privacy policy"
     },
     "submit": "Continue",

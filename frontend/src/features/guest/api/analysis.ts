@@ -10,6 +10,8 @@ import type {
   ResumeFile,
 } from '../model/analysis';
 import type { ResumeUploadForm } from '../model/types';
+import { ensureServerGuest, linkGuestToAccount } from './session';
+import { useAnalysisStore } from '../store/analysis.store';
 
 // Guest requests do not refresh or end an unrelated signed-in session.
 const guestClient = create({
@@ -25,6 +27,7 @@ export async function submitAnalysis(
   file: ResumeFile | null,
   language: string
 ) {
+  const guestId = await ensureServerGuest();
   const body = new FormData();
   for (const [key, value] of Object.entries({
     jobLocation: form.jobLocation,
@@ -48,7 +51,11 @@ export async function submitAnalysis(
   } else if (form.sourceType === 'text')
     body.append('resumeText', form.resumeText);
   else throw new Error('linkedin_unsupported');
-  return (await guestClient.post<AnalysisAccess>('', body)).data;
+  return (
+    await guestClient.post<AnalysisAccess>('', body, {
+      headers: { 'X-Guest-Id': guestId },
+    })
+  ).data;
 }
 export async function readAnalysis(
   access: AnalysisAccess,
@@ -74,6 +81,12 @@ export async function claimAnalysis(access: AnalysisAccess) {
     {},
     { headers: headers(access) }
   );
+}
+export async function transferGuestAnalyses(userId: string) {
+  await linkGuestToAccount(userId);
+  const access = useAnalysisStore.getState().access;
+  // Older clients have only a per-analysis secret, without a guest-session reference.
+  if (access) await claimAnalysis(access).catch(() => undefined);
 }
 export async function readFullAnalysis(id: string) {
   return (await apiClient.get<FullAnalysis>(`/guest/analyses/${id}/full`)).data;
