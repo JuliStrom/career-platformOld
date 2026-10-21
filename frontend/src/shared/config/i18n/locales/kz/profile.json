@@ -1,0 +1,351 @@
+{
+  "title": "Маман профилі",
+  "noProfile": "Профиль жасалмаған. Жалғастыру үшін профиль жасаңыз.",
+  "createProfile": "Профиль жасау",
+  "createProfileButton": "Профиль жасау",
+  "name": "Аты-жөні",
+  "aboutMe": "Өзім туралы",
+  "aboutMePlaceholder": "Екі-үш сөйлем: кімсіз, немен айналысасыз және не іздеп жүрсіз",
+  "aboutMeHint": "Өзіңіз туралы қысқаша мәлімет. Жұмыс берушілер іздеу карточкасында алдымен осы мәтінді көреді.",
+  "avatarUrl": "Профиль суреті",
+  "deleteAvatarButton": "Аватарды жою",
+  "direction": "Бағыт",
+  "directionHint": "1–3 бағыт таңдаңыз",
+  "level": "Деңгей",
+  "skills": "Дағдылар",
+  "skillsPlaceholder": "Дағдыны іздеу немесе қосу үшін жазыңыз",
+  "skillsHint": "Ұсыныстарды көру үшін алғашқы әріптерді жазыңыз немесе өз дағдыңызды қосу үшін Enter не үтірді басыңыз.",
+  "skillsAddCustom": "«{{name}}» қосу",
+  "skillsNoResults": "Сәйкес дағдылар жоқ",
+  "skillsAlreadyAdded": "Бұл дағды бұрын қосылған",
+  "skillsLoading": "Ізделуде…",
+  "skillsLoadError": "Дағды ұсыныстарын жүктеу мүмкін болмады. Байланысты тексеріп, қайталап көріңіз.",
+  "skillsRemove": "Дағдыны жою",
+  "experience": "Тәжірибе",
+  "experienceHint": "Алдыңғы жұмыс орындарын жоғарыдағы жолдарға енгізіңіз. Соңғы жол — қазіргі қызметіңіз.",
+  "workplacesTitle": "Жұмыс орындары",
+  "workplaceItem": "Жұмыс орны {{index}}",
+  "workplaceCompany": "Компания",
+  "workplaceCompanyPlaceholder": "Компания атауы",
+  "workplacePosition": "Лауазым",
+  "workplacePositionPlaceholder": "Сіздің рөліңіз",
+  "workplacePeriod": "Кезең",
+  "workplacePeriodPlaceholder": "XX.XXXX - XX.XXXX",
+  "workplaceAchievement": "Жетістік",
+  "workplaceAchievementPlaceholder": "Қандай нәтиже бердіңіз немесе нені жақсарттыңыз",
+  "addWorkplace": "Жұмыс орнын қосу",
+  "removeWorkplace": "Жою",
+  "projectsTitle": "Жобалар",
+  "projectsHint": "Міндетті емес. Жұмыс орнының астындағы «Жоба қосу» түймесін басыңыз.",
+  "projectItem": "Жоба {{index}}",
+  "projectName": "Атауы",
+  "projectNamePlaceholder": "Жоба атауы",
+  "projectRole": "Рөл",
+  "projectRolePlaceholder": "Не істедіңіз",
+  "projectResult": "Нәтиже",
+  "projectResultPlaceholder": "Нәтижесі немесе әсері",
+  "projectLink": "Сілтеме",
+  "projectLinkPlaceholder": "https://… (міндетті емес)",
+  "addProject": "Жоба қосу",
+  "removeProject": "Жою",
+  "expandProject": "Жобаны ашу",
+  "collapseProject": "Жобаны жинау",
+  "careerGoal": "Мансаптық мақсат",
+  "currentRoleTitle": "Қазіргі рөл",
+  "careerStartDate": "Қазіргі рөлдегі жұмыс басталған күн",
+  "careerStartDatePlaceholder": "XX.XXXX - қазіргі уақытқа дейін",
+  "periodPresent": "қазіргі уақытқа дейін",
+  "currentCompany": "Қазіргі компания",
+  "currentCompanyPlaceholder": "Компанияны енгізіңіз (міндетті емес)",
+  "city": "Қала / өңір",
+  "relocationFromCity": "Қайдан",
+  "relocationToCountry": "Қай елге көшу",
+  "employmentType": "Жұмыспен қамту түрі",
+  "profileLang": "Интерфейс тілі",
+  "wantsRelocation": "Көшуге дайындық",
+  "yearsInCurrentRole": "Қазіргі рөлдегі жылдар",
+  "specialistDetails": "Маман туралы мәліметтер",
+  "careerAbroad": {
+    "button": "Шетелдегі мансап",
+    "title": "Шетелдегі мансап",
+    "description": "Профиліңізді халықаралық мүмкіндіктерге дайындаңыз.",
+    "selectedRoute": "Таңдалған бағыт",
+    "marketStats": "Нарықтың қазіргі статистикасы",
+    "vacanciesNow": "Қазір {{targetCountry}} елінде {{level}} {{direction}} үшін {{count}} бос жұмыс орны бар",
+    "averageSalary": "Орташа жалақы: {{salaryRange}}",
+    "routeTitle": "{{city}} қаласынан {{level}} {{direction}} → {{targetCountry}} елінде жұмыс",
+    "routeFrom": "қайдан",
+    "routeWorkIn": "жұмыс істейтін ел",
+    "progress": {
+      "title": "Ілгерілеу көрсеткіші",
+      "stepPrefix": "№{{number}} қадам. ",
+      "steps": {
+        "portfolio": "Ағылшын тіліндегі портфолио",
+        "certificate": "Сертификаттар",
+        "linkedin": "LinkedIn",
+        "companies": "Компаниялар тізімі",
+        "visa": "Виза"
+      },
+      "uploading": "Жүктелуде...",
+      "uploadPdf": "PDF жүктеу",
+      "pdfNotSelected": "PDF таңдалмаған",
+      "portfolio": {
+        "description": "Ағылшын тілінде портфолио дайындаңыз: қысқаша таныстыру, кемінде 8 мықты кейс, әр жобадағы рөліңіз, процесс, нәтижелер және жарияланған материалдарға сілтемелер.",
+        "resources": "Мысалдар мен платформалар",
+        "linkLabel": "Портфолио сілтемесі",
+        "pdfLabel": "Портфолионың PDF файлы"
+      },
+      "certificates": {
+        "description": "Сертификаттарды тексеру сілтемелері немесе PDF файлдары арқылы қосыңыз. Әр сілтемеге нені оқығаныңыз және қандай дағдыны растайтыны туралы қысқаша сипаттама қосыңыз.",
+        "linkLabel": "Сертификат сілтемесі",
+        "titlePlaceholder": "Сертификат атауы",
+        "descriptionPlaceholder": "Сертификат сипаттамасы",
+        "addLink": "Сертификат қосу",
+        "pdfLabel": "Сертификаттардың PDF файлдары",
+        "emptyPdfs": "Сертификаттардың PDF файлдары жүктелмеген"
+      },
+      "linkedin": {
+        "description": "LinkedIn профиліңізге сілтеме қосып, профиліңіз халықаралық рекрутерлерге түсінікті болуы үшін төмендегі тізімді қолданыңыз.",
+        "linkLabel": "LinkedIn профилінің сілтемесі",
+        "openLink": "LinkedIn профилін ашу",
+        "recommendationsTitle": "LinkedIn профилін толтыру бойынша ұсыныстар",
+        "recommendations": {
+          "photoBanner": {
+            "title": "Фото және баннер",
+            "description": "Бейтарап фонда түсірілген кәсіби фото мен салаңызға сәйкес баннер қолданыңыз."
+          },
+          "headline": {
+            "title": "Тақырып",
+            "description": "220 таңбаға дейін жазыңыз: мамандану + құндылық. Мысалы: Data Analyst | E-commerce growth."
+          },
+          "about": {
+            "title": "Өзіңіз туралы",
+            "description": "Қысқаша жазыңыз: кімсіз, сандармен көрсетілген негізгі жетістіктеріңіз және көшуге немесе қашықтан жұмыс істеуге дайындығыңыз."
+          },
+          "experience": {
+            "title": "Жұмыс тәжірибесі",
+            "description": "Әр рөл үшін әрекет + нәтиже + көрсеткіш формуласын қолданыңыз."
+          },
+          "skills": {
+            "title": "Дағдылар",
+            "description": "Мақсатты бос жұмыс орындарынан ағылшын тіліндегі 50-ге дейін кілт сөз қосыңыз."
+          },
+          "openToWork": {
+            "title": "Жұмысқа дайындық",
+            "description": "Бұл параметрді қосып, көшкіңіз келетін елдерді немесе Remote нұсқасын көрсетіңіз."
+          }
+        }
+      },
+      "companies": {
+        "description": "Таңдалған бағытыңыз бен деңгейіңіз бойынша {{targetCountry}} еліндегі сәйкес бос жұмыс орындары бар компаниялар.",
+        "vacanciesCount": "{{count}} бос жұмыс орны",
+        "empty": "Таңдалған ел үшін компаниялар әзірге табылмады.",
+        "loading": "Компаниялар тізімі жүктелуде..."
+      },
+      "visa": {
+        "description": "Шығын калькуляторы: болжалды шығындар мен мерзімдерді көру үшін виза нұсқасын таңдаңыз.",
+        "options": {
+          "visaCenter": "Виза орталығы арқылы",
+          "employerSponsored": "Жұмыс беруші арқылы"
+        },
+        "costRange": "Болжалды шығындар: {{costRange}}",
+        "timeline": "Болжалды мерзім: {{timeline}}",
+        "note": "Бұл болжалды есеп: соңғы құны елге, алымдарға, сақтандыруға, медициналық тексерулерге, агенттік қызметтеріне және жұмыс беруші талаптарына байланысты.",
+        "centersLink": "Виза орталықтарының тізімін ашу"
+      }
+    },
+    "backButton": "Профильге оралу"
+  },
+  "directions": {
+    "All": "Барлық бағыттар",
+    "Creative": "Шығармашылық",
+    "IT": "IT",
+    "Design": "Дизайн",
+    "E-commerce": "Электрондық сауда",
+    "HoReCa": "HoReCa",
+    "Architecture & Design": "Сәулет және дизайн",
+    "Production": "Өндіріс",
+    "Marketing": "Маркетинг",
+    "Sales & Business Development": "Сату және бизнесті дамыту",
+    "Finance & Accounting": "Қаржы және бухгалтерлік есеп",
+    "HR & People": "HR және персонал",
+    "Operations & Logistics": "Операциялар және логистика",
+    "Education": "Білім беру",
+    "Legal & Compliance": "Құқық және комплаенс"
+  },
+  "levels": {
+    "All": "Барлық деңгейлер",
+    "Junior": "Junior",
+    "Middle": "Middle",
+    "Senior": "Senior",
+    "Lead": "Lead"
+  },
+  "careerGoals": {
+    "Growth": "Өсу",
+    "Leadership": "Көшбасшылық",
+    "Freelance": "Фриланс",
+    "Product": "Өнім",
+    "Startup": "Стартап",
+    "Expertise": "Сарапшылық",
+    "Career Change": "Мамандық ауыстыру",
+    "Skill Development": "Дағдыларды дамыту"
+  },
+  "cities": {
+    "All": "Барлық қалалар",
+    "almaty": "Алматы",
+    "astana": "Астана",
+    "shymkent": "Шымкент",
+    "other_kz": "Қазақстанның басқа қаласы",
+    "abroad": "Шетел"
+  },
+  "relocationCountries": {
+    "usa": "АҚШ",
+    "canada": "Канада",
+    "germany": "Германия",
+    "russia": "Ресей",
+    "china": "Қытай",
+    "dubai": "Дубай",
+    "europe": "Еуропа",
+    "other": "Басқа"
+  },
+  "relocationCountryMarketNames": {
+    "usa": "АҚШ",
+    "canada": "Канада",
+    "germany": "Германия",
+    "russia": "Ресей",
+    "china": "Қытай",
+    "dubai": "Дубай",
+    "europe": "Еуропа",
+    "other": "басқа ел"
+  },
+  "relocationOrigins": {
+    "kazakhstan": "KZ"
+  },
+  "employmentTypes": {
+    "fulltime": "Толық жұмыс күні",
+    "freelance": "Фриланс",
+    "business": "Жеке кәсіп",
+    "searching": "Мүмкіндіктер іздеудемін",
+    "reskilling": "Қайта даярлау"
+  },
+  "profileLangs": {
+    "ru": "Орыс тілі",
+    "en": "Ағылшын тілі"
+  },
+  "relocationOptions": {
+    "true": "Көшуге дайынмын",
+    "false": "Көшуді жоспарламаймын"
+  },
+  "accessibility": {
+    "avatar": "Пайдаланушы аватары",
+    "avatarWithName": "{{name}} пайдаланушысының аватары",
+    "nameLabel": "Маманның аты-жөні",
+    "nameValue": "Аты-жөні: {{name}}",
+    "directionLabel": "Кәсіби бағыт",
+    "levelLabel": "Маман деңгейі",
+    "skillsList": "Дағдылар тізімі",
+    "skillTag": "Дағды: {{skill}}",
+    "experienceLabel": "Жұмыс тәжірибесі",
+    "careerGoalLabel": "Мансаптық мақсат"
+  },
+  "careerChange": {
+    "sectionTitle": "Мамандық ауыстыру (35 жастан кейін)",
+    "sectionHint": "Салаңызды ауыстырып жатсаңыз, толығырақ айтыңыз — бастаушыларға лайық материалдар, тағылымдамалар және ресми бағдарламалар ұсынамыз.",
+    "toggleLabel": "Кәсіби бағытымды ауыстырып жатырмын",
+    "currentField": "Қазіргі немесе бұрынғы салаңыз",
+    "currentFieldPlaceholder": "мысалы, бухгалтерлік есеп, мейрамхана басқару, бөлшек сауда…",
+    "targetDirection": "Қай бағытта дамығыңыз келеді",
+    "ageRange": "Жасыңыз (міндетті емес)",
+    "motivation": "Қазір сіз үшін ең маңыздысы не?",
+    "timeline": "Қашан ауысуды жоспарлап отырсыз?",
+    "hubButton": "Қайта даярлау орталығын ашу",
+    "ageRanges": {
+      "skip": "Көрсеткім келмейді",
+      "up_to_30": "30 жасқа дейін",
+      "30_40": "30–40",
+      "40_50": "40–50",
+      "50_plus": "50 жастан жоғары"
+    },
+    "motivations": {
+      "ai_threat": "ЖИ менің мамандығыма әсер етіп жатыр",
+      "earn_more": "Көбірек табыс тапқым келеді",
+      "remote": "Қашықтан жұмыс істегім келеді",
+      "burnout": "Кәсіби қажу / өзгеріс қажет",
+      "other": "Басқа себеп"
+    },
+    "timelines": {
+      "up_to_6_months": "6 ай ішінде",
+      "6_12_months": "6–12 ай",
+      "1_2_years": "1–2 жыл",
+      "just_studying": "Әзірге тек үйреніп жүрмін"
+    }
+  },
+  "validation": {
+    "nameMin": "Аты-жөніңіз кемінде 2 таңбадан тұруы керек",
+    "nameMax": "Аты-жөніңіз 100 таңбадан аспауы керек",
+    "aboutMeMax": "«Өзім туралы» мәтіні 400 таңбадан аспауы керек",
+    "avatarInvalid": "Аватар мәні жарамсыз",
+    "avatarValidationType": "Тек JPG, PNG немесе WebP пішімдеріне рұқсат етіледі",
+    "avatarValidationSize": "Файл көлемі 5 МБ-тан аспауы керек",
+    "skillEmpty": "Дағды бос болмауы керек",
+    "skillMax": "Дағды атауы 50 таңбадан аспауы керек",
+    "skillsMin": "Кемінде бір дағды көрсетілуі керек",
+    "skillsMax": "Дағдылардың ең көп саны — 20",
+    "directionMin": "Кемінде бір бағыт таңдаңыз",
+    "directionMax": "Ең көбі 3 бағыт таңдауға болады",
+    "directionUnique": "Бағыттар қайталанбауы керек",
+    "experienceMin": "Кемінде бір жұмыс орнын қосыңыз",
+    "experienceMax": "Тәжірибе сипаттамасы 2000 таңбадан аспауы керек",
+    "workplacesMin": "Кемінде бір жұмыс орнын қосыңыз",
+    "workplacesMax": "Ең көбі 10 жұмыс орнын қосуға болады",
+    "workplaceCompanyRequired": "Компанияны енгізіңіз",
+    "workplaceCompanyMax": "Компания атауы 120 таңбадан аспауы керек",
+    "workplacePositionRequired": "Лауазымды енгізіңіз",
+    "workplacePositionMax": "Лауазым 120 таңбадан аспауы керек",
+    "workplacePeriodRequired": "Кезеңді енгізіңіз",
+    "workplacePeriodMax": "Кезең 80 таңбадан аспауы керек",
+    "workplaceAchievementRequired": "Жетістікті енгізіңіз",
+    "workplaceAchievementMax": "Жетістік 500 таңбадан аспауы керек",
+    "projectsMax": "Ең көбі 10 жоба қосуға болады",
+    "projectNameRequired": "Жоба атауын енгізіңіз",
+    "projectNameMax": "Жоба атауы 120 таңбадан аспауы керек",
+    "projectRoleRequired": "Рөліңізді енгізіңіз",
+    "projectRoleMax": "Рөл 120 таңбадан аспауы керек",
+    "projectResultRequired": "Нәтижені енгізіңіз",
+    "projectResultMax": "Нәтиже 500 таңбадан аспауы керек",
+    "projectLinkMax": "Сілтеме 500 таңбадан аспауы керек",
+    "projectLinkInvalid": "Сілтеме http:// немесе https:// арқылы басталуы керек",
+    "careerStartDateInvalid": "XX.XXXX - қазіргі уақытқа дейін пішімін қолданыңыз",
+    "careerChangeCurrentFieldMin": "Қазіргі салаңызды сипаттаңыз (кемінде 2 таңба)",
+    "careerChangeTargetRequired": "Мақсатты бағытты таңдаңыз",
+    "careerChangeMotivationRequired": "Сіз үшін ең маңыздысын таңдаңыз",
+    "careerChangeTimelineRequired": "Ауысу мерзімін таңдаңыз"
+  },
+  "editProfile": "Профильді өңдеу",
+  "editProfileButton": "Өңдеу",
+  "updateProfileButton": "Сақтау",
+  "pickAvatarButton": "Фото таңдау",
+  "avatarPhotoLabel": "Профиль суреті",
+  "avatarChoosePhoto": "Фото таңдау",
+  "avatarChangePhoto": "Фотоны өзгерту",
+  "avatarChangePhotoShort": "Өзгерту",
+  "avatarRemovePhoto": "Фотоны жою",
+  "avatarHelperHint": "JPG, PNG немесе WebP, 5 МБ-қа дейін",
+  "pickAvatarPermissionDenied": "Фотоларға қол жеткізу рұқсаты қажет",
+  "cancel": "Бас тарту",
+  "deleteProfile": "Профильді жою",
+  "deleteProfileButton": "Жою",
+  "deleteConfirmTitle": "Профильді жою",
+  "deleteConfirmMessage": "Профиліңізді жойғыңыз келетініне сенімдісіз бе? Бұл әрекетті қайтару мүмкін емес.",
+  "deleteConfirmCancel": "Бас тарту",
+  "deleteConfirmDelete": "Жою",
+  "errors": {
+    "validationError": "Профильді тексеру қатесі",
+    "validationUpdateError": "Профиль өзгерістерін тексеру қатесі",
+    "notInitialized": "Профиль іске қосылмаған",
+    "loadError": "Профильді жүктеу қатесі",
+    "createError": "Профиль жасау қатесі",
+    "updateError": "Профильді жаңарту қатесі",
+    "deleteError": "Профильді жою қатесі"
+  }
+}
