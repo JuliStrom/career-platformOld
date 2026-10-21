@@ -1,3 +1,4 @@
+import { useAccountTabs } from '@/features/auth/lib/useAccountTabs';
 import { useAuthStore } from '@/features/auth/store/auth.store';
 import { useNotificationsStore } from '@/features/notifications/store/notifications-store';
 import { surfaceColor } from '@/shared/config/theme/colors';
@@ -6,9 +7,10 @@ import { UserType } from '@/shared/model';
 import { AppHeader } from '@/shared/ui';
 import { FullScreenLoader } from '@/src/shared/ui/common/FullScreenLoader';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Redirect, Tabs, type Href, useRootNavigationState } from 'expo-router';
+import { Redirect, Tabs, useRootNavigationState } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { useColorScheme, View } from 'react-native';
+import { View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import {
   SafeAreaInsetsContext,
   useSafeAreaInsets,
@@ -16,10 +18,9 @@ import {
 
 export default function ProtectedLayout() {
   const rootNavigationState = useRootNavigationState();
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const isDark = colorScheme === 'dark';
   const backgroundColor = isDark ? '#111827' : '#f9fafb';
-  const { t: tCommon } = useTranslation('common');
   const { t: tProfile } = useTranslation('profile');
   const { t: tJobs } = useTranslation('jobs');
   const { t: tCareer } = useTranslation('career');
@@ -33,6 +34,10 @@ export default function ProtectedLayout() {
   const isLoading = useAuthStore((state) => state.isLoading);
   const userType = useAuthStore((state) => state.user?.userType);
   const unreadCount = useNotificationsStore((state) => state.unreadCount);
+  const accountTabs = useAccountTabs(
+    userType === UserType.EMPLOYER,
+    unreadCount
+  );
   const fetchNotifications = useNotificationsStore(
     (state) => state.fetchNotifications
   );
@@ -68,7 +73,7 @@ export default function ProtectedLayout() {
   }
 
   if (sessionValid === false || !isAuthenticated) {
-    return <Redirect href="/(auth)/login" />;
+    return <Redirect href="/" />;
   }
 
   if (!userType) {
@@ -102,130 +107,25 @@ export default function ProtectedLayout() {
             },
           }}
         >
-          <Tabs.Screen
-            name="employer/index"
-            options={{
-              title: tEmployer('tabs.specialists'),
-              tabBarLabel: tEmployer('tabs.specialists'),
-              href: isEmployer ? ('/employer' as Href) : null,
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="groups" size={size} color={color} />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="employer/profile"
-            options={{
-              title: tEmployer('tabs.company'),
-              tabBarLabel: tEmployer('tabs.company'),
-              href: isEmployer ? ('/employer/profile' as Href) : null,
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons
-                  name="business-center"
-                  size={size}
-                  color={color}
-                />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="employer/jobs/index"
-            options={{
-              title: tEmployer('tabs.jobs'),
-              tabBarLabel: tEmployer('tabs.jobs'),
-              href: isEmployer ? ('/employer/jobs' as Href) : null,
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="work-outline" size={size} color={color} />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="jobs/index"
-            options={{
-              title: tJobs('listTitle'),
-              tabBarLabel: tCommon('tabJobs'),
-              href: isEmployer ? null : '/jobs',
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="work-outline" size={size} color={color} />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="jobs/favorites"
-            options={{
-              title: tJobs('favoritesTitle'),
-              tabBarLabel: tCommon('tabFavorites'),
-              href: isEmployer ? null : ('/jobs/favorites' as Href),
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="favorite" size={size} color={color} />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="profile/index"
-            options={{
-              title: tProfile('title'),
-              tabBarLabel: tCommon('tabProfile'),
-              href: isEmployer ? null : '/profile',
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="person" size={size} color={color} />
-              ),
-            }}
-          />
-
-          <Tabs.Screen
-            name="education/index"
-            options={{
-              title: tCommon('educations.mainTitle'),
-              tabBarLabel: tCommon('tabEducation'),
-              href: isEmployer ? null : ('/education' as never),
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="school" size={size} color={color} />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="recommendations/index"
-            options={{
-              title: tCareer('recommendations.title'),
-              tabBarLabel: tCommon('tabRecommendations'),
-              href: isEmployer ? null : '/recommendations',
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons
-                  name="lightbulb-outline"
-                  size={size}
-                  color={color}
-                />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="notifications/index"
-            options={{
-              title: tCommon('tabNotifications'),
-              tabBarLabel: tCommon('tabNotifications'),
-              href: '/notifications' as never,
-              tabBarBadge:
-                unreadCount > 0
-                  ? unreadCount > 99
-                    ? '99+'
-                    : unreadCount
-                  : undefined,
-              tabBarBadgeStyle: {
-                backgroundColor: '#ef4444',
-                color: '#ffffff',
-              },
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons
-                  name={
-                    unreadCount > 0 ? 'notifications' : 'notifications-none'
-                  }
-                  size={size}
-                  color={color}
-                />
-              ),
-            }}
-          />
+          {accountTabs.map((tab) => (
+            <Tabs.Screen
+              key={tab.name}
+              name={tab.name}
+              options={{
+                title: tab.title,
+                tabBarLabel: tab.label,
+                href: tab.href,
+                tabBarBadge: tab.badge,
+                tabBarBadgeStyle: {
+                  backgroundColor: '#ef4444',
+                  color: '#ffffff',
+                },
+                tabBarIcon: ({ color, size }) => (
+                  <MaterialIcons name={tab.icon} size={size} color={color} />
+                ),
+              }}
+            />
+          ))}
           <Tabs.Screen
             name="profile/edit"
             options={{

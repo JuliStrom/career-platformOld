@@ -9,8 +9,9 @@
     "seed": "ts-node scripts/seed.ts",
     "seed:prod": "node dist/scripts/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:resume": "npm run build && node --test tests/resume-analysis.test.cjs",
-    "test:resume:live": "ts-node scripts/smokeResumeAi.ts"
+    "test:resume": "npm run build && node --test tests/resume-analysis.test.cjs tests/guest-session.test.cjs tests/guest-client.test.cjs tests/profile-prefill.test.cjs",
+    "test:resume:live": "ts-node scripts/smokeResumeAi.ts",
+    "test:favorites": "npm run build && node --test tests/favorites.test.cjs"
   },
   "keywords": [],
   "author": "",
