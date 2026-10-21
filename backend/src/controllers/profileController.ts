@@ -6,6 +6,20 @@ import { uploadToYandexDisk, getAvatarPath, isStoredAvatarPath, downloadFromYand
 import { normalizeProfileDirections } from '../utils/profileDirections';
 import { resolveProfileSkills } from '../services/skillDictionary';
 import { resolveExperienceFields } from '../utils/profileExperience';
+import ResumeAnalysis from '../models/ResumeAnalysis';
+import User from '../models/User';
+import { profileSchema as extractedProfileSchema } from '../schemas/resumeAnalysis';
+import { buildProfilePrefill } from '../services/profilePrefill';
+
+export const getProfilePrefill = async (req: AuthRequest, res: Response): Promise<void> => {
+  res.set('Cache-Control', 'no-store');
+  const task = await ResumeAnalysis.findOne({ ownerId: req.user!.userId, status: 'completed' })
+    .sort({ createdAt: -1, _id: -1 }).select('+result');
+  const parsed = extractedProfileSchema.safeParse(task?.result?.profile);
+  if (!task || !parsed.success) { res.json({ analysisId: null, values: {} }); return; }
+  const user = await User.findById(req.user!.userId);
+  res.json({ analysisId: String(task._id), values: buildProfilePrefill(parsed.data, user?.name, task.result?.extractedText) });
+};
 
 // Создание профиля специалиста
 export const create = async (req: AuthRequest<{}, {}, CreateProfileBody>, res: Response): Promise<void> => {

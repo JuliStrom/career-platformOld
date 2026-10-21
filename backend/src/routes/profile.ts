@@ -10,6 +10,7 @@ const upload = multer();
 
 // Применение middleware авторизации ко всем роутам
 router.use(authMiddleware);
+router.get('/prefill', profileController.getProfilePrefill);
 
 // DELETE /api/profile/avatar - Удаление аватарки
 router.delete('/avatar', profileController.deleteAvatar);
