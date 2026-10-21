@@ -1,3 +1,5 @@
+import { useAuthStore } from '@/features/auth/store/auth.store';
+import { useTranslation } from '@/shared/lib/hooks/useTranslation';
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher';
 import { Image, Text, useColorScheme, View } from 'react-native';
 
@@ -6,6 +8,16 @@ const logoDark = require('../../../../assets/images/logo-dark.png');
 
 export function AppHeader() {
   const colorScheme = useColorScheme();
+  const { t: tAuth } = useTranslation('auth');
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isLoading = useAuthStore((state) => state.isLoading);
+  const logout = useAuthStore((state) => state.logout);
+
+  async function handleLogout() {
+    if (isLoading) return;
+    await logout();
+    router.replace('/(auth)/login');
+  }
 
   return (
     <View className="w-full flex-row flex-wrap items-center justify-between gap-3 border-b border-hairline bg-header px-4 py-3 dark:border-hairline-dark dark:bg-header-dark">
