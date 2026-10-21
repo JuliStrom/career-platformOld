@@ -37,6 +37,7 @@ export interface FullAnalysis extends AnalysisPreview {
   language: string;
   extractedText: string;
   profile: {
+    name?: string | null;
     role: string | null;
     direction: string | null;
     level: string | null;

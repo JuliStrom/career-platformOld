@@ -22,7 +22,7 @@ export function ChoosePathScreen() {
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   if (!isAuthenticated) {
-    return <Redirect href="/(auth)/login" />;
+    return <Redirect href="/" />;
   }
 
   if (userType && !hasSubmitted) {

@@ -1,9 +1,43 @@
 {
+  "history": {
+    "title": "Tahlillar tarixi",
+    "empty": "Hozircha saqlangan tahlillar yoʻq.",
+    "open": "Toʻliq tahlilni ochish",
+    "previous": "Orqaga",
+    "next": "Keyingi"
+  },
+  "builder": {
+    "title": "Oʻzingiz haqingizda ayting",
+    "subtitle": "Rezyumengiz yoʻqmi? Tajriba va koʻnikmalaringizni kiriting — rezyume tayyorlaymiz va mos vakansiyalarni topamiz.",
+    "role": "Lavozim / rol *",
+    "experience": "Ish tajribasi",
+    "noExperience": "Hozircha ish tajribam yoʻq",
+    "workplace": "Ish joyi",
+    "remove": "Oʻchirish",
+    "addExperience": "Ish joyini qoʻshish",
+    "company": "Kompaniya *",
+    "start": "Boshlanish sanasi *",
+    "end": "Tugash sanasi *",
+    "dateHint": "OO.YYYY yoki hozirgacha",
+    "duties": "Vazifalar *",
+    "achievements": "Yutuqlar (ixtiyoriy)",
+    "skills": "Koʻnikmalar *",
+    "skillsHint": "Masalan: Excel, muzokaralar, loyihalarni boshqarish",
+    "education": "Taʼlim",
+    "educationHint": "Oʻquv yurti, mutaxassislik, oʻqish yillari yoki kurslar.",
+    "languages": "Tillar va bilish darajasi",
+    "languagesHint": "Masalan: oʻzbek tili — ona tili, ingliz tili — B1",
+    "location": "Hozirgi joylashuv *",
+    "locationHint": "Shahar, mamlakat",
+    "required": "Shakl va har bir ish joyidagi yulduzchali maydonlarni toʻldiring yoki tajribangiz yoʻqligini belgilang."
+  },
   "title": "Rezyumengizni SI-rekruter koʻzi bilan 1 daqiqada tekshiring",
   "subtitle": "Rezyumengizni yuklang — roʻyxatdan oʻtmasdan SI bahosi va dastlabki mos vakansiyalarni oling.",
   "uploadResume": "Rezyume yuklash",
   "noResume": "Rezyumem yoʻq",
   "upload": {
+    "eyebrow": "Rezyumeni tayyorlash",
+    "subtitle": "Bir nechta maʼlumotni kiriting — rezyumeni AI-rekruter qanday koʻrishini koʻrsatamiz.",
     "title": "Rezyume yuklash",
     "sourceLabel": "Rezyumengizni qanday taqdim etmoqchisiz?",
     "source": {
@@ -12,6 +46,8 @@
       "linkedin": "LinkedIn"
     },
     "file": {
+      "drop": "Faylni shu yerga torting",
+      "or": "yoki",
       "choose": "Fayl tanlash",
       "hint": "PDF yoki DOCX, 5 MB gacha"
     },
@@ -39,7 +75,7 @@
       "placeholder": "masalan, Frontend dasturchi"
     },
     "consent": {
-      "text": "Rezyumemni qayta ishlashga va uning mazmunini tahlil uchun tashqi OpenRouter SI xizmatiga hamda u tanlagan provayderga berishga roziman. Platformamiz dastlabki maʼlumotlarni 24 soatgacha saqlaydi.",
+      "text": "Rezyumemni qayta ishlashga va uning mazmunini tahlil uchun tashqi OpenRouter SI xizmatiga hamda u tanlagan provayderga berishga roziman. Mehmon maʼlumotlari {{days}} kungacha saqlanadi va kirgandan soʻng hisobga oʻtkaziladi.",
       "link": "Maxfiylik siyosati"
     },
     "submit": "Davom etish",
@@ -152,5 +188,11 @@
     "improvedResume": "Yaxshilangan rezyume",
     "download": "JSON yuklab olish",
     "noJobs": "Hozircha mos vakansiyalar yoʻq. Yangi imkoniyatlar vakansiyalar boʻlimida paydo boʻladi."
+  },
+  "hero": {
+    "eyebrow": "Ishni ishonch bilan izlash vositasi",
+    "title": "Karyerangiz — diqqat markazida.",
+    "subtitle": "Rezyumengizni SI-rekruter koʻzi bilan tekshirib, bir daqiqada dastlabki mos vakansiyalarni toping.",
+    "upload": "Rezyumeni tahlil qilish"
   }
 }

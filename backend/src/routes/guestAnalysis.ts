@@ -16,6 +16,8 @@ import {
 } from "../services/resumeQueue";
 
 import { getAiConfig } from "../services/resumeAi";
+import GuestSession from '../models/GuestSession';
+import { guestExpiry, guestKeyHash, validGuestKey } from '../services/guestSession';
 
 const router = Router();
 const upload = multer({
@@ -88,6 +90,11 @@ router.post(
     });
   },
   async (req, res) => {
+    const guestKey = req.headers['x-guest-id'];
+    const session = validGuestKey(guestKey) ? await GuestSession.findOne({ keyHash: guestKeyHash(guestKey) }) : null;
+    if (guestKey && (!session || (session.expiresAt && session.expiresAt <= new Date()))) {
+      failure(res, 410, 'guest_session_expired'); return;
+    }
     try {
       getAiConfig();
     } catch {
@@ -103,6 +110,7 @@ router.post(
       kind: "pdf" | "docx" | "text";
       name: string;
       data?: Buffer;
+      originalData?: Buffer;
       text?: string;
     };
     if (req.file) {
@@ -123,8 +131,8 @@ router.post(
       ) {
         try {
           const text = await readDocx(file.buffer);
-          // Persist extracted text instead of the archive: retries do not decompress twice.
-          source = { kind: "text", name: "resume.docx", text };
+          // Reuse extracted text on retry, while retaining the original for account transfer.
+          source = { kind: "text", name: "resume.docx", text, originalData: file.buffer };
         } catch {
           failure(res, 400, "unreadable_file");
           return;
@@ -154,11 +162,13 @@ router.post(
       return;
     }
     const secret = crypto.randomBytes(32).toString("hex");
-    const expiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    const expiry = session?.expiresAt ?? guestExpiry();
     try {
       await ResumeAnalysis.create({
         _id: id,
         secretHash: hash(secret),
+        guestSessionId: session ? String(session._id) : undefined,
+        attribution: session?.firstTouch,
         status: "pending",
         goal: parsed.data,
         source,
@@ -173,6 +183,17 @@ router.post(
     res.status(202).json({ id: String(id), secret, status: "pending" });
   },
 );
+
+router.get('/history', authMiddleware, async (req: AuthRequest, res) => {
+  res.set('Cache-Control', 'no-store');
+  const page = Math.floor(Math.max(1, Math.min(10000, Number(req.query.page) || 1)));
+  const filter = { ownerId: req.user!.userId };
+  const [items, total] = await Promise.all([
+    ResumeAnalysis.find(filter).select('_id status goal createdAt').sort({ createdAt: -1, _id: -1 }).skip((page - 1) * 20).limit(20).lean(),
+    ResumeAnalysis.countDocuments(filter),
+  ]);
+  res.json({ items: items.map(item => ({ id: String(item._id), status: item.status, goal: item.goal, createdAt: item.createdAt })), total, page });
+});
 
 router.get("/:id", async (req, res) => {
   res.set("Cache-Control", "no-store");
@@ -195,7 +216,7 @@ router.post("/:id/retry", createLimit, async (req, res) => {
     res.status(202).json({ status: task.status });
     return;
   }
-  if (task.sourceExpiresAt <= new Date()) {
+  if (task.sourceExpiresAt && task.sourceExpiresAt <= new Date()) {
     failure(res, 410, "source_expired");
     return;
   }
@@ -225,7 +246,7 @@ router.post("/:id/claim", authMiddleware, async (req: AuthRequest, res) => {
     { _id: task._id, $or: [{ ownerId: null }, { ownerId: req.user!.userId }] },
     {
       $set: { ownerId: req.user!.userId },
-      $unset: { expiresAt: 1 },
+      $unset: { expiresAt: 1, sourceExpiresAt: 1 },
     },
   );
   if (!claimed) {

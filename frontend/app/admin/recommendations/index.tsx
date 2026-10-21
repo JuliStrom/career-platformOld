@@ -5,14 +5,8 @@ import { useTranslation } from '@/shared/lib/hooks/useTranslation';
 import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import {
-  Alert,
-  FlatList,
-  Platform,
-  Text,
-  View,
-  useColorScheme,
-} from 'react-native';
+import { Alert, FlatList, Platform, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function AdminRecommendationsScreen() {
@@ -28,7 +22,7 @@ export default function AdminRecommendationsScreen() {
   } = useCareerStore();
   const { t } = useTranslation('career');
   const { t: tCommon } = useTranslation('common');
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const router = useRouter();
 
   useEffect(() => {

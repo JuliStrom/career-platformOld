@@ -1,5 +1,4 @@
 import { useAuthStore } from '@/features/auth/store/auth.store';
-import { useJobsStore } from '@/features/jobs/store';
 import { useProfileStore } from '@/features/profile/store/profile-store';
 import { SpecialistProfile } from '@/features/profile/ui/SpecialistProfile';
 import { useTranslation } from '@/shared/lib/hooks/useTranslation';
@@ -13,18 +12,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProfileScreen() {
   const profile = useProfileStore((state) => state.profile);
+  const profileHydrated = useProfileStore((state) => state.profileHydrated);
+  const profileError = useProfileStore((state) => state.error);
   const isLoading = useProfileStore((state) => state.isLoading);
   const fetchProfile = useProfileStore((state) => state.fetchProfile);
-  const resetProfile = useProfileStore((state) => state.resetProfile);
-  const logout = useAuthStore((state) => state.logout);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const resetFavorites = useJobsStore((state) => state.resetFavorites);
-  const authIsLoading = useAuthStore((state) => state.isLoading);
   const { t: tCommon } = useTranslation('common');
-  const { t: tAuth } = useTranslation('auth');
   const { t: tProfile } = useTranslation('profile');
   const { t: tJobs } = useTranslation('jobs');
   const { t: tCareer } = useTranslation('career');
+  const { t: tGuest } = useTranslation('guest');
   const userRole = useAuthStore((state) => state.user?.role);
   const userType = useAuthStore((state) => state.user?.userType);
   const router = useRouter();
@@ -42,43 +39,36 @@ export default function ProfileScreen() {
     return <Redirect href={'/employer' as Href} />;
   }
 
-  async function handleLogout() {
-    resetFavorites();
-    resetProfile();
-    await logout();
-    router.replace('/(auth)/login');
-  }
-
   if (isLoading) {
     return <FullScreenLoader />;
   }
 
-  if (!profile) {
-    return (
-      <SafeAreaView
-        className="flex-1 bg-gray-50 dark:bg-gray-900"
-        edges={['top', 'bottom']}
-      >
-        <View className="flex-1 items-center justify-center px-8">
-          <Text
-            className="mb-6 text-center text-lg text-gray-600 dark:text-gray-400"
-            accessibilityLabel={tProfile('noProfile')}
-          >
-            {tProfile('noProfile')}
-          </Text>
+  if (!profile && !profileHydrated) {
+    if (profileError)
+      return (
+        <View className="flex-1 justify-center gap-4 bg-canvas p-6 dark:bg-canvas-dark">
+          <Text className="text-red-600 dark:text-red-400">{profileError}</Text>
           <PrimaryButton
-            onPress={() => router.push('/profile/create')}
-            accessibilityLabel={tProfile('createProfileButton')}
+            onPress={() => fetchProfile({ force: true }).catch(() => undefined)}
           >
-            {tProfile('createProfileButton')}
+            {tGuest('analysis.timeout.retry')}
           </PrimaryButton>
         </View>
-      </SafeAreaView>
-    );
+      );
+    return <FullScreenLoader />;
   }
+  if (!profile && profileHydrated) return <Redirect href="/profile/create" />;
+
+  if (!profile) return <FullScreenLoader />;
 
   const actions = (
     <>
+      <PrimaryButton
+        className="mt-3"
+        onPress={() => router.push('/resume-history')}
+      >
+        {tGuest('history.title')}
+      </PrimaryButton>
       {profile.careerChangeTrackActive ? (
         <PrimaryButton
           onPress={() => router.push('/career-change' as Href)}
@@ -124,14 +114,6 @@ export default function ProfileScreen() {
         className="mt-3"
       >
         {tCareer('recommendations.title')}
-      </PrimaryButton>
-      <PrimaryButton
-        onPress={handleLogout}
-        isLoading={authIsLoading}
-        accessibilityLabel={tAuth('logout.button')}
-        className="mt-3 bg-red-500 dark:bg-red-600"
-      >
-        {tAuth('logout.button')}
       </PrimaryButton>
     </>
   );

@@ -1,4 +1,5 @@
 {
+  "theme": { "light": "Switch to light theme", "dark": "Switch to dark theme" },
   "appName": "Career App",
   "language": "Language",
   "languageRu": "Русский",

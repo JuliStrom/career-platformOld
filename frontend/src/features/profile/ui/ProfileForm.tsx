@@ -40,7 +40,10 @@ import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
 import { NamedField } from '@/shared/ui/inputs/NamedField';
 import { ChipSelector } from '@/shared/ui/selectors/ChipSelector';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { getProfilePrefill } from '../api/prefill.api';
+import { canPrefillProfileField } from '../utils/prefill.utils';
+import { useAuthStore } from '@/features/auth/store/auth.store';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
@@ -95,12 +98,16 @@ export function ProfileForm({
   isDeletingAvatar = false,
 }: ProfileFormProps) {
   const { t } = useTranslation('profile');
+  const userId = useAuthStore((state) => state.user?.id);
+  const [prefilled, setPrefilled] = useState(false);
 
   const {
     control,
     handleSubmit: rhfHandleSubmit,
     formState: { errors },
     getValues,
+    getFieldState,
+    setValue,
     reset,
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -162,7 +169,8 @@ export function ProfileForm({
   const lastSyncedKey = useRef<string>('');
 
   useEffect(() => {
-    if (!initialValues || lastSyncedKey.current === initialValuesSyncKey) return;
+    if (!initialValues || lastSyncedKey.current === initialValuesSyncKey)
+      return;
     lastSyncedKey.current = initialValuesSyncKey;
 
     reset({
@@ -200,6 +208,60 @@ export function ProfileForm({
         initialValues.careerChangeTimeline ?? CareerChangeTimeline.JustStudying,
     });
   }, [initialValues, initialValuesSyncKey, reset]);
+
+  useEffect(() => {
+    if (!userId) return;
+    let cancelled = false;
+    void getProfilePrefill()
+      .then(({ analysisId, values }) => {
+        if (cancelled || !analysisId) return;
+        const { careerStartDate, ...fields } = values;
+        const suggestions: Partial<ProfileFormValues> = { ...fields };
+        if (careerStartDate)
+          suggestions.careerStartDateInput =
+            formatCurrentPeriod(careerStartDate);
+        let applied = false;
+        for (const field of Object.keys(
+          suggestions
+        ) as (keyof ProfileFormValues)[]) {
+          const value = suggestions[field];
+          const saved =
+            field === 'careerStartDateInput'
+              ? initialValues?.careerStartDate
+              : initialValues?.[field as keyof Profile];
+          const current = getValues(field);
+          const defaultSelection =
+            !initialValues && (field === 'level' || field === 'directions');
+          const state = getFieldState(field);
+          if (
+            !canPrefillProfileField(
+              value,
+              current,
+              saved,
+              state.isDirty || state.isTouched,
+              defaultSelection
+            )
+          )
+            continue;
+          setValue(field, value, { shouldDirty: false, shouldValidate: false });
+          applied = true;
+        }
+        if (applied) setPrefilled(true);
+      })
+      .catch(() => {
+        /* Manual profile entry remains available if suggestions cannot be loaded. */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    userId,
+    initialValues,
+    initialValuesSyncKey,
+    getValues,
+    getFieldState,
+    setValue,
+  ]);
 
   const watchedName = useWatch({ control, name: 'name', defaultValue: '' });
   const watchedCity = useWatch({ control, name: 'city', defaultValue: null });
@@ -246,9 +308,9 @@ export function ProfileForm({
         }))
       ),
       careerGoal: data.careerGoal,
-      careerStartDate: parsePeriodStartDate(
-        data.careerStartDateInput ?? ''
-      )?.toISOString() ?? null,
+      careerStartDate:
+        parsePeriodStartDate(data.careerStartDateInput ?? '')?.toISOString() ??
+        null,
       currentCompany:
         data.currentCompany && data.currentCompany.trim().length > 0
           ? data.currentCompany.trim()
@@ -320,6 +382,11 @@ export function ProfileForm({
           >
             {title}
           </Text>
+          {prefilled && (
+            <Text className="mb-6 text-sm leading-5 text-blue-700 dark:text-blue-300">
+              {t('analysisPrefill')}
+            </Text>
+          )}
 
           <Controller
             control={control}

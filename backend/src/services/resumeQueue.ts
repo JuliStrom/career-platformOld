@@ -1,4 +1,5 @@
 import ResumeAnalysis from "../models/ResumeAnalysis";
+import GuestSession from '../models/GuestSession';
 import { extractResume, evaluateResume, AnalysisError } from "./resumeAi";
 import { matchResumeJobs } from "./resumeMatching";
 import { resumeLevel } from "../schemas/resumeAnalysis";
@@ -15,10 +16,11 @@ export const releaseAnalysis = (id: string) => active.delete(id);
 export async function cleanResumeSources() {
   const now = new Date();
   await ResumeAnalysis.updateMany(
-    { sourceExpiresAt: { $lte: now }, source: { $exists: true } },
+    { ownerId: null, sourceExpiresAt: { $lte: now }, source: { $exists: true } },
     { $unset: { source: 1 } },
   );
   await ResumeAnalysis.deleteMany({ ownerId: null, expiresAt: { $lte: now } });
+  await GuestSession.deleteMany({ ownerId: null, expiresAt: { $lte: now } });
 }
 
 export async function initializeResumeQueue() {

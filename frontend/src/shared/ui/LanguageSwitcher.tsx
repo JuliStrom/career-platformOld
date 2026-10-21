@@ -2,6 +2,7 @@ import { setLanguage, SUPPORTED_LANGUAGES } from '@/shared/config/i18n';
 import { useTranslation } from '@/shared/lib/hooks/useTranslation';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useRef, useState } from 'react';
+import { useColorScheme } from 'nativewind';
 import {
   Modal,
   Pressable,
@@ -12,7 +13,9 @@ import {
 
 const labels = { ru: 'RU', kk: 'KZ', uz: 'UZ', en: 'EN' };
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({ light = false }: { light?: boolean }) {
+  const { colorScheme } = useColorScheme();
+  const triggerColor = light || colorScheme === 'dark' ? '#cbd5e1' : '#334155';
   const { t, currentLanguage } = useTranslation('common');
   const currentLang = currentLanguage?.split('-')[0] || 'ru';
   const triggerRef = useRef<View>(null);
@@ -40,13 +43,13 @@ export function LanguageSwitcher() {
         accessibilityRole="button"
         accessibilityLabel={t('language')}
         accessibilityState={{ expanded: position !== null }}
-        className="min-h-11 flex-row items-center gap-2 rounded-lg px-2 active:bg-blue-100 dark:active:bg-blue-900"
+        className={`min-h-11 flex-row items-center gap-2 rounded-lg px-2 ${light ? 'active:bg-white/10' : 'active:bg-blue-100 dark:active:bg-blue-900'}`}
       >
-        <MaterialIcons name="language" size={22} color="#3b82f6" />
-        <Text className="text-sm font-medium text-blue-500">
+        <MaterialIcons name="language" size={22} color={triggerColor} />
+        <Text style={{ color: triggerColor }} className="text-sm font-semibold">
           {labels[currentLang as keyof typeof labels] ?? 'RU'}
         </Text>
-        <MaterialIcons name="arrow-drop-down" size={18} color="#3b82f6" />
+        <MaterialIcons name="arrow-drop-down" size={18} color={triggerColor} />
       </Pressable>
       <Modal
         visible={position !== null}

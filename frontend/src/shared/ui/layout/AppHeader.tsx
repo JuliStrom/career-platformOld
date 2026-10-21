@@ -1,40 +1,102 @@
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher';
-import { Image, Text, useColorScheme, View } from 'react-native';
+import { useTranslation } from '@/shared/lib/hooks/useTranslation';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useColorScheme } from 'nativewind';
+import { useAuthStore } from '@/features/auth/store/auth.store';
+import { router } from 'expo-router';
+import type { ReactNode } from 'react';
+import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 
-const logoLight = require('../../../../assets/images/logo.png');
-const logoDark = require('../../../../assets/images/logo-dark.png');
+import { BrandLogo } from './BrandLogo';
 
-export function AppHeader() {
-  const colorScheme = useColorScheme();
+export function AppHeader({
+  transparent = false,
+  action,
+}: {
+  transparent?: boolean;
+  action?: ReactNode;
+}) {
+  const { colorScheme, setColorScheme } = useColorScheme();
+  const { t } = useTranslation('common');
+  const { t: tAuth } = useTranslation('auth');
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isLoading = useAuthStore((state) => state.isLoading);
+  const logout = useAuthStore((state) => state.logout);
+  const isDark = colorScheme === 'dark';
+  const darkHeader = transparent || isDark;
+  const handleLogout = async () => {
+    if (isLoading) return;
+    await logout();
+    router.replace('/');
+  };
+  const toggleTheme = () => {
+    const next = isDark ? 'light' : 'dark';
+    setColorScheme(next);
+    try {
+      globalThis.localStorage?.setItem('career-theme', next);
+    } catch {
+      // Theme switching still works when browser storage is unavailable.
+    }
+  };
   return (
-    <View className="w-full flex-row flex-wrap items-center justify-between gap-3 border-b border-hairline bg-header px-4 py-3 dark:border-hairline-dark dark:bg-header-dark">
-      <View
-        className="flex-row items-center gap-2"
-        accessible
-        accessibilityRole="image"
-        accessibilityLabel="Career-platform"
-      >
-        {/* Show only the existing emblem; the wordmark is rendered as text. */}
-        <View style={{ width: 38, height: 40, overflow: 'hidden' }}>
-          <Image
-            source={colorScheme === 'dark' ? logoDark : logoLight}
-            resizeMode="stretch"
-            style={{
-              width: 210,
-              height: 70,
-              position: 'absolute',
-              left: -11,
-              top: -14,
-            }}
-            accessible={false}
-          />
+    <View
+      className={`w-full flex-row flex-wrap items-center justify-between gap-3 border-b px-4 py-3 ${transparent ? 'border-white/20 bg-transparent' : 'border-hairline bg-header dark:border-hairline-dark dark:bg-header-dark'}`}
+    >
+      <BrandLogo dark={darkHeader} />
+      <View className="ml-auto max-w-full flex-row flex-wrap items-center justify-end gap-3">
+        <View className="flex-row items-center gap-2">
+          <Pressable
+            onPress={toggleTheme}
+            accessibilityRole="button"
+            accessibilityLabel={t(isDark ? 'theme.light' : 'theme.dark')}
+            className={`min-h-11 min-w-11 items-center justify-center rounded-lg ${darkHeader ? 'active:bg-white/10' : 'active:bg-slate-200'}`}
+          >
+            <MaterialIcons
+              name={isDark ? 'light-mode' : 'dark-mode'}
+              size={22}
+              color={darkHeader ? '#cbd5e1' : '#334155'}
+            />
+          </Pressable>
+          <LanguageSwitcher light={transparent} />
         </View>
-        <Text className="text-xl font-bold text-slate-900 dark:text-slate-100">
-          Career
-          <Text className="text-blue-600 dark:text-blue-400">-platform</Text>
-        </Text>
+        {(isAuthenticated || action) && (
+          <View
+            className={`ml-4 border-l pl-4 sm:ml-6 sm:pl-6 ${darkHeader ? 'border-white/20' : 'border-slate-400/50'}`}
+          >
+            {isAuthenticated ? (
+              <Pressable
+                onPress={handleLogout}
+                disabled={isLoading}
+                accessibilityRole="button"
+                accessibilityLabel={tAuth('logout.button')}
+                accessibilityState={{ disabled: isLoading, busy: isLoading }}
+                className={`min-h-11 flex-row items-center justify-center gap-2 rounded-xl border px-4 py-2 ${darkHeader ? 'border-slate-400/40 active:bg-white/10' : 'border-slate-400/50 active:bg-slate-200'}`}
+              >
+                {isLoading ? (
+                  <ActivityIndicator
+                    size="small"
+                    color={darkHeader ? '#cbd5e1' : '#334155'}
+                  />
+                ) : (
+                  <MaterialIcons
+                    name="logout"
+                    size={20}
+                    color={darkHeader ? '#cbd5e1' : '#334155'}
+                  />
+                )}
+                <Text
+                  style={{ color: darkHeader ? '#cbd5e1' : '#334155' }}
+                  className="text-sm font-semibold"
+                >
+                  {tAuth('logout.button')}
+                </Text>
+              </Pressable>
+            ) : (
+              action
+            )}
+          </View>
+        )}
       </View>
-      <LanguageSwitcher />
     </View>
   );
 }

@@ -1,6 +1,7 @@
 import { CareerScenarioAction } from '../model';
 import { useTranslation } from '@/shared/lib/hooks/useTranslation';
-import { useColorScheme, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import * as WebBrowser from 'expo-web-browser';
 
@@ -27,7 +28,7 @@ export function RecommendationActionItem({
   action,
 }: RecommendationActionItemProps) {
   const { t } = useTranslation('career');
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const iconColor = colorScheme === 'dark' ? '#6B7280' : '#9CA3AF';
 
   const handlePress = async () => {

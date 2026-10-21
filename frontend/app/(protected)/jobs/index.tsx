@@ -1,6 +1,4 @@
 import { analytics } from '@/features/analytics/lib/track';
-import { useProfileStore } from '@/features/profile/store/profile-store';
-import { primaryProfileDirection } from '@/features/profile/utils/directions.utils';
 import { useJobsStore } from '@/features/jobs/store';
 import { JobsListView } from '@/features/jobs/ui/JobsListView';
 import { useExitOrBack } from '@/shared/lib/hooks/useExitOrBack';
@@ -10,9 +8,6 @@ import { useEffect } from 'react';
 import { useTranslation } from '@/shared/lib/hooks/useTranslation';
 
 export default function JobsListScreen() {
-  const fetchProfile = useProfileStore((state) => state.fetchProfile);
-  const profile = useProfileStore((state) => state.profile);
-  const profileHydrated = useProfileStore((state) => state.profileHydrated);
   const {
     jobs,
     total,
@@ -32,38 +27,14 @@ export default function JobsListScreen() {
   const { t } = useTranslation('jobs');
 
   useEffect(() => {
-    fetchProfile().catch(() => {
-      // store already sets error
-    });
-  }, [fetchProfile]);
-
-  useEffect(() => {
     analytics.jobsListOpened();
     fetchFavoriteJobs();
   }, [fetchFavoriteJobs]);
 
   useEffect(() => {
-    if (!profileHydrated) return;
-
-    const direction = primaryProfileDirection(profile?.directions);
-    const level = profile?.level;
-    if (direction || level) {
-      setFilters({
-        ...(direction ? { direction } : {}),
-        ...(level ? { level } : {}),
-      });
-    } else {
-      resetFilters();
-    }
+    resetFilters();
     void fetchJobs();
-  }, [
-    profileHydrated,
-    profile?.directions,
-    profile?.level,
-    setFilters,
-    resetFilters,
-    fetchJobs,
-  ]);
+  }, [resetFilters, fetchJobs]);
 
   function handleOpenJob(id: string) {
     router.push(`/jobs/${id}`);

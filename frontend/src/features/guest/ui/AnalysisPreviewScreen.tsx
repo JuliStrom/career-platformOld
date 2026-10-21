@@ -3,11 +3,12 @@ import { useTranslation } from '@/shared/lib/hooks/useTranslation';
 import { AppHeader } from '@/shared/ui';
 import { PrimaryButton } from '@/shared/ui/buttons/PrimaryButton';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Platform,
+  Pressable,
   ScrollView,
   Text,
   View,
@@ -27,6 +28,7 @@ import type {
   MatchedJob,
 } from '../model/analysis';
 import { useAnalysisStore } from '../store/analysis.store';
+import { AnalysisNavigation } from './AnalysisNavigation';
 
 const LOCKED_SECTIONS = [
   'strengths',
@@ -36,44 +38,36 @@ const LOCKED_SECTIONS = [
   'plan',
 ] as const;
 const card =
-  'mb-4 rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800';
-const heading = 'mb-3 mt-5 text-xl font-bold text-gray-900 dark:text-white';
-const body = 'mb-2 text-base leading-6 text-gray-700 dark:text-gray-300';
+  'mb-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#102139] p-5';
+const heading = 'mb-3 mt-5 text-xl font-bold text-slate-900 dark:text-white';
+const body = 'mb-2 text-base leading-6 text-slate-600 dark:text-slate-300';
 
 function JobCard({ job }: { job: MatchedJob }) {
   const { t } = useTranslation('guest');
   return (
-    <View className={card}>
-      <Text className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+    <View className="mb-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-[#102139]">
+      <Text
+        className="mb-1 text-base font-semibold text-slate-900 dark:text-white"
+        numberOfLines={2}
+      >
         {job.title}
       </Text>
-      <Text className={body}>
+      <Text
+        className="text-sm leading-5 text-slate-600 dark:text-slate-300"
+        numberOfLines={2}
+      >
         {job.company} · {job.location} · {job.workFormat}
       </Text>
       {job.salary && (job.salary.min != null || job.salary.max != null) && (
-        <Text className="mb-3 font-semibold text-blue-600 dark:text-blue-400">
+        <Text className="mt-2 text-sm font-semibold text-blue-600 dark:text-blue-300">
           {job.salary.min ?? '…'}–{job.salary.max ?? '…'} {job.salary.currency}
         </Text>
       )}
-      <Text className={body}>{job.description}</Text>
-      <Text className="mb-2 font-semibold text-gray-900 dark:text-white">
-        {t('preview.requirements')}
-      </Text>
-      {job.requirements.map((line, i) => (
-        <Text key={i} className={body}>
-          • {line}
-        </Text>
-      ))}
-      <Text className="mb-2 font-semibold text-gray-900 dark:text-white">
-        {t('preview.responsibilities')}
-      </Text>
-      {job.responsibilities.map((line, i) => (
-        <Text key={i} className={body}>
-          • {line}
-        </Text>
-      ))}
       {job.matchedSkills.length > 0 && (
-        <Text className={body}>
+        <Text
+          className="mt-2 text-sm leading-5 text-slate-500 dark:text-slate-400"
+          numberOfLines={2}
+        >
           {t('preview.matchedSkills')}: {job.matchedSkills.join(', ')}
         </Text>
       )}
@@ -93,7 +87,7 @@ function PrivateAnalysis({ result }: { result: FullAnalysis }) {
       <Text className={heading}>{t('preview.criteria')}</Text>
       {Object.entries(result.criteria).map(([key, value]) => (
         <View key={key} className={card}>
-          <Text className="mb-2 font-semibold text-gray-900 dark:text-white">
+          <Text className="mb-2 font-semibold text-slate-900 dark:text-white">
             {t(`preview.criterion.${key}`)} · {value.score}
           </Text>
           <Text className={body}>{value.explanation}</Text>
@@ -117,7 +111,7 @@ function PrivateAnalysis({ result }: { result: FullAnalysis }) {
         <Text className={body}>{result.profile.skills.join(', ')}</Text>
         {result.profile.experience.map((item, i) => (
           <View key={i} className="mt-4">
-            <Text className="mb-2 font-semibold text-gray-900 dark:text-white">
+            <Text className="mb-2 font-semibold text-slate-900 dark:text-white">
               {[item.company, item.role, item.startDate, item.endDate]
                 .filter(Boolean)
                 .join(' · ')}
@@ -171,6 +165,7 @@ function PrivateAnalysis({ result }: { result: FullAnalysis }) {
 }
 
 export function AnalysisPreviewScreen() {
+  const { analysisId } = useLocalSearchParams<{ analysisId?: string }>();
   const { t } = useTranslation('guest');
   const access = useAnalysisStore((state) => state.access);
   const authenticated = useAuthStore((state) => state.isAuthenticated);
@@ -191,20 +186,20 @@ export function AnalysisPreviewScreen() {
     setError(null);
     setFull(null);
     setResult(null);
-    if (!access) {
+    if (!access && !analysisId) {
       setLoading(false);
       return;
     }
     const load = async () => {
       try {
         if (authenticated && userId) {
-          await claimAnalysis(access);
-          const data = await readFullAnalysis(access.id);
+          if (!analysisId && access) await claimAnalysis(access);
+          const data = await readFullAnalysis(analysisId || access!.id);
           if (!cancelled) {
             setFull({ owner: userId, result: data });
             useAnalysisStore.getState().setPendingUnlock(false);
           }
-        } else {
+        } else if (access) {
           const data = await readAnalysis(access);
           if (!cancelled) {
             if (data.status !== 'completed') {
@@ -224,13 +219,13 @@ export function AnalysisPreviewScreen() {
     return () => {
       cancelled = true;
     };
-  }, [access, authenticated, userId, attempt]);
+  }, [access, authenticated, userId, attempt, analysisId]);
 
   const download = async () => {
-    if (!access) return;
+    if (!access && !analysisId) return;
     setDownloading(true);
     try {
-      await downloadAnalysis(access.id);
+      await downloadAnalysis(analysisId || access!.id);
     } catch (error) {
       setError(analysisErrorCode(error));
     } finally {
@@ -241,20 +236,27 @@ export function AnalysisPreviewScreen() {
   const privateResult =
     authenticated && full && full.owner === userId ? full.result : null;
   const visible = privateResult || result;
-  const visibleJobs = privateResult ? privateResult.jobs : (result?.jobs.slice(0, 3) ?? []);
-  const remaining = visible ? Math.max(0, visible.totalJobs - visibleJobs.length) : 0;
+  const visibleJobs = privateResult
+    ? privateResult.jobs
+    : (result?.jobs.slice(0, 3) ?? []);
+  const remaining = visible
+    ? Math.max(0, visible.totalJobs - visibleJobs.length)
+    : 0;
 
   return (
     <SafeAreaView
-      className="flex-1 bg-canvas dark:bg-canvas-dark"
+      className="flex-1 bg-canvas dark:bg-[#071426]"
       edges={['top']}
     >
       <AppHeader />
-      <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 48 }}>
+      <ScrollView
+        className="flex-1"
+        contentContainerStyle={{ padding: 24, paddingBottom: 48 }}
+      >
         <View className="w-full max-w-2xl self-center">
           <Text
             accessibilityRole="header"
-            className="mb-4 text-3xl font-bold text-gray-900 dark:text-white"
+            className="mb-4 text-3xl font-bold text-slate-900 dark:text-white"
           >
             {t(privateResult ? 'preview.fullAnalysis' : 'preview.title')}
           </Text>
@@ -263,7 +265,7 @@ export function AnalysisPreviewScreen() {
             <View>
               <Text
                 accessibilityRole="alert"
-                className="mb-4 text-red-600 dark:text-red-400"
+                className="mb-4 text-red-600 dark:text-red-300"
               >
                 {t(`analysis.errors.${error}`, {
                   defaultValue: t('analysis.errors.processing_failed'),
@@ -274,7 +276,7 @@ export function AnalysisPreviewScreen() {
               </PrimaryButton>
             </View>
           )}
-          {!access && (
+          {!access && !analysisId && (
             <PrimaryButton onPress={() => router.replace('/upload')}>
               {t('uploadResume')}
             </PrimaryButton>
@@ -283,20 +285,20 @@ export function AnalysisPreviewScreen() {
             <>
               <View className={card}>
                 <Text className={body}>{t('preview.score')}</Text>
-                <Text className="mb-3 text-5xl font-bold text-blue-600 dark:text-blue-400">
+                <Text className="mb-3 text-5xl font-bold text-blue-600 dark:text-blue-300">
                   {visible.score}
                   <Text className="text-xl"> / 100</Text>
                 </Text>
-                <Text className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+                <Text className="mb-3 text-lg font-semibold text-slate-900 dark:text-white">
                   {t(`preview.level.${visible.level}`)}
                 </Text>
-                <View className="h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+                <View className="h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                   <View
                     className="h-full bg-blue-500"
                     style={{ width: `${visible.score}%` }}
                   />
                 </View>
-                <Text className="mt-3 text-sm text-gray-500 dark:text-gray-400">
+                <Text className="mt-3 text-sm text-slate-500 dark:text-slate-400">
                   {t('preview.scale')}
                 </Text>
               </View>
@@ -305,7 +307,7 @@ export function AnalysisPreviewScreen() {
               </Text>
               {visible.problems.map((problem, i) => (
                 <View key={i} className={card}>
-                  <Text className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                  <Text className="mb-2 text-lg font-semibold text-slate-900 dark:text-white">
                     {i + 1}. {problem.title}
                   </Text>
                   <Text className={body}>{problem.explanation}</Text>
@@ -329,55 +331,42 @@ export function AnalysisPreviewScreen() {
                 <Text className={body}>{t('preview.noJobs')}</Text>
               )}
               {!privateResult && remaining > 0 && (
-                <View className="mb-6">
-                  <View className="mb-4 items-center rounded-2xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-900 dark:bg-blue-950">
-                    <Ionicons name="lock-closed-outline" size={28} color="#3B82F6" />
-                    <Text className="mt-3 text-center text-lg font-semibold text-gray-900 dark:text-white">
-                      {t('preview.moreJobs', { count: remaining })}
-                    </Text>
-                    <Text className="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">
-                      {t('preview.lockedHint')}
-                    </Text>
-                    <PrimaryButton
-                      className="mt-4 w-full"
-                      onPress={() => {
-                        useAnalysisStore.getState().setPendingUnlock(true);
-                        router.push('/register');
-                      }}
-                    >
-                      {t('preview.unlock')}
-                    </PrimaryButton>
-                  </View>
-                  {/* Hidden jobs never reach the guest client; show only card silhouettes. */}
+                <View className="mb-6 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-[#102139]">
                   <View
                     accessibilityElementsHidden
                     importantForAccessibility="no-hide-descendants"
                     aria-hidden
                     pointerEvents="none"
+                    className="absolute inset-0 justify-center gap-2 px-5"
                     style={
                       Platform.OS === 'web'
-                        ? ({ filter: 'blur(7px)', userSelect: 'none' } as ViewStyle)
+                        ? ({
+                            filter: 'blur(7px)',
+                            userSelect: 'none',
+                          } as ViewStyle)
                         : { opacity: 0.15 }
                     }
                   >
-                    {Array.from({ length: remaining }, (_, i) => (
-                      <View key={i} className={card}>
-                        <View className="mb-4 flex-row items-center gap-3">
-                          <View className="h-10 w-10 rounded-lg bg-gray-300 dark:bg-gray-600" />
-                          <View className="flex-1 gap-2">
-                            <View className="h-5 w-3/4 rounded bg-gray-400 dark:bg-gray-500" />
-                            <View className="h-3 w-1/2 rounded bg-gray-300 dark:bg-gray-600" />
-                          </View>
-                        </View>
-                        <View className="mb-4 h-4 w-1/3 rounded bg-blue-300 dark:bg-blue-700" />
-                        <View className="gap-2">
-                          <View className="h-3 w-full rounded bg-gray-200 dark:bg-gray-700" />
-                          <View className="h-3 w-5/6 rounded bg-gray-200 dark:bg-gray-700" />
-                          <View className="h-3 w-2/3 rounded bg-gray-200 dark:bg-gray-700" />
-                        </View>
-                      </View>
-                    ))}
+                    <View className="h-4 w-3/4 rounded bg-slate-300 dark:bg-slate-600" />
+                    <View className="h-3 w-1/2 rounded bg-slate-200 dark:bg-slate-700" />
                   </View>
+                  <Pressable
+                    accessibilityRole="button"
+                    onPress={() => {
+                      useAnalysisStore.getState().setPendingUnlock(true);
+                      router.push('/register');
+                    }}
+                    className="min-h-20 flex-row items-center justify-center gap-3 bg-white/80 px-4 py-5 dark:bg-[#102139]/80"
+                  >
+                    <Ionicons
+                      name="lock-closed-outline"
+                      size={20}
+                      color="#3B82F6"
+                    />
+                    <Text className="shrink text-center text-base font-semibold text-slate-900 dark:text-white">
+                      {t('preview.moreJobs', { count: remaining })}
+                    </Text>
+                  </Pressable>
                 </View>
               )}
               {!privateResult && !authenticated && (
@@ -386,14 +375,14 @@ export function AnalysisPreviewScreen() {
                   {LOCKED_SECTIONS.map((section) => (
                     <View
                       key={section}
-                      className="mb-3 flex-row items-center gap-3 rounded-xl border border-gray-200 p-4 dark:border-gray-700"
+                      className="mb-3 flex-row items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-[#102139]"
                     >
                       <Ionicons
                         name="lock-closed-outline"
                         size={20}
                         color="#9CA3AF"
                       />
-                      <Text className="flex-1 text-base text-gray-600 dark:text-gray-300">
+                      <Text className="flex-1 text-base text-slate-600 dark:text-slate-300">
                         {t(`preview.sections.${section}`)}
                       </Text>
                     </View>
@@ -413,6 +402,7 @@ export function AnalysisPreviewScreen() {
           )}
         </View>
       </ScrollView>
+      {authenticated && <AnalysisNavigation />}
     </SafeAreaView>
   );
 }
